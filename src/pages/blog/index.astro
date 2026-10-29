@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPosts } from '../../utils';
+
+const posts = await getPosts();
+const categories = ['Todos', 'Marketing', 'Datos', 'IA'];
+---
+
+<Base title="Blog" description="Artículos sobre marketing, datos e inteligencia artificial.">
+  <section>
+    <div class="container">
+      <p class="eyebrow">// Blog</p>
+      <h1 class="section-title">Todos los artículos</h1>
+      <div class="filters" role="group" aria-label="Filtrar por tema">
+        {categories.map((c) => <button type="button" data-filter={c}>{c}</button>)}
+      </div>
+      <div class="grid">
+        {
+          posts.map((post) => (
+            <div data-cat={post.data.category}>
+              <PostCard post={post} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const items = document.querySelectorAll<HTMLElement>('.grid > [data-cat]');
+  function apply(cat: string) {
+    buttons.forEach((b) => b.classList.toggle('on', b.dataset.filter === cat));
+    items.forEach((el) => (el.hidden = cat !== 'Todos' && el.dataset.cat !== cat));
+  }
+  buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter!)));
+  const initial = new URLSearchParams(location.search).get('cat');
+  apply(initial && [...buttons].some((b) => b.dataset.filter === initial) ? initial : 'Todos');
+</script>
+
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+  button { font: inherit; font-family: var(--mono); font-size: 0.85rem; padding: 6px 16px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; }
+  button.on, button:hover { color: #fff; border-color: transparent; background: var(--gradient); }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid > div { display: flex; }
+  .grid > div[hidden] { display: none; }
+  .grid > div > :global(a) { flex: 1; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+</style>

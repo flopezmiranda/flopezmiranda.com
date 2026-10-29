@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import { SOCIAL } from '../consts';
+---
+
+<Base title="Sobre mí" description="Quién es Felipe López Miranda y de qué trata este blog.">
+  <section>
+    <div class="container prose">
+      <p class="eyebrow">// Sobre mí</p>
+      <h1>Hola, soy <span class="gradient-text">Felipe López Miranda</span></h1>
+      <p>
+        <!-- ✏️ Reemplaza este texto con tu biografía: a qué te dedicas, tu experiencia y qué te apasiona. -->
+        Me interesa la intersección entre el marketing, los datos y la inteligencia artificial. En este blog comparto
+        ideas, aprendizajes y herramientas para tomar mejores decisiones con evidencia.
+      </p>
+      <h2>Qué vas a encontrar aquí</h2>
+      <ul>
+        <li><strong>Marketing:</strong> estrategia y crecimiento medible.</li>
+        <li><strong>Datos:</strong> métricas, analítica y visualización.</li>
+        <li><strong>IA:</strong> casos de uso prácticos y herramientas.</li>
+      </ul>
+      <h2>Hablemos</h2>
+      <p>
+        Escríbeme por <a href={SOCIAL.email}>email</a> o conéctate en
+        <a href={SOCIAL.linkedin} target="_blank" rel="noopener">LinkedIn</a>.
+      </p>
+    </div>
+  </section>
+</Base>

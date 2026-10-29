@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+const { post } = Astro.props;
+const { title, description, pubDate, category } = post.data;
+---
+
+<a class="card" href={`/blog/${post.id}/`}>
+  <div class="meta">
+    <span class="chip" data-cat={category}>{category}</span>
+    <FormattedDate date={pubDate} />
+  </div>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <span class="more">Leer →</span>
+</a>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px;
+    border-radius: var(--radius);
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .card:hover { text-decoration: none; border-color: var(--brand-1); transform: translateY(-3px); }
+  .meta { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
+  h3 { margin: 4px 0 0; font-size: 1.2rem; }
+  p { margin: 0; color: var(--muted); font-size: 0.95rem; flex: 1; }
+  .more { font-weight: 600; color: var(--brand-2); font-size: 0.9rem; }
+</style>

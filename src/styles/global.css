@@ -1,0 +1,116 @@
+/* Paleta y tipografía. Cambia los colores de marca aquí. */
+:root {
+  --bg: #0b0d17;
+  --bg-soft: #12152a;
+  --card: #151936;
+  --border: #262b52;
+  --text: #e8eaf6;
+  --muted: #9aa0c3;
+  --brand-1: #7c5cff;
+  --brand-2: #00d4ff;
+  --accent: #39ff9f;
+  --gradient: linear-gradient(120deg, var(--brand-1), var(--brand-2));
+  --radius: 16px;
+  --max: 1120px;
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+/* Cuadrícula sutil de fondo, estilo "dashboard" */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(124, 92, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 92, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at top, #000 30%, transparent 75%);
+}
+
+a { color: var(--brand-2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; height: auto; }
+
+.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+.gradient-text {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  background: var(--gradient);
+  color: #fff;
+  box-shadow: 0 8px 30px rgba(124, 92, 255, 0.35);
+  transition: transform 0.15s ease;
+}
+.btn:hover { text-decoration: none; transform: translateY(-2px); }
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  box-shadow: none;
+  color: var(--text);
+}
+.chip {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+.chip[data-cat='Marketing'] { color: #ff7ab6; border-color: #ff7ab655; }
+.chip[data-cat='Datos'] { color: var(--brand-2); border-color: #00d4ff55; }
+.chip[data-cat='IA'] { color: var(--accent); border-color: #39ff9f55; }
+
+h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; }
+section { padding: 64px 0; }
+.section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 8px 0 28px; }
+
+/* Contenido de artículos */
+.prose { max-width: 720px; margin: 0 auto; }
+.prose h2 { margin-top: 2.2em; }
+.prose blockquote {
+  margin: 1.5em 0;
+  padding: 12px 20px;
+  border-left: 3px solid var(--brand-1);
+  background: var(--bg-soft);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--bg-soft);
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+.prose pre { padding: 16px; border-radius: var(--radius); overflow-x: auto; }
+.prose pre code { background: none; padding: 0; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.95em; }
+.prose th, .prose td { border-bottom: 1px solid var(--border); padding: 8px 10px; text-align: left; }
+.prose th { font-family: var(--mono); font-size: 0.8em; color: var(--muted); text-transform: uppercase; }

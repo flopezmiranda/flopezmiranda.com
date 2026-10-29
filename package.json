@@ -1,0 +1,19 @@
+{
+  "name": "flopezmiranda",
+  "version": "1.0.0",
+  "description": "Blog de Felipe López Miranda — marketing, datos e IA",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^8.1.0",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.4.1"
+  },
+  "type": "module",
+  "private": true
+}
