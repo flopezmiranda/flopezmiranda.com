@@ -1,4 +1,5 @@
 ---
+import NewsletterButton from './NewsletterButton.astro';
 import { SOCIAL, SITE_TITLE, LINKEDIN_URL } from '../consts';
 const year = new Date().getFullYear();
 ---
@@ -8,7 +9,7 @@ const year = new Date().getFullYear();
     <div class="brand">
       <p class="logo"><span class="mark">FLM</span> Felipe López Miranda</p>
       <p class="muted">Marketing, datos e inteligencia artificial.</p>
-      <a class="btn btn-primary" href={LINKEDIN_URL} target="_blank" rel="noopener">Sígueme en LinkedIn</a>
+      <NewsletterButton />
     </div>
     <ul>
       <li class="h">Redes</li>

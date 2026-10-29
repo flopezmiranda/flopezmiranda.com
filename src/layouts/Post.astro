@@ -1,4 +1,5 @@
 ---
+import NewsletterButton from '../components/NewsletterButton.astro';
 import type { CollectionEntry } from 'astro:content';
 import Base from './Base.astro';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -21,7 +22,7 @@ const { title, description, pubDate, updatedDate, category, tags, minutes } = As
       {tags.length > 0 && <p class="tags">{tags.map((t) => <span>#{t}</span>)}</p>}
       <p>¿Te sirvió? Sigamos la conversación en LinkedIn.</p>
       <div class="actions">
-        <a class="btn btn-primary" href={LINKEDIN_URL} target="_blank" rel="noopener">Sígueme en LinkedIn</a>
+        <NewsletterButton />
         <a class="btn" href="/blog/">← Todos los escritos</a>
       </div>
     </footer>

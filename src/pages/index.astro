@@ -1,4 +1,5 @@
 ---
+import NewsletterButton from '../components/NewsletterButton.astro';
 import Base from '../layouts/Base.astro';
 import LinkedInPostCard from '../components/LinkedInPostCard.astro';
 import AudienceBars from '../components/AudienceBars.astro';
@@ -90,7 +91,7 @@ const jsonLd = {
           {' '}{followersK} mil profesionales en LinkedIn.
         </p>
         <div class="cta">
-          <a class="btn btn-primary" href={LINKEDIN_URL} target="_blank" rel="noopener">Sígueme en LinkedIn</a>
+          <NewsletterButton />
           <a class="btn" href="#temas">De qué hablo</a>
         </div>
         <dl class="stats">
@@ -278,7 +279,7 @@ const jsonLd = {
   .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
   h1 { display: flex; flex-direction: column; font-size: clamp(2.6rem, 6.4vw, 4.6rem); font-weight: 800; line-height: 1; text-transform: uppercase; letter-spacing: -0.02em; margin: 16px 0 0; }
   .intro { color: var(--muted); max-width: 500px; margin: 22px 0 0; }
-  .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 24px; }
   .stats { display: flex; gap: 32px; margin: 32px 0 0; }
   .stats dd { margin: 0; font-family: var(--head); font-weight: 700; font-size: 1.6rem; line-height: 1; }
   .stats dt { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }

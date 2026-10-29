@@ -1,0 +1,26 @@
+---
+// Botón oficial de LinkedIn para suscribirse a la newsletter de Felipe.
+import { NEWSLETTER_URL } from '../consts';
+---
+
+<a class="libutton" href={NEWSLETTER_URL} target="_blank" rel="noopener">Suscribirte en LinkedIn</a>
+
+<style>
+  .libutton {
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 7px;
+    text-align: center;
+    outline: none;
+    text-decoration: none !important;
+    color: #ffffff !important;
+    width: 200px;
+    height: 32px;
+    border-radius: 16px;
+    background-color: #0a66c2;
+    font-family: 'SF Pro Text', Helvetica, sans-serif;
+  }
+  .libutton:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
