@@ -13,10 +13,10 @@ export const SOCIAL = {
   email: '',
 };
 
-// Temas sobre los que escribo (tarjetas de la portada).
+// Temas sobre los que escribo.
 export const TOPICS = [
-  { name: 'Performance marketing', text: 'Meta Ads, Google Ads y cómo invertir mejor cada peso.', icon: 'target' },
-  { name: 'Datos y analítica', text: 'Funnels, GA4 y métricas que sí explican el negocio.', icon: 'chart' },
-  { name: 'Inteligencia artificial', text: 'Herramientas y casos reales de IA aplicada al marketing.', icon: 'spark' },
-  { name: 'Branding y contenido', text: 'Marcas con algo que decir y contenido que la gente sí ve.', icon: 'megaphone' },
+  { name: 'Performance marketing', text: 'Meta Ads, Google Ads y cómo invertir mejor cada peso en medios.' },
+  { name: 'Datos y analítica', text: 'Funnels, GA4 y las métricas que de verdad explican el negocio.' },
+  { name: 'Inteligencia artificial', text: 'Herramientas y casos reales de IA aplicada al marketing.' },
+  { name: 'Branding y contenido', text: 'Marcas con algo que decir y contenido que la gente sí ve.' },
 ];

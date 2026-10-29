@@ -1,6 +1,7 @@
 ---
-import { formatNumber, type LinkedInPost } from '../data/linkedin';
+import { compact, formatNumber, type LinkedInPost } from '../data/linkedin';
 import FormattedDate from './FormattedDate.astro';
+import Thumb from './Thumb.astro';
 
 interface Props {
   post: LinkedInPost;
@@ -9,33 +10,19 @@ interface Props {
 const { post, rank } = Astro.props;
 ---
 
-<a class="row" href={post.url} target="_blank" rel="noopener">
-  <span class="rank serif">{String(rank).padStart(2, '0')}</span>
-  <span class="main">
-    <span class="title serif">{post.title}…</span>
-    <span class="date"><FormattedDate date={new Date(post.date)} /> · Ver en LinkedIn ↗</span>
-  </span>
-  <span class="metric">
-    {post.impressions != null && <span class="value num">{formatNumber(post.impressions)}</span>}
-    <span class="unit">impresiones</span>
-  </span>
+<a class="card post" href={post.url} target="_blank" rel="noopener">
+  <Thumb text={post.title} badge={`#${rank}`} corner={post.impressions ? compact(post.impressions) : undefined} variant={rank - 1} />
+  <div class="body">
+    <p class="kicker">{post.impressions != null ? `${formatNumber(post.impressions)} impresiones` : 'LinkedIn'}</p>
+    <h3>{post.title}…</h3>
+    <p class="meta"><FormattedDate date={new Date(post.date)} />{post.interactions != null && ` · ${formatNumber(post.interactions)} interacciones`}</p>
+  </div>
 </a>
 
 <style>
-  .row { display: grid; grid-template-columns: 64px 1fr auto; gap: 24px; align-items: center; padding: 26px 0; border-bottom: 1px solid var(--line); text-decoration: none; }
-  .rank { font-size: 2rem; line-height: 1; color: var(--faint); }
-  .main { display: flex; flex-direction: column; gap: 4px; }
-  .title { font-size: 1.7rem; line-height: 1.2; }
-  .date { font-size: 0.82rem; color: var(--muted); }
-  .metric { text-align: right; display: flex; flex-direction: column; }
-  .value { font-size: 1.15rem; font-weight: 500; }
-  .unit { font-size: 0.75rem; color: var(--muted); }
-  .row:hover .title { font-style: italic; color: var(--accent); }
-  .row:hover .rank { color: var(--pink); }
-  @media (max-width: 640px) {
-    .row { grid-template-columns: 40px 1fr; gap: 4px 12px; align-items: baseline; }
-    .rank { font-size: 1.4rem; }
-    .metric { grid-column: 2; flex-direction: row; gap: 6px; align-items: baseline; text-align: left; }
-    .title { font-size: 1.4rem; }
-  }
+  .post { display: flex; flex-direction: column; height: 100%; }
+  .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .kicker { font-size: 0.64rem; }
+  h3 { font-size: 0.98rem; line-height: 1.3; }
+  .meta { margin: auto 0 0; font-size: 0.75rem; color: var(--faint); }
 </style>

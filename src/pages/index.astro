@@ -2,376 +2,332 @@
 import Base from '../layouts/Base.astro';
 import LinkedInPostCard from '../components/LinkedInPostCard.astro';
 import AudienceBars from '../components/AudienceBars.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, LINKEDIN_URL, TOPICS } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, LINKEDIN_URL, SOCIAL, TOPICS } from '../consts';
 import { LINKEDIN, compact, formatNumber } from '../data/linkedin';
 
-const featured = LINKEDIN.topPosts.slice(0, 5);
+const featured = LINKEDIN.topPosts.slice(0, 8);
 const followersK = Math.floor(LINKEDIN.followers / 1000);
 const audience = LINKEDIN.audience;
 const marketingShare = (audience['Sector'] ?? []).slice(0, 2).reduce((s, i) => s + i.pct, 0);
 const months = LINKEDIN.monthly.slice(-12);
 const maxMonth = Math.max(...months.map((m) => m.impressions));
 
-const guests = [
-  'Rodrigo Rojo · Unlearni',
-  'Carolina Matamala · TOCTOC',
-  'Javier Arriola · ComparaOnline',
-  'Gloria Ledermann',
-  'Rodrigo Orellana · Futture',
-  'Ángel Izurieta',
-  'Marcelo Díaz Bowen · WeBoost',
-  'Simón Durán · Not Media',
-  'Benjamin Martínez · Miido.ai',
-  'Hussam Sufan · SearchBrand.ai',
-  'Daniel Cáceres · Awna',
-  'Celine Mahou · MG Consulting',
-  'Ignacio Idalsoaga · Buin Zoo',
+const chips = [
+  { name: 'TOCTOC', sub: 'CMO & Growth Lead' },
+  { name: 'Efecto Podcast', sub: 'Creador y conductor' },
+  { name: 'DroneImagen', sub: 'Creador · +1.100 fotos aéreas' },
+  { name: 'LinkedIn', sub: `${formatNumber(LINKEDIN.followers)} seguidores` },
+  { name: 'Universidad Diego Portales', sub: 'Magíster en Dirección de Marketing' },
+  { name: 'Florida International University', sub: 'Posgrado en Transformación Digital' },
+  { name: 'Universidad Adolfo Ibáñez', sub: 'Posgrado en Gestión Digital' },
+  { name: 'Periodista', sub: 'U. Academia de Humanismo Cristiano' },
 ];
 
-// Íconos de línea para las tarjetas de temas
-const icons: Record<string, string> = {
-  target: '<circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="11"/><circle cx="24" cy="24" r="4"/><path d="M24 24 40 8M34 8h6v6"/>',
-  chart: '<path d="M6 40h36"/><rect x="9" y="26" width="6" height="14" rx="1"/><rect x="21" y="16" width="6" height="24" rx="1"/><rect x="33" y="8" width="6" height="32" rx="1"/>',
-  spark: '<path d="M24 4c1.5 9 5 12.5 14 14-9 1.5-12.5 5-14 14-1.5-9-5-12.5-14-14 9-1.5 12.5-5 14-14Z"/><path d="M38 30c.6 3.5 2 5 5.5 5.5-3.5.6-4.9 2-5.5 5.5-.6-3.5-2-4.9-5.5-5.5 3.5-.5 4.9-2 5.5-5.5Z"/>',
-  megaphone: '<path d="M8 20v8h6l16 10V10L14 20H8Z"/><path d="M14 28l3 12h5l-2-10"/><path d="M36 18c2 1.5 3 3.5 3 6s-1 4.5-3 6"/>',
+const faqs = [
+  {
+    q: '¿Quién es Felipe López Miranda?',
+    a: 'Es CMO & Growth Lead de TOCTOC, empresa de tecnología para el mercado inmobiliario en Chile. Periodista y Magíster en Dirección de Marketing y Gestión Comercial (UDP), escribe sobre marketing, datos e inteligencia artificial.',
+  },
+  {
+    q: '¿Sobre qué temas escribe?',
+    a: 'Performance marketing (Meta Ads y Google Ads), datos y analítica, inteligencia artificial aplicada al marketing, y branding y contenido.',
+  },
+  {
+    q: '¿Qué es Efecto Podcast?',
+    a: 'Es el podcast que Felipe creó y conduce: conversaciones de alrededor de una hora con líderes, fundadores y expertos sobre marketing, negocios, emprendimiento e IA. Ya suma 39 episodios en YouTube y en efectopodcast.com.',
+  },
+  {
+    q: '¿Qué es DroneImagen?',
+    a: 'Es un banco de fotos gratis con más de 1.100 fotografías aéreas de Chile tomadas con drone por Felipe, descargables en alta resolución para proyectos personales y comerciales.',
+  },
+  {
+    q: '¿Cómo puedo contactarlo?',
+    a: 'La mejor forma es escribirle por LinkedIn, donde publica y conversa todas las semanas.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      name: 'Felipe López Miranda',
+      url: 'https://flopezmiranda.com/',
+      image: 'https://flopezmiranda.com/img/retrato.webp',
+      jobTitle: 'CMO & Growth Lead',
+      worksFor: { '@type': 'Organization', name: 'TOCTOC', url: 'https://www.toctoc.com' },
+      sameAs: [LINKEDIN_URL, SOCIAL.instagram, 'https://efectopodcast.com/', 'https://www.droneimagen.cl/'].filter(Boolean),
+      knowsAbout: ['Marketing digital', 'Performance marketing', 'Analítica', 'Inteligencia artificial', 'Branding'],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+    },
+  ],
 };
 ---
 
 <Base title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
   <!-- Portada -->
   <section class="hero">
-    <div class="blob b1" aria-hidden="true"></div>
-    <div class="blob b2" aria-hidden="true"></div>
     <div class="container hero-grid">
-      <div class="hero-text">
-        <p class="kicker"><span class="dot"></span> CMO & Growth Lead en TOCTOC · Creador de Efecto Podcast</p>
-        <h1 class="display">Marketing con <em>datos,</em> IA y <em>creatividad</em></h1>
+      <div>
+        <p class="kicker">Marketing · Datos · Inteligencia artificial</p>
+        <h1><span>Felipe</span><span class="grad">López Miranda</span></h1>
+        <div class="bars" aria-hidden="true">{months.map((m) => <span style={`height:${20 + (m.impressions / maxMonth) * 80}%`} />)}</div>
         <p class="intro">
-          Soy Felipe López Miranda. Escribo sobre marketing, negocios e inteligencia artificial para{' '}
-          <span class="mark">más de {followersK} mil profesionales</span> en LinkedIn.
+          CMO & Growth Lead en TOCTOC y creador de Efecto Podcast. Escribo sobre marketing, datos e IA para más de
+          {' '}{followersK} mil profesionales en LinkedIn.
         </p>
         <div class="cta">
-          <a class="pill pill-solid" href={LINKEDIN_URL} target="_blank" rel="noopener">Sígueme en LinkedIn</a>
-          <a class="pill" href="#proyectos">Ver mis proyectos</a>
+          <a class="btn btn-primary" href={LINKEDIN_URL} target="_blank" rel="noopener">▸ Sígueme en LinkedIn</a>
+          <a class="btn" href="https://efectopodcast.com/" target="_blank" rel="noopener">Escucha Efecto Podcast</a>
         </div>
+        <dl class="stats">
+          <div><dd class="num">{formatNumber(LINKEDIN.followers)}</dd><dt>seguidores</dt></div>
+          <div><dd class="num">{compact(LINKEDIN.impressions).replace(' ', '')}</dd><dt>impresiones al año</dt></div>
+          <div><dd class="num">39</dd><dt>episodios</dt></div>
+        </dl>
       </div>
 
-      <div class="collage">
-        <figure class="c-portrait"><img class="photo" src="/img/retrato.webp" alt="Retrato de Felipe López Miranda" /></figure>
-        <figure class="c-stage"><img class="photo" src="/img/evento-20k.webp" alt="Felipe en el escenario celebrando 20 mil seguidores en LinkedIn" /></figure>
-        <div class="chip chip-a"><strong>{formatNumber(LINKEDIN.followers)}</strong> seguidores</div>
-        <div class="card-chart" aria-hidden="true">
-          <span class="card-label"><strong>{compact(LINKEDIN.impressions)}</strong> impresiones en 12 meses</span>
-          <div class="mini-bars">{months.map((m) => <span style={`height:${(m.impressions / maxMonth) * 100}%`} />)}</div>
-        </div>
-        <div class="card-pod">
-          <img src="/img/efecto-podcast-logo.png" alt="" width="34" height="28" />
-          <span><strong>39</strong> episodios</span>
-        </div>
+      <div class="stack">
+        <figure class="ph back-1"><img src="/img/podcast-1.webp" alt="" /></figure>
+        <figure class="ph back-2"><img src="/img/retrato.webp" alt="" /></figure>
+        <figure class="ph front">
+          <img src="/img/podcast-2.webp" alt="Felipe conversando en Efecto Podcast" />
+          <figcaption>
+            <span class="kicker">Efecto Podcast · 39 episodios</span>
+            <strong>Conversaciones sobre marketing, negocios y creatividad</strong>
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
   <!-- Cinta -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track">
-      {
-        [0, 1].map(() => (
-          <span>
-            Marketing ✦ Datos ✦ Inteligencia artificial ✦ Negocios ✦ Performance ✦ Branding ✦ Creatividad ✦ Podcast ✦
-            Contenido ✦&nbsp;
-          </span>
-        ))
-      }
+  <div class="strip">
+    <p class="kicker center">Dónde me encuentras</p>
+    <div class="marquee">
+      <div class="track">
+        {
+          [0, 1].map(() =>
+            chips.map((c) => (
+              <div class="chip">
+                <strong>{c.name}</strong>
+                <span>{c.sub}</span>
+              </div>
+            )),
+          )
+        }
+      </div>
     </div>
   </div>
 
+  <!-- Lo más leído -->
+  <section class="section container">
+    <div class="section-head">
+      <h2>Lo más leído en LinkedIn</h2>
+      <a href={`${LINKEDIN_URL}recent-activity/all/`} target="_blank" rel="noopener">Ver todo →</a>
+    </div>
+    <div class="grid4">{featured.map((post, i) => <LinkedInPostCard post={post} rank={i + 1} />)}</div>
+  </section>
+
+  <!-- Proyectos -->
+  <section id="proyectos" class="section container">
+    <div class="section-head"><h2>Proyectos</h2></div>
+    <div class="projects">
+      <a class="card project pod" href="https://efectopodcast.com/" target="_blank" rel="noopener">
+        <figure><img src="/img/podcast-2.webp" alt="Felipe en el estudio de Efecto Podcast" loading="lazy" /></figure>
+        <div class="p-body">
+          <img class="pod-logo" src="/img/efecto-podcast-logo.png" alt="" width="44" height="36" />
+          <p class="kicker">Podcast · Creador y conductor</p>
+          <h3>Efecto Podcast</h3>
+          <p class="muted">
+            Entrevistas de una hora con líderes, fundadores y expertos sobre marketing, negocios, emprendimiento e IA.
+          </p>
+          <ul class="mini-stats"><li><b>39</b> episodios</li><li><b>17</b> invitados</li><li><b>32 h</b> de conversación</li></ul>
+          <span class="go">efectopodcast.com →</span>
+        </div>
+      </a>
+      <a class="card project" href="https://www.droneimagen.cl/" target="_blank" rel="noopener">
+        <figure class="drone-art" aria-hidden="true">
+          <!-- Ilustración provisoria: reemplazar por una foto real de droneimagen.cl -->
+          <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3caeea" /><stop offset="0.7" stop-color="#7c91eb" /><stop offset="1" stop-color="#e15c96" /></linearGradient>
+            </defs>
+            <rect width="600" height="340" fill="url(#sky)" />
+            <circle cx="470" cy="90" r="38" fill="#ffd60a" />
+            <path d="M0 220 120 120 200 190 300 90 420 200 520 140 600 200V340H0Z" fill="#5a3fb0" opacity="0.85" />
+            <path d="M0 260 90 210 180 250 290 180 400 250 500 220 600 260V340H0Z" fill="#1b1440" />
+            <g fill="#090619" transform="translate(300 60)"><rect x="-14" y="-5" width="28" height="10" rx="4" /><path d="M-14 0h-22M14 0h22" stroke="#090619" stroke-width="3" /><ellipse cx="-40" cy="-3" rx="14" ry="3" /><ellipse cx="40" cy="-3" rx="14" ry="3" /></g>
+          </svg>
+        </figure>
+        <div class="p-body">
+          <p class="kicker">Banco de fotos · Creador</p>
+          <h3>DroneImagen</h3>
+          <p class="muted">Más de 1.100 fotografías aéreas de Chile, gratis y en alta resolución, para proyectos personales y comerciales.</p>
+          <ul class="mini-stats"><li><b>+1.100</b> fotos</li><li><b>31</b> lugares</li><li><b>Gratis</b></li></ul>
+          <span class="go">droneimagen.cl →</span>
+        </div>
+      </a>
+      <a class="card project" href="https://www.toctoc.com" target="_blank" rel="noopener">
+        <figure><img src="/img/evento-20k.webp" alt="Felipe en el escenario celebrando 20 mil seguidores en LinkedIn" loading="lazy" class="top" /></figure>
+        <div class="p-body">
+          <p class="kicker">Hoy · CMO & Growth Lead</p>
+          <h3>TOCTOC</h3>
+          <p class="muted">
+            Lidero marketing y crecimiento en la empresa de tecnología para el mercado inmobiliario en Chile: branding,
+            datos y performance.
+          </p>
+          <span class="go">toctoc.com →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <!-- Temas -->
-  <section class="band container">
-    <h2 class="title-xl">De qué <em>hablo</em></h2>
-    <p class="lead">Marketing que se puede medir, explicado con ejemplos reales.</p>
+  <section class="section container">
+    <div class="section-head"><h2>Sobre qué escribo</h2></div>
     <div class="topics">
       {
         TOPICS.map((t, i) => (
-          <article class={`topic t${i + 1}`}>
-            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={icons[t.icon]} />
+          <article class="card topic">
+            <p class="kicker">Tema {String(i + 1).padStart(2, '0')}</p>
             <h3>{t.name}</h3>
-            <p>{t.text}</p>
+            <p class="muted">{t.text}</p>
           </article>
         ))
       }
     </div>
   </section>
 
-  <!-- Acerca de -->
-  <section class="band soft">
-    <div class="container about">
-      <figure class="about-photo">
-        <img class="photo" src="/img/retrato.webp" alt="" loading="lazy" />
-      </figure>
-      <div>
-        <h2 class="title-xl">Hola, soy <em>Felipe</em></h2>
-        <p class="about-lead">
-          CMO & Growth Lead en <strong>TOCTOC</strong>, la empresa de tecnología para el mercado inmobiliario en Chile.
-          Periodista y Magíster en Dirección de Marketing.
-        </p>
-        <p>
-          Trabajo donde se cruzan el branding, los datos y el performance marketing. En LinkedIn comparto lo que aprendo,
-          en Efecto Podcast converso con quienes están cambiando la industria y en DroneImagen comparto Chile desde el aire.
-        </p>
-        <ul class="creds">
-          <li><span>Magíster en Dirección de Marketing y Gestión Comercial</span><em>UDP</em></li>
-          <li><span>Posgrado en Innovación y Transformación Digital</span><em>FIU</em></li>
-          <li><span>Posgrado en Innovación y Gestión Digital</span><em>UAI</em></li>
-          <li><span>Periodista</span><em>U. Academia de Humanismo Cristiano</em></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Lo más leído -->
-  <section class="band container">
-    <div class="head-row">
-      <h2 class="title-xl">Lo más <em>leído</em></h2>
-      <a class="pill" href={`${LINKEDIN_URL}recent-activity/all/`} target="_blank" rel="noopener">Todo en LinkedIn ↗</a>
-    </div>
-    <div class="list">{featured.map((post, i) => <LinkedInPostCard post={post} rank={i + 1} />)}</div>
-  </section>
-
-  <!-- Efecto Podcast -->
-  <section id="proyectos" class="band podcast">
-    <div class="container">
-      <div class="pod-grid">
-        <div>
-          <img class="pod-logo" src="/img/efecto-podcast-logo.png" alt="Logo de Efecto Podcast" width="110" height="90" />
-          <h2 class="title-xl">Efecto <em>Podcast</em></h2>
-          <p class="pod-tag">Marketing, negocios y creatividad.</p>
-          <p class="pod-text">
-            Mi podcast de conversaciones con líderes, fundadores y expertos sobre marketing, negocios, emprendimiento e
-            inteligencia artificial. Episodios de una hora, sin guion y con ideas para llevarse.
-          </p>
-          <dl class="pod-stats">
-            <div><dd class="serif">39</dd><dt>episodios</dt></div>
-            <div><dd class="serif">32 h</dd><dt>de conversación</dt></div>
-            <div><dd class="serif">17</dd><dt>invitados</dt></div>
-          </dl>
-          <div class="cta">
-            <a class="pill pill-pod" href="https://efectopodcast.com/" target="_blank" rel="noopener">Escuchar en efectopodcast.com ↗</a>
-            <a class="pill" href="https://www.youtube.com/@efecto_podcast" target="_blank" rel="noopener">YouTube ↗</a>
-          </div>
-        </div>
-        <div class="pod-media">
-          <figure><img class="photo" src="/img/podcast-2.webp" alt="Felipe conversando en Efecto Podcast" loading="lazy" /></figure>
-          <figure><img class="photo" src="/img/podcast-1.webp" alt="Felipe en el estudio de Efecto Podcast" loading="lazy" /></figure>
-        </div>
-      </div>
-      <p class="label guests-label">Han pasado por el podcast</p>
-    </div>
-    <div class="guests" aria-label="Algunos invitados">
-      <div class="guests-track">
-        {[0, 1].map(() => guests.map((g) => <span>{g}</span>))}
-      </div>
-    </div>
-  </section>
-
-  <!-- DroneImagen -->
-  <section class="band drone">
-    <div class="container drone-grid">
-      <div class="drone-art" aria-hidden="true">
-        <!-- Ilustración provisoria: reemplazar por fotos reales de droneimagen.cl -->
-        <svg viewBox="0 0 600 420" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#3caeea" />
-              <stop offset="0.6" stop-color="#7c91eb" />
-              <stop offset="1" stop-color="#ffd3a8" />
-            </linearGradient>
-            <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#1f7fc4" />
-              <stop offset="1" stop-color="#0d4a7d" />
-            </linearGradient>
-          </defs>
-          <rect width="600" height="420" fill="url(#sky)" />
-          <circle cx="460" cy="120" r="46" fill="#ffd60a" opacity="0.9" />
-          <path d="M0 260 120 150 200 220 300 110 420 230 520 170 600 230V420H0Z" fill="#5a4bb5" opacity="0.85" />
-          <path d="M0 300 90 240 180 290 290 210 400 290 500 250 600 300V420H0Z" fill="#2f2a7a" />
-          <path d="M0 340C120 320 220 360 340 340S520 320 600 340V420H0Z" fill="url(#sea)" />
-          <g stroke="#fff" stroke-opacity="0.35" stroke-width="1" fill="none">
-            <rect x="210" y="130" width="180" height="120" />
-            <path d="M210 190h-30M390 190h30M300 130v-30M300 250v30" />
-          </g>
-          <g fill="#0d0a1f" transform="translate(300 70)">
-            <rect x="-14" y="-5" width="28" height="10" rx="4" />
-            <path d="M-14 0h-22M14 0h22" stroke="#0d0a1f" stroke-width="3" />
-            <ellipse cx="-40" cy="-3" rx="14" ry="3" />
-            <ellipse cx="40" cy="-3" rx="14" ry="3" />
-          </g>
-        </svg>
-      </div>
-      <div>
-        <h2 class="title-xl">Drone<em>Imagen</em></h2>
-        <p class="pod-tag">Chile desde el aire, gratis.</p>
-        <p>
-          Un banco de fotos gratis con <strong>más de 1.100 fotografías aéreas de Chile</strong> que tomé con drone. Se
-          descargan en alta resolución y sin marca de agua, para proyectos personales y comerciales.
-        </p>
-        <dl class="pod-stats">
-          <div><dd class="serif">+1.100</dd><dt>fotos aéreas</dt></div>
-          <div><dd class="serif">31</dd><dt>lugares</dt></div>
-          <div><dd class="serif">0 $</dd><dt>para descargar</dt></div>
-        </dl>
-        <a class="pill pill-solid" href="https://www.droneimagen.cl/" target="_blank" rel="noopener">Explorar droneimagen.cl ↗</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Hito -->
-  <section class="band container milestone">
-    <figure class="milestone-photo">
-      <img class="photo" src="/img/evento-20k.webp" alt="Felipe en el escenario del evento por los 20 mil seguidores" loading="lazy" />
-    </figure>
-    <div>
-      <p class="label">Evento en vivo</p>
-      <h2 class="title-xl">Celebrando <em>20K</em> en LinkedIn</h2>
-      <p class="lead">
-        <!-- ✏️ Agrega fecha, lugar y qué pasó en el evento -->
-        Un encuentro en vivo para celebrar a la comunidad que se formó alrededor de este contenido. Hoy ya somos{' '}
-        {formatNumber(LINKEDIN.followers)}.
-      </p>
-    </div>
-  </section>
-
   <!-- Audiencia -->
-  <section class="band soft">
-    <div class="container">
-      <h2 class="title-xl">Quién me <em>lee</em></h2>
-      <p class="lead">
-        El <span class="mark">{marketingShare} % trabaja en publicidad o marketing</span>, sobre todo en Latinoamérica y España.
+  <section class="section container">
+    <div class="section-head"><h2>Quién me lee</h2></div>
+    <div class="aud-intro card">
+      <p class="big num grad">{marketingShare} %</p>
+      <p>
+        de quienes me siguen trabaja en <strong>publicidad o marketing</strong>. El contenido llegó a{' '}
+        <strong>{compact(LINKEDIN.reached)} profesionales</strong> en el último año.
       </p>
-      <div class="audience-grid">
-        <AudienceBars title="Sector" items={audience['Sector'] ?? []} />
-        <AudienceBars title="Nivel" items={audience['Nivel de responsabilidad'] ?? []} />
-        <AudienceBars title="Ubicación" items={audience['Ubicación'] ?? []} />
-      </div>
+    </div>
+    <div class="aud-grid">
+      <AudienceBars title="Sector" items={audience['Sector'] ?? []} />
+      <AudienceBars title="Nivel" items={audience['Nivel de responsabilidad'] ?? []} />
+      <AudienceBars title="Ubicación" items={audience['Ubicación'] ?? []} />
+    </div>
+  </section>
+
+  <!-- Preguntas frecuentes -->
+  <section class="section container narrow-wrap">
+    <div class="section-head"><h2>Preguntas frecuentes</h2></div>
+    <div class="faq">
+      {
+        faqs.map((f, i) => (
+          <details open={i === 0}>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))
+      }
     </div>
   </section>
 </Base>
 
 <style>
   /* Portada */
-  .hero { position: relative; padding: 48px 0 72px; overflow: hidden; }
-  .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.45; pointer-events: none; }
-  .b1 { width: 520px; height: 520px; background: var(--violet); top: -160px; right: -120px; }
-  .b2 { width: 420px; height: 420px; background: var(--sky); bottom: -200px; left: -160px; opacity: 0.3; }
-  .hero-grid { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
-  .kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--muted); padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; background: #fff; margin: 0; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gradient); }
-  .display { font-size: clamp(3rem, 7vw, 5.6rem); margin: 22px 0 24px; }
-  .intro { font-size: 1.2rem; color: var(--muted); max-width: 520px; margin: 0; }
-  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .hero { position: relative; padding: 64px 0 56px; background: radial-gradient(ellipse 60% 70% at 15% 0%, rgba(225, 92, 150, 0.28), transparent 70%), radial-gradient(ellipse 50% 60% at 90% 30%, rgba(60, 174, 234, 0.18), transparent 70%); overflow: hidden; }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; }
+  h1 { display: flex; flex-direction: column; font-size: clamp(2.6rem, 6.4vw, 4.6rem); font-weight: 800; line-height: 1; text-transform: uppercase; letter-spacing: -0.02em; margin: 16px 0 18px; }
+  .bars { display: flex; align-items: flex-end; gap: 4px; height: 26px; width: 150px; }
+  .bars span { flex: 1; border-radius: 2px; background: var(--gradient); background-size: 150px 100%; background-attachment: local; }
+  .bars span:nth-child(3n) { background: var(--pink); }
+  .bars span:nth-child(3n + 1) { background: var(--violet); }
+  .bars span:nth-child(3n + 2) { background: var(--lavender); }
+  .intro { color: var(--muted); max-width: 500px; margin: 18px 0 0; }
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .stats { display: flex; gap: 32px; margin: 32px 0 0; }
+  .stats dd { margin: 0; font-family: var(--head); font-weight: 700; font-size: 1.6rem; line-height: 1; }
+  .stats dt { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
 
-  .collage { position: relative; height: 560px; }
-  .collage figure { position: absolute; margin: 0; overflow: hidden; border-radius: var(--radius); box-shadow: 0 30px 60px -25px rgba(13, 10, 31, 0.45); }
-  .c-portrait { width: 62%; height: 74%; top: 0; right: 0; }
-  .c-portrait::after { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.6); }
-  .c-stage { width: 42%; height: 52%; left: 0; bottom: 0; transform: rotate(-4deg); border: 6px solid #fff; }
-  .chip { position: absolute; padding: 10px 16px; border-radius: 16px; background: #fff; font-size: 0.85rem; color: var(--muted); box-shadow: 0 14px 30px -14px rgba(13, 10, 31, 0.35); white-space: nowrap; }
-  .chip strong { display: block; font-family: var(--serif); font-size: 1.8rem; font-weight: 400; color: var(--text); line-height: 1; }
-  .chip-a { top: 36px; left: 6%; }
-  .card-chart { position: absolute; right: 0; bottom: 6%; width: 50%; padding: 14px 16px; border-radius: 18px; background: var(--ink); color: #fff; box-shadow: 0 20px 40px -20px rgba(13, 10, 31, 0.6); }
-  .card-label { font-size: 0.75rem; color: #b3aec9; }
-  .card-label strong { font-family: var(--serif); font-weight: 400; font-size: 1.5rem; color: #fff; margin-right: 4px; }
-  .mini-bars { display: flex; align-items: flex-end; gap: 4px; height: 70px; margin-top: 10px; }
-  .mini-bars span { flex: 1; border-radius: 3px 3px 0 0; background: var(--gradient); background-size: 1200% 100%; }
-  .mini-bars span:nth-child(odd) { background: linear-gradient(var(--violet), var(--pink)); }
-  .mini-bars span:nth-child(even) { background: linear-gradient(var(--sky), var(--lavender)); }
-  .card-pod { position: absolute; top: 30%; left: 0; display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 16px; background: #090619; color: #fff; font-size: 0.85rem; box-shadow: 0 14px 30px -14px rgba(13, 10, 31, 0.5); }
-  .card-pod strong { font-family: var(--serif); font-weight: 400; font-size: 1.4rem; }
+  .stack { position: relative; height: 400px; }
+  .ph { position: absolute; margin: 0; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7); }
+  .ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .back-1 { width: 55%; height: 46%; top: 0; left: 0; opacity: 0.55; }
+  .back-2 { width: 34%; height: 56%; top: 0; right: 0; opacity: 0.6; }
+  .front { width: 82%; height: 66%; left: 9%; bottom: 0; border: 2px solid rgba(192, 114, 231, 0.6); box-shadow: 0 30px 80px -20px rgba(192, 114, 231, 0.55); }
+  .front figcaption { position: absolute; inset: auto 0 0 0; padding: 40px 16px 14px; background: linear-gradient(transparent, rgba(9, 6, 25, 0.95)); display: flex; flex-direction: column; gap: 4px; }
+  .front figcaption .kicker { font-size: 0.62rem; }
+  .front strong { font-family: var(--head); font-size: 0.95rem; line-height: 1.25; }
 
   /* Cinta */
-  .ticker { overflow: hidden; background: var(--gradient); color: #fff; padding: 14px 0; }
-  .ticker-track, .guests-track { display: flex; width: max-content; animation: scroll 40s linear infinite; }
-  .ticker span { font-family: var(--serif); font-style: italic; font-size: 1.6rem; white-space: nowrap; }
-  @keyframes scroll { to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .ticker-track, .guests-track { animation: none; } }
+  .strip { padding: 28px 0 8px; }
+  .center { text-align: center; color: var(--faint); margin-bottom: 14px; }
+  .marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .track { display: flex; gap: 12px; width: max-content; animation: scroll 50s linear infinite; }
+  .marquee:hover .track { animation-play-state: paused; }
+  @keyframes scroll { to { transform: translateX(calc(-50% - 6px)); } }
+  @media (prefers-reduced-motion: reduce) { .track { animation: none; } }
+  .chip { display: flex; flex-direction: column; padding: 10px 16px; min-width: 210px; border-radius: 10px; background: var(--card); border: 1px solid var(--line); }
+  .chip strong { font-family: var(--head); font-size: 0.82rem; }
+  .chip span { font-size: 0.72rem; color: var(--muted); }
 
-  .lead { font-size: 1.15rem; color: var(--muted); max-width: 640px; margin: 18px 0 40px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+  /* Proyectos */
+  .projects { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 16px; }
+  .project { display: flex; flex-direction: column; overflow: hidden; }
+  .project figure { margin: 0; aspect-ratio: 16 / 9; overflow: hidden; }
+  .project figure img, .project figure svg { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .project figure img.top { object-position: center 20%; }
+  .p-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .p-body h3 { font-size: 1.3rem; }
+  .p-body p.muted { margin: 0; font-size: 0.9rem; }
+  .pod { background: linear-gradient(160deg, #1d1145, var(--card)); }
+  .pod-logo { width: 40px; height: auto; }
+  .mini-stats { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 6px 0 0; padding: 0; font-size: 0.8rem; color: var(--muted); }
+  .mini-stats b { font-family: var(--head); color: var(--text); }
+  .go { margin-top: auto; padding-top: 8px; font-family: var(--head); font-weight: 600; font-size: 0.82rem; color: var(--violet); }
 
   /* Temas */
-  .topics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-  .topic { padding: 28px 24px; border-radius: var(--radius); color: #fff; min-height: 260px; display: flex; flex-direction: column; }
-  .topic svg { width: 52px; height: 52px; margin-bottom: auto; }
-  .topic h3 { font-family: var(--serif); font-size: 1.9rem; line-height: 1.05; margin: 32px 0 8px; }
-  .topic p { margin: 0; font-size: 0.92rem; opacity: 0.9; }
-  .t1 { background: linear-gradient(150deg, #e15c96, #c072e7); }
-  .t2 { background: linear-gradient(150deg, #7c91eb, #3caeea); }
-  .t3 { background: linear-gradient(150deg, #0d0a1f, #3b2a7a); }
-  .t4 { background: linear-gradient(150deg, #ffd60a, #ff9f4a); color: var(--ink); }
+  .topics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .topic { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .topic .kicker { font-size: 0.62rem; }
+  .topic h3 { font-size: 1.05rem; }
+  .topic p.muted { margin: 0; font-size: 0.88rem; }
 
-  /* Acerca de */
-  .about { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 64px; align-items: center; }
-  .about-photo { margin: 0; aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden; position: relative; }
-  .about-photo::before { content: ''; position: absolute; inset: auto -20% -20% auto; width: 70%; height: 50%; background: var(--gradient); filter: blur(50px); opacity: 0.6; z-index: 1; mix-blend-mode: soft-light; }
-  .about-lead { font-size: 1.3rem; line-height: 1.45; margin: 24px 0 16px; }
-  .creds { list-style: none; margin: 32px 0 0; padding: 0; }
-  .creds li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 0.92rem; }
-  .creds em { font-style: normal; color: var(--muted); text-align: right; }
+  /* Audiencia */
+  .aud-intro { display: flex; align-items: center; gap: 24px; padding: 20px 24px; margin-bottom: 16px; }
+  .aud-intro p { margin: 0; color: var(--muted); }
+  .aud-intro strong { color: var(--text); }
+  .big { font-family: var(--head); font-weight: 800; font-size: 3rem; line-height: 1; white-space: nowrap; }
+  .aud-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
-  .head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid var(--text); padding-bottom: 20px; }
-
-  /* Podcast (colores de marca de Efecto Podcast) */
-  .podcast { background: #090619; color: #fff; --muted: #b3aec9; --line: #2a2445; position: relative; overflow: hidden; }
-  .podcast::before { content: ''; position: absolute; width: 600px; height: 600px; left: -200px; top: -250px; border-radius: 50%; background: radial-gradient(#c072e7, transparent 65%); opacity: 0.35; }
-  .pod-grid { position: relative; display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
-  .pod-logo { display: block; width: 90px; height: auto; margin-bottom: 20px; }
-  .pod-tag { font-family: var(--serif); font-style: italic; font-size: 1.5rem; margin: 10px 0 18px; }
-  .podcast .pod-tag { color: #ffd60a; }
-  .pod-text { color: #d6d2e6; }
-  .pod-stats { display: flex; flex-wrap: wrap; gap: 36px; margin: 32px 0 8px; }
-  .pod-stats dd { margin: 0; font-size: 2.8rem; line-height: 1; }
-  .pod-stats dt { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
-  .pill-pod { background: linear-gradient(110deg, #e15c96, #c072e7, #7c91eb, #3caeea); border-color: transparent; color: #fff; }
-  .podcast .pill:not(.pill-pod) { color: #fff; }
-  .pod-media { display: grid; grid-template-columns: 1fr; gap: 14px; }
-  .pod-media figure { margin: 0; border-radius: var(--radius); overflow: hidden; aspect-ratio: 16 / 9; }
-  .pod-media figure:nth-child(2) { width: 78%; margin-left: auto; margin-top: -60px; border: 6px solid #090619; }
-  .guests-label { margin: 64px 0 16px; color: var(--muted); }
-  .guests { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 0; }
-  .guests-track { animation-duration: 60s; }
-  .guests span { white-space: nowrap; padding: 0 28px; font-family: var(--serif); font-size: 1.5rem; border-right: 1px solid var(--line); }
-
-  /* DroneImagen */
-  .drone { background: linear-gradient(180deg, #eaf6fd, var(--bg)); }
-  .drone-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center; }
-  .drone-art { border-radius: var(--radius); overflow: hidden; aspect-ratio: 10 / 7; box-shadow: 0 30px 60px -30px rgba(31, 127, 196, 0.6); }
-  .drone-art svg { display: block; width: 100%; height: 100%; }
-  .drone .pod-tag { color: #1f7fc4; }
-  .drone .pill-solid { margin-top: 24px; }
-
-  /* Hito */
-  .milestone { display: grid; grid-template-columns: 0.7fr 1.3fr; gap: 64px; align-items: center; }
-  .milestone-photo { margin: 0; aspect-ratio: 3 / 4; border-radius: var(--radius); overflow: hidden; transform: rotate(-2deg); box-shadow: 0 30px 60px -30px rgba(13, 10, 31, 0.5); }
-  .milestone .label { color: var(--accent); }
-  .milestone .title-xl { margin-top: 10px; }
-
-  .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+  /* FAQ */
+  .narrow-wrap { max-width: 820px; }
+  .faq details { border-bottom: 1px solid var(--line); padding: 14px 0; }
+  .faq summary { cursor: pointer; font-family: var(--head); font-weight: 600; font-size: 0.95rem; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  .faq summary::after { content: '+'; color: var(--violet); font-size: 1.2rem; line-height: 1; }
+  .faq details[open] summary::after { content: '–'; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq p { margin: 10px 0 0; color: var(--muted); font-size: 0.92rem; }
 
   @media (max-width: 960px) {
-    .hero-grid, .about, .pod-grid, .drone-grid, .milestone, .audience-grid { grid-template-columns: 1fr; gap: 40px; }
-    .collage { height: 460px; }
-    .milestone-photo { transform: none; }
-    .topics { grid-template-columns: repeat(2, 1fr); }
-    .band { padding-block: 72px; }
+    .hero-grid { grid-template-columns: 1fr; }
+    .stack { height: 340px; }
+    .grid4, .topics { grid-template-columns: repeat(2, 1fr); }
+    .projects, .aud-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 560px) {
-    .collage { height: 400px; }
-    .c-portrait { width: 70%; }
-    .c-stage { width: 46%; }
-    .card-pod { display: none; }
-    .card-chart { width: 58%; }
+    .hero { padding-top: 36px; }
+    .stack { height: 280px; }
+    .stats { gap: 22px; }
+    .stats dd { font-size: 1.35rem; }
+    .grid4 { grid-template-columns: 1fr; }
     .topics { grid-template-columns: 1fr; }
-    .topic { min-height: 200px; }
-    .pod-stats dd { font-size: 2.2rem; }
-    .kicker { font-size: 0.75rem; }
+    .aud-intro { flex-direction: column; align-items: flex-start; gap: 8px; }
   }
 </style>

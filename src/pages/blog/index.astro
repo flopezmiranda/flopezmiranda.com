@@ -8,27 +8,28 @@ const categories = ['Todos', 'Marketing', 'Datos', 'IA'];
 ---
 
 <Base title="Escritos" description="Artículos sobre marketing, datos e inteligencia artificial.">
-  <div class="container">
-    <h1 class="display">Escritos</h1>
-    <p class="intro">Ideas más largas sobre marketing, datos e inteligencia artificial.</p>
+  <section class="section container">
+    <p class="kicker">Blog</p>
+    <h1>Escritos</h1>
+    <p class="muted intro">Ideas más largas sobre marketing, datos e inteligencia artificial.</p>
     <div class="filters" role="group" aria-label="Filtrar por tema">
       {categories.map((c) => <button type="button" data-filter={c}>{c}</button>)}
     </div>
-    <div class="list">
+    <div class="grid">
       {
-        posts.map((post) => (
+        posts.map((post, i) => (
           <div data-cat={post.data.category}>
-            <PostCard post={post} />
+            <PostCard post={post} index={i} />
           </div>
         ))
       }
     </div>
-  </div>
+  </section>
 </Base>
 
 <script>
   const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
-  const items = document.querySelectorAll<HTMLElement>('.list > [data-cat]');
+  const items = document.querySelectorAll<HTMLElement>('.grid > [data-cat]');
   function apply(cat: string) {
     buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === cat)));
     items.forEach((el) => (el.hidden = cat !== 'Todos' && el.dataset.cat !== cat));
@@ -39,10 +40,13 @@ const categories = ['Todos', 'Marketing', 'Datos', 'IA'];
 </script>
 
 <style>
-  .display { margin-top: 48px; }
-  .intro { color: var(--muted); font-size: 1.15rem; margin: 20px 0 48px; }
-  .filters { display: flex; flex-wrap: wrap; gap: 24px; padding-bottom: 14px; border-bottom: 1px solid var(--text); }
-  button { font: inherit; font-size: 0.9rem; padding: 0; border: 0; background: none; color: var(--muted); cursor: pointer; }
+  h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 10px 0 8px; text-transform: uppercase; }
+  .intro { margin: 0 0 28px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  button { font: inherit; font-family: var(--head); font-size: 0.82rem; font-weight: 500; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
   button:hover { color: var(--text); }
-  button[aria-pressed='true'] { color: var(--text); text-decoration: underline; text-underline-offset: 6px; }
+  button[aria-pressed='true'] { background: var(--gradient); color: #fff; border-color: transparent; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid > div[hidden] { display: none; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
 </style>

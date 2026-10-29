@@ -14,8 +14,8 @@ const label = (p: number) => (p < 1 ? '<1 %' : `${p} %`);
 const short = (s: string) => s.replace(/^Área metropolitana de /, '').replace(/ y alrededores.*$/, '');
 ---
 
-<figure>
-  <figcaption class="label">{title}</figcaption>
+<figure class="card">
+  <figcaption class="kicker">{title}</figcaption>
   <ul>
     {
       shown.map((i) => (
@@ -32,13 +32,11 @@ const short = (s: string) => s.replace(/^Área metropolitana de /, '').replace(/
 </figure>
 
 <style>
-  figure { margin: 0; }
-  figcaption { display: block; margin-bottom: 14px; }
-  ul { list-style: none; margin: 0; padding: 0; }
-  li { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 0.92rem; }
-  .val { font-weight: 500; white-space: nowrap; }
-  .track { grid-column: 1 / -1; height: 2px; background: var(--line); }
-  .bar { display: block; height: 100%; background: var(--gradient); }
-  .track { height: 4px !important; border-radius: 2px; }
-  .bar { border-radius: 2px; }
+  figure { margin: 0; padding: 20px; }
+  figcaption { margin-bottom: 12px; }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  li { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; font-size: 0.88rem; }
+  .val { font-family: var(--head); font-weight: 600; white-space: nowrap; }
+  .track { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--card-2); }
+  .bar { display: block; height: 100%; border-radius: 3px; background: var(--gradient); }
 </style>

@@ -1,0 +1,35 @@
+---
+// Miniatura generada al estilo de las portadas de video: fondo de color, título grande y una palabra en amarillo.
+interface Props {
+  text: string;
+  badge?: string;
+  corner?: string;
+  variant?: number;
+}
+const { text, badge, corner, variant = 0 } = Astro.props;
+const words = text.replace(/[“”"…]/g, '').trim().split(/\s+/).slice(0, 6);
+// Se destaca en amarillo la palabra más larga
+const hi = words.reduce((best, w, i) => (w.length > words[best].length ? i : best), 0);
+---
+
+<div class={`thumb v${variant % 5}`}>
+  {badge && <span class="badge">{badge}</span>}
+  <p class="t">{words.map((w, i) => (i === hi ? <span class="hl">{w} </span> : `${w} `))}</p>
+  {corner && <span class="corner num">{corner}</span>}
+</div>
+
+<style>
+  .thumb { position: relative; aspect-ratio: 16 / 9; border-radius: 10px 10px 0 0; overflow: hidden; display: flex; align-items: flex-end; padding: 12px 14px; }
+  .thumb::before { content: ''; position: absolute; width: 70%; aspect-ratio: 1; right: -20%; top: -35%; border-radius: 50%; background: rgba(255, 255, 255, 0.14); }
+  .thumb::after { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 22px); }
+  .v0 { background: linear-gradient(135deg, #e15c96, #6b2fb3); }
+  .v1 { background: linear-gradient(135deg, #3caeea, #2a2b8f); }
+  .v2 { background: linear-gradient(135deg, #c072e7, #1b1440); }
+  .v3 { background: linear-gradient(135deg, #7c91eb, #e15c96); }
+  .v4 { background: linear-gradient(135deg, #1b1440, #3caeea); }
+  .t { position: relative; z-index: 1; margin: 0; font-family: var(--head); font-weight: 800; font-size: clamp(0.95rem, 1.6vw, 1.15rem); line-height: 1.05; text-transform: uppercase; color: #fff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35); max-width: 88%; }
+  .hl { color: var(--yellow); }
+  .badge, .corner { position: absolute; z-index: 1; font-family: var(--head); font-weight: 700; font-size: 0.68rem; padding: 2px 7px; border-radius: 5px; background: rgba(9, 6, 25, 0.85); color: #fff; }
+  .badge { top: 10px; left: 10px; }
+  .corner { bottom: 10px; right: 10px; }
+</style>

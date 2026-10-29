@@ -11,28 +11,29 @@ const { title, description, pubDate, updatedDate, category, tags, minutes } = As
 <Base title={title} description={description}>
   <article class="container narrow">
     <header>
-      <p class="label">{category} · <FormattedDate date={pubDate} /> · {minutes} min</p>
-      <h1 class="serif">{title}</h1>
+      <p class="kicker">{category} · <FormattedDate date={pubDate} /> · {minutes} min de lectura</p>
+      <h1>{title}</h1>
       <p class="lead">{description}</p>
-      {updatedDate && <p class="note">Actualizado el <FormattedDate date={updatedDate} /></p>}
+      {updatedDate && <p class="muted">Actualizado el <FormattedDate date={updatedDate} /></p>}
     </header>
-    <div class="prose">
-      <slot />
-    </div>
-    <footer>
+    <div class="prose"><slot /></div>
+    <footer class="card">
       {tags.length > 0 && <p class="tags">{tags.map((t) => <span>#{t}</span>)}</p>}
-      <p>
-        ¿Te sirvió? Sigue la conversación en <a class="arrow-link" href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn ↗</a>
-      </p>
-      <p><a href="/blog/">← Todos los escritos</a></p>
+      <p>¿Te sirvió? Sigamos la conversación en LinkedIn.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href={LINKEDIN_URL} target="_blank" rel="noopener">Sígueme en LinkedIn</a>
+        <a class="btn" href="/blog/">← Todos los escritos</a>
+      </div>
     </footer>
   </article>
 </Base>
 
 <style>
-  header { padding: 64px 0 40px; margin-bottom: 40px; border-bottom: 1px solid var(--line); }
-  h1 { font-size: clamp(2.6rem, 7vw, 4.2rem); line-height: 1; margin: 18px 0 20px; }
-  .lead { font-size: 1.25rem; color: var(--muted); margin: 0; }
-  footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); }
-  .tags { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.85rem; }
+  header { padding: 56px 0 32px; margin-bottom: 32px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 14px 0 16px; }
+  .lead { font-size: 1.15rem; color: var(--muted); margin: 0; }
+  footer { margin-top: 56px; padding: 24px; }
+  footer p { margin: 0 0 14px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.82rem; color: var(--muted); }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; }
 </style>
