@@ -1,5 +1,5 @@
 ---
-import NewsletterButton from '../components/NewsletterButton.astro';
+import LinkedInButtons from '../components/LinkedInButtons.astro';
 import Base from '../layouts/Base.astro';
 import LinkedInPostCard from '../components/LinkedInPostCard.astro';
 import AudienceBars from '../components/AudienceBars.astro';
@@ -91,8 +91,7 @@ const jsonLd = {
           {' '}{followersK} mil profesionales en LinkedIn.
         </p>
         <div class="cta">
-          <NewsletterButton />
-          <a class="btn" href="#temas">De qué hablo</a>
+          <LinkedInButtons />
         </div>
         <dl class="stats">
           <div><dd class="num">{formatNumber(LINKEDIN.followers)}</dd><dt>seguidores</dt></div>

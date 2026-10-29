@@ -1,0 +1,15 @@
+---
+// Los dos llamados a LinkedIn: seguir el perfil y suscribirse a la newsletter.
+import NewsletterButton from './NewsletterButton.astro';
+import { LINKEDIN_URL } from '../consts';
+---
+
+<div class="li-buttons">
+  <a class="btn btn-primary profile" href={LINKEDIN_URL} target="_blank" rel="noopener">Sígueme en mi perfil</a>
+  <NewsletterButton />
+</div>
+
+<style>
+  .li-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .profile { width: 214px; height: 46px; justify-content: center; font-size: 0.9rem; }
+</style>
