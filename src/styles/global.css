@@ -1,27 +1,53 @@
-/* Negro con verde lima y menta: estilo growth / performance. Poppins para títulos. */
+/* Claro con azul por defecto y modo oscuro azul noche con amarillo. Poppins para títulos. */
 :root {
-  --bg: #0a0f0a;
-  --bg-2: #0e150e;
-  --card: #121a13;
-  --card-2: #18231a;
-  --line: #233125;
-  --text: #f2f7ef;
-  --muted: #a3b3a0;
-  --faint: #6b7d68;
-  --lime: #b6ff3b;
-  --mint: #3bffb0;
+  /* Paleta D: clara + azul (principal) */
+  --bg: #ffffff;
+  --bg-2: #f6f8fc;
+  --card: #f3f6fb;
+  --card-2: #e7ecf5;
+  --line: #dde3ee;
+  --text: #0b1b3a;
+  --muted: #4c5a75;
+  --faint: #8a95ab;
+  --accent: #2f6bff;
+  --accent-2: #00b3ff;
+  --accent-rgb: 47, 107, 255;
+  --accent2-rgb: 0, 179, 255;
+  --on-accent: #ffffff;
+  --thumb-base: #0b1b3a;
+  --thumb-text: #ffffff;
   --gradient: linear-gradient(100deg, var(--accent), var(--accent-2));
   --head: 'Poppins', system-ui, sans-serif;
   --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --radius: 14px;
   --max: 1120px;
   --narrow: 700px;
+  color-scheme: light;
+}
+
+/* Paleta A: azul noche + amarillo (modo oscuro, se activa con el botón del menú) */
+:root[data-theme='dark'] {
+  --bg: #07111f;
+  --bg-2: #0a1628;
+  --card: #0e1b30;
+  --card-2: #13233d;
+  --line: #1f3352;
+  --text: #eef3ff;
+  --muted: #9fb0cc;
+  --faint: #647693;
+  --accent: #ffd60a;
+  --accent-2: #ffe98a;
+  --accent-rgb: 255, 214, 10;
+  --accent2-rgb: 255, 233, 138;
+  --on-accent: #07111f;
+  --thumb-base: #07111f;
+  --gradient: linear-gradient(100deg, #ffd60a, #ffe98a);
   color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+body { margin: 0; transition: background 0.2s, color 0.2s; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
 ::selection { background: var(--accent); color: var(--on-accent); }
 a { color: inherit; }
 img { max-width: 100%; height: auto; }

@@ -17,9 +17,24 @@ const active = (href: string) => (href === '/' ? path === '/' : href.startsWith(
     <nav>
       {links.map((l) => <a href={l.href} class:list={{ on: active(l.href) }}>{l.label}</a>)}
     </nav>
+    <button class="theme" type="button" aria-label="Cambiar entre modo claro y oscuro" title="Modo claro / oscuro">
+      <span class="moon">☾</span><span class="sun">☀︎</span>
+    </button>
     <a class="btn btn-primary cta" href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn ↗</a>
   </div>
 </header>
+
+<script>
+  const root = document.documentElement;
+  document.querySelector('.theme')?.addEventListener('click', () => {
+    const dark = root.dataset.theme !== 'dark';
+    if (dark) root.dataset.theme = 'dark';
+    else delete root.dataset.theme;
+    try {
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    } catch (e) {}
+  });
+</script>
 
 <style>
   header { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
@@ -32,6 +47,11 @@ const active = (href: string) => (href === '/' ? path === '/' : href.startsWith(
   nav a:hover { color: var(--text); }
   nav a.on { color: var(--text); background: var(--card-2); }
   .cta { padding: 7px 14px; font-size: 0.8rem; }
-  @media (max-width: 820px) { nav { display: none; } .cta { margin-left: auto; } }
+  .theme { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--text); cursor: pointer; font-size: 0.95rem; }
+  .theme:hover { border-color: var(--accent); }
+  .sun { display: none; }
+  :global([data-theme='dark']) .sun { display: inline; }
+  :global([data-theme='dark']) .moon { display: none; }
+  @media (max-width: 820px) { nav { display: none; } .theme { margin-left: auto; } }
   @media (max-width: 420px) { .name { display: none; } }
 </style>
