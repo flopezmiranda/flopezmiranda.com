@@ -7,9 +7,9 @@ const year = new Date().getFullYear();
   <div class="container inner">
     <p>© {year} {SITE_TITLE}</p>
     <ul>
-      <li><a href={SOCIAL.linkedin} target="_blank" rel="noopener">LinkedIn</a></li>
-      <li><a href={SOCIAL.x} target="_blank" rel="noopener">X</a></li>
-      <li><a href={SOCIAL.email}>Email</a></li>
+      {SOCIAL.linkedin && <li><a href={SOCIAL.linkedin} target="_blank" rel="noopener">LinkedIn</a></li>}
+      {SOCIAL.x && <li><a href={SOCIAL.x} target="_blank" rel="noopener">X</a></li>}
+      {SOCIAL.email && <li><a href={`mailto:${SOCIAL.email}`}>Email</a></li>}
       <li><a href="/rss.xml">RSS</a></li>
     </ul>
   </div>

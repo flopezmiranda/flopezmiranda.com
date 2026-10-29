@@ -9,6 +9,8 @@
   --brand-1: #7c5cff;
   --brand-2: #00d4ff;
   --accent: #39ff9f;
+  --linkedin: #0a66c2;
+  --linkedin-light: #4da3ff;
   --gradient: linear-gradient(120deg, var(--brand-1), var(--brand-2));
   --radius: 16px;
   --max: 1120px;
@@ -114,3 +116,11 @@ section { padding: 64px 0; }
 .prose table { width: 100%; border-collapse: collapse; font-size: 0.95em; }
 .prose th, .prose td { border-bottom: 1px solid var(--border); padding: 8px 10px; text-align: left; }
 .prose th { font-family: var(--mono); font-size: 0.8em; color: var(--muted); text-transform: uppercase; }
+
+.btn-linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--linkedin);
+  box-shadow: 0 8px 30px rgba(10, 102, 194, 0.45);
+}

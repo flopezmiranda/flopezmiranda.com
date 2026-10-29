@@ -1,13 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
 import PostCard from '../components/PostCard.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
-import { getPosts, readingTime } from '../utils';
+import LinkedInPostCard from '../components/LinkedInPostCard.astro';
+import LinkedInIcon from '../components/LinkedInIcon.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, LINKEDIN_URL, LINKEDIN_STATS } from '../consts';
+import { LINKEDIN_POSTS } from '../data/linkedin-posts';
+import { getPosts } from '../utils';
 
 const posts = await getPosts();
 const latest = posts.slice(0, 3);
-const minutes = posts.reduce((sum, p) => sum + readingTime(p.body), 0);
-const count = (cat: string) => posts.filter((p) => p.data.category === cat).length;
+const stats = LINKEDIN_STATS.filter((s) => s.value !== null);
+// Destacados: los de más impresiones primero (o los más recientes si no hay cifras)
+const featured = [...LINKEDIN_POSTS]
+  .sort((a, b) => (b.impressions ?? 0) - (a.impressions ?? 0) || b.date.localeCompare(a.date))
+  .slice(0, 6);
+const count = (cat: string) =>
+  posts.filter((p) => p.data.category === cat).length + LINKEDIN_POSTS.filter((p) => p.category === cat).length;
+const plural = (n: number) => `${n} ${n === 1 ? 'publicación' : 'publicaciones'}`;
 
 const pillars = [
   { cat: 'Marketing', icon: '📈', text: 'Estrategia, posicionamiento y crecimiento medido con números, no con intuición.' },
@@ -25,12 +34,14 @@ const bars = [38, 52, 45, 64, 58, 76, 70, 88, 82, 96];
         <p class="eyebrow">// Marketing · Datos · IA</p>
         <h1>Decisiones de marketing <span class="gradient-text">guiadas por datos e IA</span></h1>
         <p class="lead">
-          Soy Felipe López Miranda. Escribo sobre cómo usar datos e inteligencia artificial para hacer un marketing
-          más inteligente, medible y rentable.
+          Soy Felipe López Miranda. Cada semana comparto en LinkedIn ideas prácticas para hacer un marketing más
+          inteligente, medible y rentable con datos e inteligencia artificial.
         </p>
         <div class="cta">
-          <a class="btn" href="/blog/">Leer el blog</a>
-          <a class="btn btn-ghost" href="/sobre-mi/">Sobre mí</a>
+          <a class="btn btn-linkedin" href={LINKEDIN_URL} target="_blank" rel="noopener">
+            <LinkedInIcon /> Sígueme en LinkedIn
+          </a>
+          <a class="btn btn-ghost" href={featured.length ? '#destacados' : '/blog/'}>Ver mi contenido</a>
         </div>
       </div>
       <div class="panel" aria-hidden="true">
@@ -48,19 +59,25 @@ const bars = [38, 52, 45, 64, 58, 76, 70, 88, 82, 96];
     </div>
   </section>
 
-  <section class="stats-band">
-    <div class="container stats">
-      <div class="stat"><strong class="gradient-text">{posts.length}</strong><span>artículos publicados</span></div>
-      <div class="stat"><strong class="gradient-text">{pillars.length}</strong><span>temas principales</span></div>
-      <div class="stat"><strong class="gradient-text">{minutes}</strong><span>minutos de lectura</span></div>
-      <div class="stat"><strong class="gradient-text">100%</strong><span>basado en evidencia</span></div>
-    </div>
-  </section>
+  {
+    stats.length > 0 && (
+      <section class="stats-band">
+        <div class="container stats">
+          {stats.map((s) => (
+            <div class="stat">
+              <strong class="gradient-text">{s.value}</strong>
+              <span>{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    )
+  }
 
   <section>
     <div class="container">
       <p class="eyebrow">// Temas</p>
-      <h2 class="section-title">De qué escribo</h2>
+      <h2 class="section-title">De qué hablo</h2>
       <div class="pillars">
         {
           pillars.map((p) => (
@@ -68,7 +85,7 @@ const bars = [38, 52, 45, 64, 58, 76, 70, 88, 82, 96];
               <span class="icon">{p.icon}</span>
               <h3>{p.cat}</h3>
               <p>{p.text}</p>
-              <span class="chip" data-cat={p.cat}>{count(p.cat)} {count(p.cat) === 1 ? "artículo" : "artículos"}</span>
+              <span class="chip" data-cat={p.cat}>{plural(count(p.cat))}</span>
             </a>
           ))
         }
@@ -76,12 +93,48 @@ const bars = [38, 52, 45, 64, 58, 76, 70, 88, 82, 96];
     </div>
   </section>
 
+  {
+    featured.length > 0 && (
+      <section id="destacados">
+        <div class="container">
+          <p class="eyebrow">// Lo mejor en LinkedIn</p>
+          <h2 class="section-title">Publicaciones destacadas</h2>
+          <div class="grid">
+            {featured.map((post) => (
+              <LinkedInPostCard post={post} />
+            ))}
+          </div>
+          <p class="all">
+            <a class="btn btn-ghost" href={`${LINKEDIN_URL}recent-activity/all/`} target="_blank" rel="noopener">
+              Ver todas en LinkedIn →
+            </a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+
   <section>
     <div class="container">
-      <p class="eyebrow">// Lo último</p>
+      <p class="eyebrow">// Blog</p>
       <h2 class="section-title">Artículos recientes</h2>
       <div class="grid">{latest.map((post) => <PostCard post={post} />)}</div>
       <p class="all"><a class="btn btn-ghost" href="/blog/">Ver todos los artículos →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="follow-band">
+        <div>
+          <p class="eyebrow">// Conversemos</p>
+          <h2>¿Te interesa el marketing con datos e IA?</h2>
+          <p>Sígueme en LinkedIn: ahí publico, respondo comentarios y converso con quienes trabajan en esto.</p>
+        </div>
+        <a class="btn btn-linkedin" href={LINKEDIN_URL} target="_blank" rel="noopener">
+          <LinkedInIcon /> Seguir a Felipe
+        </a>
+      </div>
     </div>
   </section>
 </Base>
@@ -105,7 +158,7 @@ const bars = [38, 52, 45, 64, 58, 76, 70, 88, 82, 96];
   @media (prefers-reduced-motion: reduce) { .chart span { animation: none; } }
 
   .stats-band { padding: 0; }
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
   .stat { background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; display: flex; flex-direction: column; }
   .stat strong { font-size: 2.4rem; font-weight: 800; line-height: 1; font-family: var(--mono); }
   .stat span { color: var(--muted); font-size: 0.9rem; margin-top: 8px; }
@@ -118,9 +171,13 @@ const bars = [38, 52, 45, 64, 58, 76, 70, 88, 82, 96];
   .pillar p { margin: 0 0 8px; color: var(--muted); font-size: 0.95rem; }
   .all { text-align: center; margin-top: 32px; }
 
+  .follow-band { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 40px; border-radius: var(--radius); border: 1px solid var(--linkedin); background: radial-gradient(ellipse at top left, rgba(10, 102, 194, 0.25), transparent 60%), var(--card); }
+  .follow-band h2 { margin: 8px 0; font-size: clamp(1.4rem, 3vw, 2rem); }
+  .follow-band p:not(.eyebrow) { margin: 0; color: var(--muted); max-width: 560px; }
+
   @media (max-width: 860px) {
     .hero-grid, .pillars, .grid { grid-template-columns: 1fr; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
     .hero { padding-top: 48px; }
+    .follow-band { padding: 28px; }
   }
 </style>

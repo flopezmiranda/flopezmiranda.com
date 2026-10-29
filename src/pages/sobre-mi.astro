@@ -21,8 +21,9 @@ import { SOCIAL } from '../consts';
       </ul>
       <h2>Hablemos</h2>
       <p>
-        Escríbeme por <a href={SOCIAL.email}>email</a> o conéctate en
-        <a href={SOCIAL.linkedin} target="_blank" rel="noopener">LinkedIn</a>.
+        Donde más publico y converso es en
+        <a href={SOCIAL.linkedin} target="_blank" rel="noopener">LinkedIn</a>: sígueme y escríbeme por ahí.
+        {SOCIAL.email && <>También puedes escribirme por <a href={`mailto:${SOCIAL.email}`}>email</a>.</>}
       </p>
     </div>
   </section>
