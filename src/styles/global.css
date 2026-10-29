@@ -1,19 +1,16 @@
-/* Oscuro y vibrante, en la familia visual de Efecto Podcast (Poppins + degradado rosado-violeta-celeste). */
+/* Negro con verde lima y menta: estilo growth / performance. Poppins para títulos. */
 :root {
-  --bg: #090619;
-  --bg-2: #0f0a26;
-  --card: #140e30;
-  --card-2: #1b1440;
-  --line: #2a2152;
-  --text: #f4f2ff;
-  --muted: #a9a3c9;
-  --faint: #6f6894;
-  --pink: #e15c96;
-  --violet: #c072e7;
-  --lavender: #7c91eb;
-  --sky: #3caeea;
-  --yellow: #ffd60a;
-  --gradient: linear-gradient(100deg, var(--pink), var(--violet) 45%, var(--lavender) 75%, var(--sky));
+  --bg: #0a0f0a;
+  --bg-2: #0e150e;
+  --card: #121a13;
+  --card-2: #18231a;
+  --line: #233125;
+  --text: #f2f7ef;
+  --muted: #a3b3a0;
+  --faint: #6b7d68;
+  --lime: #b6ff3b;
+  --mint: #3bffb0;
+  --gradient: linear-gradient(100deg, var(--lime), var(--mint));
   --head: 'Poppins', system-ui, sans-serif;
   --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --radius: 14px;
@@ -25,7 +22,7 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-::selection { background: var(--violet); color: #fff; }
+::selection { background: var(--lime); color: #0a0f0a; }
 a { color: inherit; }
 img { max-width: 100%; height: auto; }
 
@@ -34,32 +31,33 @@ img { max-width: 100%; height: auto; }
 
 h1, h2, h3 { font-family: var(--head); font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; margin: 0; }
 .grad { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.kicker { font-family: var(--head); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pink); margin: 0; }
+.kicker { font-family: var(--head); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); margin: 0; }
 .section { padding-block: 72px; }
 .section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-bottom: 24px; }
 .section-head h2 { font-size: clamp(1.35rem, 3vw, 1.75rem); }
-.section-head a { font-size: 0.85rem; color: var(--violet); text-decoration: none; white-space: nowrap; }
+.section-head a { font-size: 0.85rem; color: var(--lime); text-decoration: none; white-space: nowrap; }
 .section-head a:hover { text-decoration: underline; }
 .muted { color: var(--muted); }
 .num { font-variant-numeric: tabular-nums; }
 
 /* Botones */
 .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 999px; font-family: var(--head); font-weight: 600; font-size: 0.85rem; text-decoration: none; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); color: var(--text); transition: transform 0.15s, border-color 0.2s; white-space: nowrap; }
-.btn:hover { transform: translateY(-1px); border-color: var(--violet); }
-.btn-primary { background: var(--gradient); border-color: transparent; color: #fff; box-shadow: 0 10px 30px -12px rgba(225, 92, 150, 0.8); }
+.btn:hover { transform: translateY(-1px); border-color: var(--lime); }
+.btn-primary { background: var(--lime); border-color: transparent; color: #0a0f0a; box-shadow: 0 10px 30px -12px rgba(182, 255, 59, 0.6); }
+.btn-primary:hover { background: var(--mint); }
 
 /* Tarjetas */
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); transition: border-color 0.2s, transform 0.2s; }
 a.card { text-decoration: none; color: inherit; display: block; }
-a.card:hover { border-color: var(--violet); transform: translateY(-3px); }
+a.card:hover { border-color: var(--lime); transform: translateY(-3px); }
 
 /* Contenido de artículos */
-.prose { font-size: 1.05rem; color: #dcd8f0; }
+.prose { font-size: 1.05rem; color: #d9e3d5; }
 .prose h2 { font-size: 1.5rem; margin: 2em 0 0.6em; color: var(--text); }
 .prose h3 { font-size: 1.15rem; margin: 1.6em 0 0.4em; color: var(--text); }
-.prose a { color: var(--violet); }
+.prose a { color: var(--lime); }
 .prose strong { color: var(--text); }
-.prose blockquote { margin: 1.6em 0; padding: 14px 20px; border-left: 3px solid var(--pink); background: var(--card); border-radius: 0 var(--radius) var(--radius) 0; }
+.prose blockquote { margin: 1.6em 0; padding: 14px 20px; border-left: 3px solid var(--lime); background: var(--card); border-radius: 0 var(--radius) var(--radius) 0; }
 .prose code { font-size: 0.9em; background: var(--card-2); padding: 2px 6px; border-radius: 4px; }
 .prose pre { padding: 16px; border-radius: var(--radius); overflow-x: auto; }
 .prose pre code { background: none; padding: 0; }
