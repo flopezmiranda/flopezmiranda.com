@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import PostCard from '../components/PostCard.astro';
 import LinkedInPostCard from '../components/LinkedInPostCard.astro';
-import LinkedInIcon from '../components/LinkedInIcon.astro';
 import AudienceBars from '../components/AudienceBars.astro';
 import { SITE_TITLE, SITE_DESCRIPTION, LINKEDIN_URL } from '../consts';
 import { LINKEDIN, compact, formatNumber } from '../data/linkedin';
@@ -10,223 +9,187 @@ import { getPosts } from '../utils';
 
 const posts = await getPosts();
 const latest = posts.slice(0, 3);
-const featured = LINKEDIN.topPosts.slice(0, 6);
+const featured = LINKEDIN.topPosts.slice(0, 5);
 
 // Últimos 12 meses (el primer mes del export suele traer solo 1 o 2 días)
 const months = LINKEDIN.monthly.slice(-12);
 const maxMonth = Math.max(...months.map((m) => m.impressions));
-const peak = months.find((m) => m.impressions === maxMonth)!;
 const monthName = (key: string, style: 'short' | 'narrow' = 'short') =>
   new Date(`${key}-15`).toLocaleDateString('es-ES', { month: style, year: style === 'short' ? 'numeric' : undefined });
 const fmtDate = (iso: string) =>
   new Date(iso).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
-const engagement = ((LINKEDIN.interactions / LINKEDIN.impressions) * 100).toLocaleString('es-CL', { maximumFractionDigits: 1 });
+const engagement = ((LINKEDIN.interactions / LINKEDIN.impressions) * 100).toLocaleString('es-CL', {
+  maximumFractionDigits: 1,
+});
+const followersK = Math.floor(LINKEDIN.followers / 1000);
 
 const stats = [
-  { value: formatNumber(LINKEDIN.followers), label: 'seguidores en LinkedIn', sub: `+${formatNumber(LINKEDIN.newFollowers)} en 12 meses` },
-  { value: compact(LINKEDIN.impressions), label: 'impresiones', sub: 'últimos 12 meses' },
-  { value: compact(LINKEDIN.reached), label: 'profesionales alcanzados', sub: 'personas únicas' },
-  { value: compact(LINKEDIN.interactions), label: 'interacciones', sub: `${engagement} % de tasa de interacción` },
+  { value: formatNumber(LINKEDIN.followers), label: 'Seguidores', sub: `+${formatNumber(LINKEDIN.newFollowers)} este año` },
+  { value: compact(LINKEDIN.impressions), label: 'Impresiones', sub: 'últimos 12 meses' },
+  { value: compact(LINKEDIN.reached), label: 'Personas alcanzadas', sub: 'profesionales únicos' },
+  { value: `${engagement} %`, label: 'Tasa de interacción', sub: `${formatNumber(LINKEDIN.interactions)} interacciones` },
 ];
 const audience = LINKEDIN.audience;
-
-const pillars = [
-  { cat: 'Marketing', icon: '📈', text: 'Estrategia, posicionamiento y crecimiento medido con números, no con intuición.' },
-  { cat: 'Datos', icon: '📊', text: 'Métricas que importan, analítica y dashboards que ayudan a decidir.' },
-  { cat: 'IA', icon: '🤖', text: 'Inteligencia artificial aplicada: herramientas, flujos y casos reales.' },
-];
+const marketingShare = (audience['Sector'] ?? []).slice(0, 2).reduce((s, i) => s + i.pct, 0);
 ---
 
 <Base title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <p class="eyebrow">// Marketing · Datos · IA</p>
-        <h1>Decisiones de marketing <span class="gradient-text">guiadas por datos e IA</span></h1>
-        <p class="lead">
-          Soy Felipe López Miranda. Cada semana comparto en LinkedIn ideas prácticas para hacer un marketing más
-          inteligente, medible y rentable con datos e inteligencia artificial.
-        </p>
-        <div class="cta">
-          <a class="btn btn-linkedin" href={LINKEDIN_URL} target="_blank" rel="noopener">
-            <LinkedInIcon /> Sígueme en LinkedIn
-          </a>
-          <a class="btn btn-ghost" href={featured.length ? '#destacados' : '/blog/'}>Ver mi contenido</a>
-        </div>
+  <div class="container">
+    <!-- Presentación -->
+    <section class="hero">
+      <p class="label">Marketing · Datos · Inteligencia artificial</p>
+      <h1 class="display">Felipe<br />López Miranda</h1>
+      <p class="intro">
+        Escribo sobre cómo tomar mejores decisiones de marketing con datos e inteligencia artificial. Cada semana lo
+        comparto en LinkedIn, donde me siguen más de {followersK} mil profesionales del marketing y la publicidad.
+      </p>
+      <p class="cta">
+        <a class="arrow-link" href={LINKEDIN_URL} target="_blank" rel="noopener">Seguir en LinkedIn ↗</a>
+        <a href="/sobre-mi/">Sobre mí</a>
+      </p>
+    </section>
+
+    <!-- Cifras -->
+    <section class="stats-section" aria-label="Cifras en LinkedIn">
+      <dl class="stats">
+        {
+          stats.map((s) => (
+            <div>
+              <dt class="label">{s.label}</dt>
+              <dd class="value serif num">{s.value}</dd>
+              <dd class="sub">{s.sub}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="note">Fuente: LinkedIn Analytics, {fmtDate(LINKEDIN.period.from)} – {fmtDate(LINKEDIN.period.to)}.</p>
+    </section>
+
+    <!-- Lo más leído -->
+    <section>
+      <div class="section-head">
+        <h2>Lo más leído</h2>
+        <a href={`${LINKEDIN_URL}recent-activity/all/`} target="_blank" rel="noopener">Todo en LinkedIn ↗</a>
       </div>
-      <figure class="panel">
-        <div class="panel-head">
-          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          <figcaption class="panel-title">Impresiones por mes · LinkedIn</figcaption>
-        </div>
-        <div class="chart" role="img" aria-label={`Impresiones mensuales en LinkedIn; máximo de ${formatNumber(maxMonth)} en ${monthName(peak.month)}`}>
+      {featured.map((post, i) => <LinkedInPostCard post={post} rank={i + 1} />)}
+    </section>
+
+    <!-- Sobre mí -->
+    <section>
+      <div class="section-head">
+        <h2>Sobre mí</h2>
+        <a href="/sobre-mi/">Más →</a>
+      </div>
+      <div class="about">
+        <p class="about-lead serif">
+          <!-- ✏️ Reemplaza este texto con tu presentación real. -->
+          Me interesa el punto donde el marketing deja de ser intuición y empieza a ser evidencia.
+        </p>
+        <p class="about-body">
+          En LinkedIn comparto lo que aprendo sobre plataformas publicitarias, funnels, analítica e inteligencia
+          artificial aplicada, con ejemplos concretos y sin humo.
+        </p>
+      </div>
+    </section>
+
+    <!-- Audiencia -->
+    <section>
+      <div class="section-head">
+        <h2>Quién me lee</h2>
+        <span class="label">Seguidores en LinkedIn</span>
+      </div>
+      <p class="audience-lead">
+        El <strong>{marketingShare} %</strong> de quienes me siguen trabaja en publicidad o marketing, y el contenido
+        llega a {compact(LINKEDIN.reached)} profesionales al año.
+      </p>
+
+      <figure class="chart-fig">
+        <figcaption class="label">Impresiones por mes</figcaption>
+        <div class="chart" role="img" aria-label={`Impresiones mensuales en LinkedIn; máximo de ${formatNumber(maxMonth)}`}>
           {
-            months.map((m, i) => (
+            months.map((m) => (
               <div class="col" tabindex="0">
-                <span class="bar" style={`height:${(m.impressions / maxMonth) * 100}%;animation-delay:${i * 50}ms`} />
-                <span class="tip">
-                  <strong>{formatNumber(m.impressions)}</strong> impresiones<br />
+                <span class:list={['bar', { peak: m.impressions === maxMonth }]} style={`height:${(m.impressions / maxMonth) * 100}%`} />
+                <span class="tip num">
+                  {formatNumber(m.impressions)}
+                  <br />
                   {monthName(m.month)}
                 </span>
               </div>
             ))
           }
         </div>
-        <div class="axis" aria-hidden="true">
-          {months.map((m) => <span>{monthName(m.month, 'narrow')}</span>)}
-        </div>
-        <div class="panel-foot">
-          <span>total: <strong>{compact(LINKEDIN.impressions)}</strong></span>
-          <span class="up">▲ pico {monthName(peak.month)}</span>
-        </div>
+        <div class="axis" aria-hidden="true">{months.map((m) => <span>{monthName(m.month, 'narrow')}</span>)}</div>
       </figure>
-    </div>
-  </section>
 
-  <section class="stats-band">
-    <div class="container">
-      <div class="stats">
-        {
-          stats.map((st) => (
-            <div class="stat">
-              <strong class="gradient-text">{st.value}</strong>
-              <span class="label">{st.label}</span>
-              <span class="sub">{st.sub}</span>
-            </div>
-          ))
-        }
-      </div>
-      <p class="source">Fuente: LinkedIn Analytics · {fmtDate(LINKEDIN.period.from)} – {fmtDate(LINKEDIN.period.to)}</p>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <p class="eyebrow">// Temas</p>
-      <h2 class="section-title">De qué hablo</h2>
-      <div class="pillars">
-        {
-          pillars.map((p) => (
-            <a class="pillar" href={`/blog/?cat=${p.cat}`}>
-              <span class="icon">{p.icon}</span>
-              <h3>{p.cat}</h3>
-              <p>{p.text}</p>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section id="destacados">
-    <div class="container">
-      <p class="eyebrow">// Lo mejor en LinkedIn</p>
-      <h2 class="section-title">Publicaciones con más alcance</h2>
-      <div class="grid">{featured.map((post, i) => <LinkedInPostCard post={post} rank={i + 1} />)}</div>
-      <p class="all">
-        <a class="btn btn-ghost" href={`${LINKEDIN_URL}recent-activity/all/`} target="_blank" rel="noopener">
-          Ver todas en LinkedIn →
-        </a>
-      </p>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <p class="eyebrow">// Audiencia</p>
-      <h2 class="section-title">Quién me lee</h2>
-      <p class="intro">
-        {formatNumber(LINKEDIN.followers)} profesionales siguen mi contenido, sobre todo del mundo de la publicidad y el
-        marketing en Latinoamérica y España.
-      </p>
-      <div class="grid">
+      <div class="audience-grid">
         <AudienceBars title="Sector" items={audience['Sector'] ?? []} />
-        <AudienceBars title="Nivel de responsabilidad" items={audience['Nivel de responsabilidad'] ?? []} />
+        <AudienceBars title="Nivel" items={audience['Nivel de responsabilidad'] ?? []} />
         <AudienceBars title="Ubicación" items={audience['Ubicación'] ?? []} />
       </div>
-      <p class="source">Porcentaje de seguidores · Fuente: LinkedIn Analytics</p>
-    </div>
-  </section>
+    </section>
 
-  <section>
-    <div class="container">
-      <p class="eyebrow">// Blog</p>
-      <h2 class="section-title">Artículos recientes</h2>
-      <div class="grid">{latest.map((post) => <PostCard post={post} />)}</div>
-      <p class="all"><a class="btn btn-ghost" href="/blog/">Ver todos los artículos →</a></p>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="follow-band">
-        <div>
-          <p class="eyebrow">// Conversemos</p>
-          <h2>¿Te interesa el marketing con datos e IA?</h2>
-          <p>Sígueme en LinkedIn: ahí publico, respondo comentarios y converso con quienes trabajan en esto.</p>
-        </div>
-        <a class="btn btn-linkedin" href={LINKEDIN_URL} target="_blank" rel="noopener">
-          <LinkedInIcon /> Seguir a Felipe
-        </a>
-      </div>
-    </div>
-  </section>
+    <!-- Escritos -->
+    {
+      latest.length > 0 && (
+        <section>
+          <div class="section-head">
+            <h2>Escritos</h2>
+            <a href="/blog/">Todos →</a>
+          </div>
+          {latest.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </section>
+      )
+    }
+  </div>
 </Base>
 
 <style>
-  .hero { padding: 88px 0 56px; }
-  .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; }
-  h1 { font-size: clamp(2.3rem, 5.5vw, 3.8rem); margin: 14px 0 18px; font-weight: 800; }
-  .lead { color: var(--muted); font-size: 1.15rem; max-width: 560px; }
-  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .hero { padding-top: 72px; }
+  .hero .display { margin: 22px 0 36px; }
+  .intro { max-width: 620px; font-size: 1.25rem; line-height: 1.55; color: var(--muted); margin: 0; }
+  .cta { display: flex; gap: 32px; margin: 36px 0 0; font-size: 1.05rem; }
 
-  .panel { margin: 0; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: 0 20px 60px rgba(0, 212, 255, 0.12); }
-  .panel-head { display: flex; align-items: center; gap: 6px; margin-bottom: 18px; }
-  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
-  .panel-title { margin-left: 8px; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
-  .chart { display: flex; align-items: flex-end; gap: 2px; height: 200px; border-bottom: 1px solid var(--border); }
-  .col { position: relative; flex: 1; height: 100%; display: flex; align-items: flex-end; justify-content: center; outline: none; cursor: default; }
-  .bar { width: 72%; border-radius: 4px 4px 0 0; background: var(--gradient); transform-origin: bottom; animation: grow 0.8s ease-out both; }
-  .col:hover .bar, .col:focus .bar { filter: brightness(1.3); }
-  .tip { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); white-space: nowrap; padding: 6px 10px; border-radius: 8px; background: var(--bg); border: 1px solid var(--border); font-family: var(--mono); font-size: 0.75rem; color: var(--muted); line-height: 1.4; text-align: center; display: none; pointer-events: none; z-index: 2; }
-  .tip strong { color: var(--text); }
+  .stats-section { padding-top: 88px; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; border-top: 1px solid var(--text); }
+  .stats > div { padding: 22px 24px 0 0; }
+  .stats > div + div { padding-left: 24px; border-left: 1px solid var(--line); }
+  dd { margin: 0; }
+  .value { font-size: clamp(2.6rem, 5vw, 3.8rem); line-height: 1; margin: 14px 0 8px; white-space: nowrap; }
+  .sub { font-size: 0.82rem; color: var(--muted); }
+
+  .about { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; padding-top: 28px; }
+  .about-lead { font-size: clamp(1.8rem, 3.5vw, 2.5rem); line-height: 1.15; margin: 0; }
+  .about-body { color: var(--muted); margin: 0; }
+
+  .audience-lead { font-size: 1.2rem; max-width: 640px; margin: 28px 0 48px; }
+  .chart-fig { margin: 0 0 56px; }
+  .chart { display: flex; align-items: flex-end; gap: 6px; height: 180px; margin-top: 16px; border-bottom: 1px solid var(--text); }
+  .col { position: relative; flex: 1; height: 100%; display: flex; align-items: flex-end; outline: none; }
+  .bar { width: 100%; background: var(--line); border-radius: 2px 2px 0 0; transition: background 0.2s; }
+  .bar.peak { background: var(--text); }
+  .col:hover .bar, .col:focus .bar { background: var(--accent); }
+  .tip { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); display: none; white-space: nowrap; padding: 6px 10px; background: var(--text); color: var(--bg); font-size: 0.75rem; line-height: 1.4; text-align: center; border-radius: 4px; pointer-events: none; z-index: 2; }
   .col:first-child .tip { left: 0; transform: none; }
   .col:last-child .tip { left: auto; right: 0; transform: none; }
   .col:hover .tip, .col:focus .tip { display: block; }
-  .axis { display: flex; gap: 2px; margin-top: 6px; }
-  .axis span { flex: 1; text-align: center; font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; }
-  .panel-foot { display: flex; justify-content: space-between; margin-top: 12px; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
-  .panel-foot strong { color: var(--text); }
-  .up { color: var(--accent); }
-  @keyframes grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-  @media (prefers-reduced-motion: reduce) { .bar { animation: none; } }
+  .axis { display: flex; gap: 6px; margin-top: 8px; }
+  .axis span { flex: 1; text-align: center; font-size: 0.72rem; color: var(--muted); text-transform: uppercase; }
+  .audience-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
 
-  .stats-band { padding: 0; }
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .stat { background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; display: flex; flex-direction: column; }
-  .stat strong { font-size: 2.4rem; font-weight: 800; line-height: 1; font-family: var(--mono); white-space: nowrap; }
-  .stat .label { color: var(--text); font-size: 0.95rem; margin-top: 10px; }
-  .stat .sub { color: var(--muted); font-size: 0.8rem; font-family: var(--mono); margin-top: 2px; }
-  .source { margin: 14px 0 0; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
-  .intro { color: var(--muted); max-width: 680px; margin: -12px 0 28px; }
-
-  .pillars, .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .pillar { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; padding: 26px; border-radius: var(--radius); border: 1px solid var(--border); background: linear-gradient(180deg, var(--card), var(--bg-soft)); color: var(--text); transition: border-color 0.2s; }
-  .pillar:hover { text-decoration: none; border-color: var(--brand-2); }
-  .pillar .icon { font-size: 1.8rem; }
-  .pillar h3 { margin: 0; }
-  .pillar p { margin: 0 0 8px; color: var(--muted); font-size: 0.95rem; }
-  .all { text-align: center; margin-top: 32px; }
-
-  .follow-band { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 40px; border-radius: var(--radius); border: 1px solid var(--linkedin); background: radial-gradient(ellipse at top left, rgba(10, 102, 194, 0.25), transparent 60%), var(--card); }
-  .follow-band h2 { margin: 8px 0; font-size: clamp(1.4rem, 3vw, 2rem); }
-  .follow-band p:not(.eyebrow) { margin: 0; color: var(--muted); max-width: 560px; }
-
-  @media (max-width: 860px) {
-    .hero-grid, .pillars, .grid { grid-template-columns: 1fr; }
+  @media (max-width: 820px) {
     .stats { grid-template-columns: repeat(2, 1fr); }
-    .stat strong { font-size: 1.8rem; }
-    .hero { padding-top: 48px; }
-    .follow-band { padding: 28px; }
+    .stats > div:nth-child(3) { padding-left: 0; border-left: 0; }
+    .stats > div:nth-child(n + 3) { margin-top: 28px; border-top: 1px solid var(--line); }
+    .about, .audience-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (max-width: 560px) {
+    .hero { padding-top: 40px; }
+    .stats > div + div { padding-left: 16px; }
+    .stats > div { padding-right: 8px; }
+    .value { font-size: 2.2rem; }
+    .chart, .axis { gap: 3px; }
   }
 </style>

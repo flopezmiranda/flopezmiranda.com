@@ -1,52 +1,31 @@
 ---
-import LinkedInIcon from './LinkedInIcon.astro';
-import { LINKEDIN_URL } from '../consts';
+import { LINKEDIN_URL, SITE_TITLE } from '../consts';
 
 const path = Astro.url.pathname;
 const links = [
-  { href: '/', label: 'Inicio' },
-  { href: '/blog/', label: 'Blog' },
+  { href: '/blog/', label: 'Escritos' },
   { href: '/sobre-mi/', label: 'Sobre mí' },
 ];
 ---
 
-<header>
-  <nav class="container">
-    <a href="/" class="logo">FLM<span class="gradient-text">.</span></a>
-    <ul>
-      {
-        links.map((l) => (
-          <li>
-            <a href={l.href} class={path === l.href || (l.href !== '/' && path.startsWith(l.href)) ? 'active' : ''}>
-              {l.label}
-            </a>
-          </li>
-        ))
-      }
-      <li>
-        <a class="follow" href={LINKEDIN_URL} target="_blank" rel="noopener"><LinkedInIcon size={15} /> Seguir</a>
-      </li>
-    </ul>
+<header class="container">
+  <a href="/" class="name">{SITE_TITLE}</a>
+  <nav>
+    {links.map((l) => <a href={l.href} aria-current={path.startsWith(l.href) ? 'page' : undefined}>{l.label}</a>)}
+    <a href={LINKEDIN_URL} target="_blank" rel="noopener" class="ext">LinkedIn ↗</a>
   </nav>
 </header>
 
 <style>
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    backdrop-filter: blur(12px);
-    background: rgba(11, 13, 23, 0.75);
-    border-bottom: 1px solid var(--border);
+  header { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 28px; padding-bottom: 28px; }
+  a { text-decoration: none; }
+  .name { font-family: var(--serif); font-size: 1.45rem; letter-spacing: -0.01em; white-space: nowrap; }
+  nav { display: flex; gap: 28px; font-size: 0.92rem; }
+  nav a { color: var(--muted); }
+  nav a:hover, nav a[aria-current='page'] { color: var(--text); }
+  nav a.ext { color: var(--accent); }
+  @media (max-width: 560px) {
+    header { flex-direction: column; align-items: flex-start; gap: 6px; padding-top: 20px; padding-bottom: 12px; }
+    nav { gap: 20px; }
   }
-  nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .logo { font-weight: 800; font-size: 1.3rem; color: var(--text); letter-spacing: -0.03em; }
-  .logo:hover { text-decoration: none; }
-  ul { display: flex; align-items: center; gap: 22px; list-style: none; margin: 0; padding: 0; }
-  ul a { color: var(--muted); font-weight: 600; font-size: 0.95rem; }
-  ul a:hover, ul a.active { color: var(--text); text-decoration: none; }
-  ul a.active { border-bottom: 2px solid var(--brand-2); padding-bottom: 4px; }
-  ul a.follow { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; background: var(--linkedin); color: #fff; }
-  ul a.follow:hover { filter: brightness(1.15); }
-  @media (max-width: 480px) { ul { gap: 14px; } ul a { font-size: 0.88rem; } }
 </style>

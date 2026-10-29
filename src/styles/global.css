@@ -1,21 +1,16 @@
-/* Paleta y tipografía. Cambia los colores de marca aquí. */
+/* Minimal premium: fondo cálido, tinta casi negra y un solo acento. */
 :root {
-  --bg: #0b0d17;
-  --bg-soft: #12152a;
-  --card: #151936;
-  --border: #262b52;
-  --text: #e8eaf6;
-  --muted: #9aa0c3;
-  --brand-1: #7c5cff;
-  --brand-2: #00d4ff;
-  --accent: #39ff9f;
-  --linkedin: #0a66c2;
-  --linkedin-light: #4da3ff;
-  --gradient: linear-gradient(120deg, var(--brand-1), var(--brand-2));
-  --radius: 16px;
-  --max: 1120px;
-  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --bg: #faf8f4;
+  --bg-soft: #f2efe8;
+  --text: #16150f;
+  --muted: #6b675c;
+  --faint: #a29d90;
+  --line: #e3dfd5;
+  --accent: #2547d0;
+  --serif: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+  --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --max: 1080px;
+  --narrow: 680px;
 }
 
 * { box-sizing: border-box; }
@@ -24,103 +19,45 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font);
+  font-family: var(--sans);
   font-size: 17px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
-/* Cuadrícula sutil de fondo, estilo "dashboard" */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgba(124, 92, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124, 92, 255, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at top, #000 30%, transparent 75%);
-}
+::selection { background: var(--accent); color: #fff; }
 
-a { color: var(--brand-2); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a { color: inherit; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; transition: text-decoration-color 0.2s, color 0.2s; }
+a:hover { text-decoration-color: currentColor; }
 img { max-width: 100%; height: auto; }
 
-.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 20px; }
-.gradient-text {
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.eyebrow {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.btn {
-  display: inline-block;
-  padding: 12px 22px;
-  border-radius: 999px;
-  font-weight: 600;
-  background: var(--gradient);
-  color: #fff;
-  box-shadow: 0 8px 30px rgba(124, 92, 255, 0.35);
-  transition: transform 0.15s ease;
-}
-.btn:hover { text-decoration: none; transform: translateY(-2px); }
-.btn-ghost {
-  background: transparent;
-  border: 1px solid var(--border);
-  box-shadow: none;
-  color: var(--text);
-}
-.chip {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  padding: 3px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  color: var(--muted);
-}
-.chip[data-cat='Marketing'] { color: #ff7ab6; border-color: #ff7ab655; }
-.chip[data-cat='Datos'] { color: var(--brand-2); border-color: #00d4ff55; }
-.chip[data-cat='IA'] { color: var(--accent); border-color: #39ff9f55; }
+.container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+.narrow { max-width: var(--narrow); }
 
-h1, h2, h3 { line-height: 1.2; letter-spacing: -0.02em; }
-section { padding: 64px 0; }
-.section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 8px 0 28px; }
+h1, h2, h3 { font-weight: 400; line-height: 1.1; letter-spacing: -0.01em; margin: 0; }
+.display { font-family: var(--serif); font-size: clamp(3rem, 9vw, 6.5rem); line-height: 0.95; letter-spacing: -0.02em; }
+.serif { font-family: var(--serif); }
+
+/* Encabezado de sección: etiqueta pequeña + línea fina */
+section { padding: 96px 0 0; }
+.section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-bottom: 14px; margin-bottom: 8px; border-bottom: 1px solid var(--text); }
+.section-head h2 { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.6rem); }
+.section-head a, .label { font-size: 0.8rem; letter-spacing: 0.04em; color: var(--muted); }
+.label { text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.72rem; }
+
+.num { font-variant-numeric: tabular-nums; }
+.arrow-link { color: var(--accent); text-decoration: none; font-weight: 500; }
+.arrow-link:hover { text-decoration: underline; }
+.note { font-size: 0.78rem; color: var(--faint); margin: 16px 0 0; }
 
 /* Contenido de artículos */
-.prose { max-width: 720px; margin: 0 auto; }
-.prose h2 { margin-top: 2.2em; }
-.prose blockquote {
-  margin: 1.5em 0;
-  padding: 12px 20px;
-  border-left: 3px solid var(--brand-1);
-  background: var(--bg-soft);
-  border-radius: 0 var(--radius) var(--radius) 0;
-}
-.prose code {
-  font-family: var(--mono);
-  font-size: 0.9em;
-  background: var(--bg-soft);
-  padding: 2px 6px;
-  border-radius: 6px;
-}
-.prose pre { padding: 16px; border-radius: var(--radius); overflow-x: auto; }
+.prose { font-size: 1.1rem; }
+.prose h2 { font-family: var(--serif); font-size: 2rem; margin: 2em 0 0.5em; }
+.prose h3 { font-weight: 600; font-size: 1.15rem; margin: 1.6em 0 0.4em; }
+.prose a { text-decoration-color: var(--accent); }
+.prose blockquote { margin: 1.8em 0; padding: 0 0 0 24px; border-left: 2px solid var(--text); font-family: var(--serif); font-size: 1.6rem; line-height: 1.3; }
+.prose code { font-size: 0.9em; background: var(--bg-soft); padding: 2px 6px; border-radius: 4px; }
+.prose pre { padding: 16px; border-radius: 6px; overflow-x: auto; }
 .prose pre code { background: none; padding: 0; }
 .prose table { width: 100%; border-collapse: collapse; font-size: 0.95em; }
-.prose th, .prose td { border-bottom: 1px solid var(--border); padding: 8px 10px; text-align: left; }
-.prose th { font-family: var(--mono); font-size: 0.8em; color: var(--muted); text-transform: uppercase; }
-
-.btn-linkedin {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--linkedin);
-  box-shadow: 0 8px 30px rgba(10, 102, 194, 0.45);
-}
+.prose th, .prose td { border-bottom: 1px solid var(--line); padding: 8px 10px; text-align: left; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 3em 0; }

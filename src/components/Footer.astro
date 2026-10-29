@@ -3,23 +3,25 @@ import { SOCIAL, SITE_TITLE } from '../consts';
 const year = new Date().getFullYear();
 ---
 
-<footer>
-  <div class="container inner">
-    <p>© {year} {SITE_TITLE}</p>
-    <ul>
-      {SOCIAL.linkedin && <li><a href={SOCIAL.linkedin} target="_blank" rel="noopener">LinkedIn</a></li>}
-      {SOCIAL.x && <li><a href={SOCIAL.x} target="_blank" rel="noopener">X</a></li>}
-      {SOCIAL.email && <li><a href={`mailto:${SOCIAL.email}`}>Email</a></li>}
-      <li><a href="/rss.xml">RSS</a></li>
-    </ul>
+<footer class="container">
+  <p class="sign serif">Hablemos en <a href={SOCIAL.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a></p>
+  <div class="bottom">
+    <span>© {year} {SITE_TITLE}</span>
+    <span class="links">
+      {SOCIAL.x && <a href={SOCIAL.x} target="_blank" rel="noopener">X</a>}
+      {SOCIAL.email && <a href={`mailto:${SOCIAL.email}`}>Email</a>}
+      <a href="/rss.xml">RSS</a>
+    </span>
   </div>
 </footer>
 
 <style>
-  footer { border-top: 1px solid var(--border); margin-top: 64px; padding: 28px 0; color: var(--muted); font-size: 0.9rem; }
-  .inner { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; }
-  p { margin: 0; }
-  ul { display: flex; gap: 18px; list-style: none; margin: 0; padding: 0; }
-  a { color: var(--muted); }
-  a:hover { color: var(--text); }
+  footer { margin-top: 140px; padding-bottom: 40px; }
+  .sign { font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1; margin: 0 0 48px; }
+  .sign a { color: var(--accent); text-decoration: none; }
+  .sign a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+  .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--muted); }
+  .links { display: flex; gap: 18px; }
+  .links a { text-decoration: none; }
+  .links a:hover { color: var(--text); }
 </style>
