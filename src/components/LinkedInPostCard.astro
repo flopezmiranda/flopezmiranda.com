@@ -30,7 +30,8 @@ const { post, rank } = Astro.props;
   .metric { text-align: right; display: flex; flex-direction: column; }
   .value { font-size: 1.15rem; font-weight: 500; }
   .unit { font-size: 0.75rem; color: var(--muted); }
-  .row:hover .title { font-style: italic; }
+  .row:hover .title { font-style: italic; color: var(--accent); }
+  .row:hover .rank { color: var(--pink); }
   @media (max-width: 640px) {
     .row { grid-template-columns: 40px 1fr; gap: 4px 12px; align-items: baseline; }
     .rank { font-size: 1.4rem; }

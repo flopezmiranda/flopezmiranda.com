@@ -9,12 +9,15 @@ const year = new Date().getFullYear();
     <div class="cols">
       <div>
         <p class="title-xl">Hablemos en<br /><em>LinkedIn</em></p>
-        <a class="pill" href={LINKEDIN_URL} target="_blank" rel="noopener">Sígueme en LinkedIn</a>
+        <a class="pill pill-solid" href={LINKEDIN_URL} target="_blank" rel="noopener">Sígueme en LinkedIn</a>
       </div>
       <ul class="links">
         <li><a href="/blog/">Escritos</a></li>
         <li><a href="/sobre-mi/">Sobre mí</a></li>
         {SOCIAL.email && <li><a href={`mailto:${SOCIAL.email}`}>{SOCIAL.email}</a></li>}
+        <li><a href="https://efectopodcast.com/" target="_blank" rel="noopener">Efecto Podcast ↗</a></li>
+        <li><a href="https://www.droneimagen.cl/" target="_blank" rel="noopener">DroneImagen ↗</a></li>
+        {SOCIAL.instagram && <li><a href={SOCIAL.instagram} target="_blank" rel="noopener">Instagram ↗</a></li>}
         <li><a href="/rss.xml">RSS</a></li>
       </ul>
     </div>
@@ -23,7 +26,9 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  footer { margin-top: 0; padding: 72px 0 32px; }
+  footer { margin-top: 0; padding: 72px 0 32px; position: relative; overflow: hidden; }
+  footer::before { content: ''; position: absolute; width: 520px; height: 520px; right: -160px; top: -200px; border-radius: 50%; background: var(--gradient); filter: blur(90px); opacity: 0.35; pointer-events: none; }
+  footer .container { position: relative; }
   .brand { font-family: var(--serif); font-size: 1.2rem; margin: 0 0 64px; }
   .brand strong { font-family: var(--sans); font-weight: 600; font-size: 0.95rem; }
   .cols { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 40px; }
