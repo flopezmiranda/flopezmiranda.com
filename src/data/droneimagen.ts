@@ -31,5 +31,12 @@ export const PLACES: DroneLink[] = [];
 export const REGIONS: DroneLink[] = [];
 export const COLLECTIONS: DroneLink[] = [];
 
-// ✏️ Pendiente: fotos aéreas (archivo en public/img/drone/ y lugar que muestran).
-export const PHOTOS: { src: string; place: string; href?: string }[] = [];
+// Fotos del mosaico (archivos en public/img/drone/).
+// size: 'wide' = grande 2x2, 'tall' = vertical alta, 'long' = horizontal ancha. place: lugar (opcional).
+export const PHOTOS: { src: string; alt: string; place?: string; size?: 'wide' | 'tall' | 'long' }[] = [
+  { src: '/img/drone/playa-cenital.webp', alt: 'Playa vista desde arriba, con quitasoles, gente en la arena y olas', size: 'wide' },
+  { src: '/img/drone/playa-olas.webp', alt: 'Olas rompiendo en la orilla de una playa junto a la avenida costera', size: 'tall' },
+  { src: '/img/drone/parque-lagunas.webp', alt: 'Parque urbano con lagunas, senderos y árboles en otoño' },
+  { src: '/img/drone/barrio-autopista.webp', alt: 'Barrio residencial de techos rojos junto a una autopista' },
+  { src: '/img/drone/costanera.webp', alt: 'Costanera con autos estacionados, rompeolas y mar turquesa' },
+];

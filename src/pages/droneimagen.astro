@@ -9,8 +9,6 @@ const groups = [
   { title: 'Colecciones', items: COLLECTIONS },
 ].filter((g) => g.items.length > 0);
 
-// Mientras no haya fotos, se muestran 6 espacios reservados
-const slots = PHOTOS.length > 0 ? PHOTOS : Array.from({ length: 6 }, (_, i) => ({ src: '', place: `Foto aérea ${i + 1}`, href: '' }));
 
 const faqs = [
   { q: '¿Las fotos de DroneImagen son gratis?', a: 'Sí. Todas se descargan gratis, en alta resolución y sin marca de agua, creando una cuenta gratuita.' },
@@ -73,18 +71,12 @@ const jsonLd = {
     </div>
     <div class="gallery">
       {
-        slots.map((p, i) =>
-          p.src ? (
-            <a class:list={['shot', { wide: i === 0 }]} href={p.href ? url(p.href) : url('/galeria')} target="_blank" rel="noopener">
-              <img src={p.src} alt={`Fotografía aérea de ${p.place}, Chile`} loading="lazy" />
-              <span class="place">{p.place}</span>
-            </a>
-          ) : (
-            <div class:list={['shot', 'empty', { wide: i === 0 }]}>
-              <span>{p.place}</span>
-            </div>
-          ),
-        )
+        PHOTOS.map((p) => (
+          <a class:list={['shot', p.size]} href={url('/galeria')} target="_blank" rel="noopener">
+            <img src={p.src} alt={`Fotografía aérea: ${p.alt.charAt(0).toLowerCase()}${p.alt.slice(1)}`} loading="lazy" />
+            {p.place && <span class="place">{p.place}</span>}
+          </a>
+        ))
       }
     </div>
   </section>
@@ -172,10 +164,11 @@ const jsonLd = {
   .gallery { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 200px; gap: 12px; }
   .shot { position: relative; border-radius: var(--radius); overflow: hidden; display: block; }
   .shot.wide { grid-column: span 2; grid-row: span 2; }
+  .shot.tall { grid-row: span 2; }
+  .shot.long { grid-column: span 2; }
   .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
   .shot:hover img { transform: scale(1.04); }
   .place { position: absolute; left: 12px; bottom: 12px; padding: 4px 10px; border-radius: 999px; background: rgba(0, 0, 0, 0.6); color: #fff; font-size: 0.78rem; font-family: var(--head); }
-  .empty { display: grid; place-items: center; background: repeating-linear-gradient(45deg, var(--card) 0 12px, var(--card-2) 12px 24px); border: 1px dashed var(--line); color: var(--faint); font-size: 0.85rem; }
 
   .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
   .steps li { padding: 20px; }
@@ -213,6 +206,7 @@ const jsonLd = {
   @media (max-width: 560px) {
     .stats { grid-template-columns: repeat(2, 1fr); }
     .gallery { grid-template-columns: 1fr 1fr; grid-auto-rows: 140px; }
+    .shot.tall { grid-row: auto; }
     .steps, .links { grid-template-columns: 1fr; }
   }
 </style>

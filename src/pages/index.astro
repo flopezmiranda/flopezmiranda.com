@@ -200,19 +200,7 @@ const jsonLd = {
         </div>
       </a>
       <a class="card project" href="/droneimagen/">
-        <figure class="drone-art" aria-hidden="true">
-          <!-- Ilustración provisoria: reemplazar por una foto real de droneimagen.cl -->
-          <svg viewBox="0 0 600 340" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color: var(--accent-2)" /><stop offset="1" style="stop-color: var(--accent)" /></linearGradient>
-            </defs>
-            <rect width="600" height="340" fill="url(#sky)" />
-            <circle cx="470" cy="90" r="38" fill="#f2f7ef" />
-            <path d="M0 220 120 120 200 190 300 90 420 200 520 140 600 200V340H0Z" style="fill: color-mix(in srgb, var(--accent) 30%, var(--thumb-base))" />
-            <path d="M0 260 90 210 180 250 290 180 400 250 500 220 600 260V340H0Z" style="fill: var(--thumb-base)" />
-            <g style="fill: var(--thumb-base)" transform="translate(300 60)"><rect x="-14" y="-5" width="28" height="10" rx="4" /><path d="M-14 0h-22M14 0h22" style="stroke: var(--thumb-base)" stroke-width="3" /><ellipse cx="-40" cy="-3" rx="14" ry="3" /><ellipse cx="40" cy="-3" rx="14" ry="3" /></g>
-          </svg>
-        </figure>
+        <figure><img src="/img/drone/costanera.webp" alt="Fotografía aérea de una costanera junto al mar, de DroneImagen" loading="lazy" /></figure>
         <div class="p-body">
           <p class="kicker">Banco de fotos · Creador</p>
           <h3>DroneImagen</h3>
@@ -334,7 +322,6 @@ const jsonLd = {
   .project { display: flex; flex-direction: column; overflow: hidden; }
   .project figure { margin: 0; aspect-ratio: 16 / 9; overflow: hidden; }
   .project figure img, .project figure svg { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .drone-art svg { fill: initial; stroke: none; }
   .toctoc-art { display: grid; place-items: center; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 30%, var(--thumb-base)), var(--thumb-base)); color: var(--accent); }
   .toctoc-art svg { width: 30% !important; height: auto !important; }
   .p-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
