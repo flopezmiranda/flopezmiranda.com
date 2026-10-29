@@ -1,0 +1,739 @@
+{
+  "period": {
+    "from": "2025-10-30",
+    "to": "2026-10-29"
+  },
+  "followers": 25665,
+  "newFollowers": 13597,
+  "impressions": 3220623,
+  "reached": 727510,
+  "interactions": 55120,
+  "monthly": [
+    {
+      "month": "2025-10",
+      "impressions": 16698,
+      "interactions": 315,
+      "newFollowers": 79
+    },
+    {
+      "month": "2025-11",
+      "impressions": 458564,
+      "interactions": 9197,
+      "newFollowers": 1994
+    },
+    {
+      "month": "2025-12",
+      "impressions": 276514,
+      "interactions": 5638,
+      "newFollowers": 1467
+    },
+    {
+      "month": "2026-01",
+      "impressions": 228425,
+      "interactions": 4706,
+      "newFollowers": 1016
+    },
+    {
+      "month": "2026-02",
+      "impressions": 185998,
+      "interactions": 3533,
+      "newFollowers": 737
+    },
+    {
+      "month": "2026-03",
+      "impressions": 260819,
+      "interactions": 5503,
+      "newFollowers": 1196
+    },
+    {
+      "month": "2026-04",
+      "impressions": 259296,
+      "interactions": 6022,
+      "newFollowers": 1468
+    },
+    {
+      "month": "2026-05",
+      "impressions": 171661,
+      "interactions": 2804,
+      "newFollowers": 984
+    },
+    {
+      "month": "2026-06",
+      "impressions": 279736,
+      "interactions": 3941,
+      "newFollowers": 1019
+    },
+    {
+      "month": "2026-07",
+      "impressions": 394827,
+      "interactions": 4225,
+      "newFollowers": 1047
+    },
+    {
+      "month": "2026-08",
+      "impressions": 449316,
+      "interactions": 5428,
+      "newFollowers": 1272
+    },
+    {
+      "month": "2026-09",
+      "impressions": 107378,
+      "interactions": 1853,
+      "newFollowers": 718
+    },
+    {
+      "month": "2026-10",
+      "impressions": 131391,
+      "interactions": 1955,
+      "newFollowers": 600
+    }
+  ],
+  "topPosts": [
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_mundial-marketing-share-7480477689523597312-X1SY",
+      "date": "2026-07-08",
+      "title": "Mundial marketing",
+      "impressions": 239164,
+      "interactions": 1270,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_no-me-reh%C3%BAso-a-pensar-que-esto-fue-un-share-7493338016292438016-7068",
+      "date": "2026-08-12",
+      "title": "No me rehúso a pensar que esto fue un",
+      "impressions": 160350,
+      "interactions": 627,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_las-formas-s%C3%AD-%F0%9D%97%9C%F0%9D%97%A0%F0%9D%97%A3%F0%9D%97%A2%F0%9D%97%A5%F0%9D%97%A7%F0%9D%97%94%F0%9D%97%A1-los-ugcPost-7477048360714174464-Fzg8",
+      "date": "2026-06-28",
+      "title": "Las formas sí IMPORTAN los",
+      "impressions": 147208,
+      "interactions": 639,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_nanobanana-gemini3pro-share-7399681922404143104-7LbS",
+      "date": "2025-11-27",
+      "title": "Nanobanana gemini3pro",
+      "interactions": 2948,
+      "impressions": 135277,
+      "category": "IA"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_ya-sali%C3%B3-el-final-s%C3%AD-muchachos-share-7493702487913197568-71a6",
+      "date": "2026-08-13",
+      "title": "Ya salió el final sí muchachos",
+      "impressions": 132269,
+      "interactions": 754,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_%F0%9D%97%9F%F0%9D%97%9C%F0%9D%97%A6%F0%9D%97%A7%F0%9D%97%A2-actualizado-el-funnel-de-share-7449287429519314944-f9YU",
+      "date": "2026-04-13",
+      "title": "LISTO actualizado el funnel de",
+      "interactions": 2209,
+      "impressions": 88504,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_actualizaron-spotify-qu%C3%A9-opinamos-share-7461921133039075328-HULV",
+      "date": "2026-05-17",
+      "title": "Actualizaron spotify qué opinamos",
+      "impressions": 78229,
+      "interactions": 272,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_al-fin-lleg%C3%B3-hab%C3%ADan-visto-esta-hermosura-share-7495875353026969600-DNEf",
+      "date": "2026-08-19",
+      "title": "Al fin llegó habían visto esta hermosura",
+      "interactions": 1956,
+      "impressions": 67609,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_modomundial-viudodebielsa-share-7476502969488674816-iKC2",
+      "date": "2026-06-27",
+      "title": "Modomundial viudodebielsa",
+      "impressions": 53731,
+      "interactions": 648,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_%F0%9D%97%9D%F0%9D%97%98%F0%9D%97%99%F0%9D%97%98%F0%9D%97%98%F0%9D%97%98%F0%9D%97%98%F0%9D%97%98-mire-donde-estoy-share-7390545312383131649-t6Qg",
+      "date": "2025-11-02",
+      "title": "JEFEEEEE mire donde estoy",
+      "impressions": 52133,
+      "interactions": 309,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_efectowow-share-7396783783359963136-EzFl",
+      "date": "2025-11-19",
+      "title": "Efectowow",
+      "interactions": 1018,
+      "impressions": 49851,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_y-si-comparamos-google-ads-vs-meta-share-7416680119420743681-V0db",
+      "date": "2026-01-13",
+      "title": "Y si comparamos google ads vs meta",
+      "interactions": 904,
+      "impressions": 44418,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_yo-pagu%C3%A9-el-curso-de-meta-andromeda-%F0%9D%97%9D%F0%9D%97%98%F0%9D%97%99%F0%9D%97%98-share-7390950976033247232-J5Zz",
+      "date": "2025-11-03",
+      "title": "Yo pagué el curso de meta andromeda JEFE",
+      "interactions": 955,
+      "impressions": 42917,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_%F0%9D%97%A9%F0%9D%97%9C%F0%9D%97%97%F0%9D%97%98%F0%9D%97%A2-alerta-de-%F0%9D%97%A0%F0%9D%97%98%F0%9D%97%A0%F0%9D%97%98-%F0%9D%98%97%F0%9D%98%A6%F0%9D%98%B3%F0%9D%98%B0-ugcPost-7437880048386338816-ItPu",
+      "date": "2026-03-12",
+      "title": "VIDEO alerta de MEME Pero",
+      "impressions": 40631,
+      "interactions": 166,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_ia-ia-ia-share-7400036855255293952-1kSI",
+      "date": "2025-11-28",
+      "title": "Ia ia ia",
+      "interactions": 911,
+      "impressions": 38658,
+      "category": "IA"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_badbunny-badbunny-ladygaga-share-7426485520819646464-34DG",
+      "date": "2026-02-09",
+      "title": "Badbunny badbunny ladygaga",
+      "impressions": 37731,
+      "interactions": 154,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_s%C3%AD-s%C3%AD-s%C3%AD-meta-sac%C3%B3-un-cami%C3%B3n-de-nuevas-share-7518696479931183104-KNEp",
+      "date": "2026-10-21",
+      "title": "Sí sí sí meta sacó un camión de nuevas",
+      "impressions": 36136,
+      "interactions": 393,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_%F0%9D%97%9D%F0%9D%97%98%F0%9D%97%99%F0%9D%97%98-actualic%C3%A9-el-funnel-de-google-share-7439159848031670272--e2C",
+      "date": "2026-03-16",
+      "title": "JEFE actualicé el funnel de google",
+      "interactions": 882,
+      "impressions": 33896,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_quieres-m%C3%A1s-leads-y-no-sabes-si-google-share-7508028300242366464-1dSa",
+      "date": "2026-09-22",
+      "title": "Quieres más leads y no sabes si google",
+      "interactions": 523,
+      "impressions": 32564,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_adsadvisor-analyticsadvisor-gemini3-share-7404390912967176192-EWnE",
+      "date": "2025-12-10",
+      "title": "Adsadvisor analyticsadvisor gemini3",
+      "interactions": 680,
+      "impressions": 31539,
+      "category": "Datos"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_carta-al-director-share-7515617513813028864-z-iY",
+      "date": "2026-10-13",
+      "title": "Carta al director",
+      "impressions": 28395,
+      "interactions": 385,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_%F0%9D%97%A8%F0%9D%97%A5%F0%9D%97%9A%F0%9D%97%98%F0%9D%97%A1%F0%9D%97%A7%F0%9D%97%98-no-s%C3%A9-qu%C3%A9-est%C3%A1-pasando-share-7454358127296176128-m9Fp",
+      "date": "2026-04-27",
+      "title": "URGENTE no sé qué está pasando",
+      "impressions": 23883,
+      "interactions": 77,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_voy-share-7452592707320893440-QXo7",
+      "date": "2026-04-22",
+      "title": "Voy",
+      "interactions": 574,
+      "impressions": 23323,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_awareness-revenue-share-7433343732252327936-p-UL",
+      "date": "2026-02-28",
+      "title": "Awareness revenue",
+      "interactions": 426,
+      "impressions": 22921,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_pasteleratuspasteles-share-7415244133063258112-ZD43",
+      "date": "2026-01-09",
+      "title": "Pasteleratuspasteles",
+      "impressions": 18755,
+      "interactions": 273,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_%F0%9D%97%9D%F0%9D%97%98%F0%9D%97%99%F0%9D%97%98-y-si-le-digo-que-el-problema-share-7423365617581326336-MLjf",
+      "date": "2026-01-31",
+      "title": "JEFE y si le digo que el problema",
+      "interactions": 430,
+      "impressions": 18271,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_conocen-el-%F0%9D%97%99%F0%9D%97%A8%F0%9D%97%A1%F0%9D%97%A1%F0%9D%97%98%F0%9D%97%9F-%F0%9D%97%9C%F0%9D%97%A1%F0%9D%97%A9%F0%9D%97%9C%F0%9D%97%A6%F0%9D%97%9C%F0%9D%97%95%F0%9D%97%9F-share-7436981434986250240-mWJF",
+      "date": "2026-03-10",
+      "title": "Conocen el FUNNEL INVISIBL",
+      "interactions": 466,
+      "impressions": 17465,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_%F0%9D%97%9D%F0%9D%97%98%F0%9D%97%99%F0%9D%97%98-entienda-nadie-rellena-formularios-share-7391701820911362048-qnuO",
+      "date": "2025-11-05",
+      "title": "JEFE entienda nadie rellena formularios",
+      "impressions": 16909,
+      "interactions": 298,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_ia-share-7389870862151098368-U_GH",
+      "date": "2025-10-31",
+      "title": "Ia",
+      "impressions": 16497,
+      "interactions": 304,
+      "category": "IA"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_est%C3%A1n-locos-lo-nuevo-de-meta-podr%C3%ADa-share-7493165856357638144-IySD",
+      "date": "2026-08-12",
+      "title": "Están locos lo nuevo de meta podría",
+      "interactions": 333,
+      "impressions": 16380,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_ia-share-7393132866731192320-QuHm",
+      "date": "2025-11-09",
+      "title": "Ia",
+      "interactions": 338,
+      "impressions": 16122,
+      "category": "IA"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_siono-share-7470341446617886721-ves4",
+      "date": "2026-06-10",
+      "title": "Siono",
+      "interactions": 340,
+      "impressions": 15450,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_%F0%9D%97%95%F0%9D%97%A2%F0%9D%97%A2%F0%9D%97%A2%F0%9D%97%A0-todo-el-flujo-de-venta-share-7469256508099256320-aJZd",
+      "date": "2026-06-08",
+      "title": "BOOOM todo el flujo de venta",
+      "interactions": 320,
+      "impressions": 15398,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_me-la-juego-quiero-%F0%9D%97%94%F0%9D%97%A8%F0%9D%97%A0%F0%9D%97%98%F0%9D%97%A1%F0%9D%97%A7%F0%9D%97%A2-de-share-7459834216822784000-ZKwt",
+      "date": "2026-05-12",
+      "title": "Me la juego quiero AUMENTO de",
+      "interactions": 445,
+      "impressions": 15178,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_ia-ias-share-7392413016220336128-hCjX",
+      "date": "2025-11-07",
+      "title": "Ia ias",
+      "impressions": 15145,
+      "interactions": 287,
+      "category": "IA"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_si-tu-jefe-quiere-que-todo-el-mundo-vea-la-share-7518162375896760320-tNra",
+      "date": "2026-10-20",
+      "title": "Si tu jefe quiere que todo el mundo vea la",
+      "impressions": 14557,
+      "interactions": 161,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_ia-share-7408724152506871808-0mSa",
+      "date": "2025-12-22",
+      "title": "Ia",
+      "interactions": 313,
+      "impressions": 14361,
+      "category": "IA"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_hice-el-curso-meta-andromeda-%F0%9D%97%9D%F0%9D%97%98%F0%9D%97%99%F0%9D%97%98-share-7439856527576027137-PjR9",
+      "date": "2026-03-18",
+      "title": "Hice el curso meta andromeda JEFE",
+      "interactions": 400,
+      "impressions": 14354,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_ia-ia-share-7398925800181280768-G-Qm",
+      "date": "2025-11-25",
+      "title": "Ia ia",
+      "interactions": 328,
+      "impressions": 14304,
+      "category": "IA"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_lo-dije-la-ia-%F0%9D%97%A1%F0%9D%97%A2-arma-un-funnel-%F0%9D%97%96%F0%9D%97%A2-share-7406895081573593088-GZ0k",
+      "date": "2025-12-17",
+      "title": "Lo dije la ia NO arma un funnel CO",
+      "interactions": 299,
+      "impressions": 14193,
+      "category": "IA"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_google-nos-dio-oro-analicemos-los-nuevos-share-7463451429060608000-tWBj",
+      "date": "2026-05-22",
+      "title": "Google nos dio oro analicemos los nuevos",
+      "interactions": 440,
+      "impressions": 13125,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_andromeda-share-7420704754764435456-ztzo",
+      "date": "2026-01-25",
+      "title": "Andromeda",
+      "interactions": 326,
+      "impressions": 12981,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_%F0%9D%97%9D%F0%9D%97%98%F0%9D%97%99%F0%9D%97%98-ud-dimensiona-lo-que-es-share-7393501529724575745-PiMa",
+      "date": "2025-11-10",
+      "title": "JEFE ud dimensiona lo que es",
+      "interactions": 320,
+      "impressions": 12938,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_google-busca-integrar-click-to-whatsapp-ugcPost-7395068765173927936-srOq",
+      "date": "2025-11-14",
+      "title": "Google busca integrar click to whatsapp",
+      "interactions": 376,
+      "impressions": 12898,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_tu-funnel-puede-tener-un-%F0%9D%97%9B%F0%9D%97%A2%F0%9D%97%AC%F0%9D%97%A2-%F0%9D%97%A1%F0%9D%97%98-share-7441700410937040896-cBqL",
+      "date": "2026-03-23",
+      "title": "Tu funnel puede tener un HOYO NE",
+      "interactions": 273,
+      "impressions": 12643,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_ia-share-7419703483781746688-KvYo",
+      "date": "2026-01-21",
+      "title": "Ia",
+      "interactions": 376,
+      "impressions": 12521,
+      "category": "IA"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_los-3-formatos-nuevos-de-meta-hacen-cosas-share-7520852565731782656-kI_T",
+      "date": "2026-10-27",
+      "title": "Los 3 formatos nuevos de meta hacen cosas",
+      "interactions": 237,
+      "impressions": 12057,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_homero-entiendo-tu-sentido-de-abandono-share-7479420838862077954-uJT0",
+      "date": "2026-07-05",
+      "title": "Homero entiendo tu sentido de abandono",
+      "interactions": 219,
+      "impressions": 11633,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_no-se-entiende-qu%C3%A9-hiciste-instagram-share-7493788439235096576-0BVq",
+      "date": "2026-08-13",
+      "title": "No se entiende qué hiciste instagram",
+      "interactions": 122,
+      "impressions": 11633,
+      "category": "Marketing"
+    },
+    {
+      "url": "https://www.linkedin.com/posts/flopezmiranda_me-la-jugu%C3%A9-arm%C3%A9-funnel-de-whatsapp-share-7494978308149956608-3Its",
+      "date": "2026-08-17",
+      "title": "Me la jugué armé funnel de whatsapp",
+      "interactions": 282,
+      "impressions": 11423,
+      "category": "Marketing"
+    }
+  ],
+  "audience": {
+    "Empresa": [
+      {
+        "label": "Profesional Independiente",
+        "pct": 0.5
+      },
+      {
+        "label": "Mercado Libre",
+        "pct": 0.5
+      },
+      {
+        "label": "Profesional independiente",
+        "pct": 0.5
+      },
+      {
+        "label": "Publicis Groupe",
+        "pct": 0.5
+      },
+      {
+        "label": "Cencosud",
+        "pct": 0.5
+      },
+      {
+        "label": "Falabella",
+        "pct": 0.5
+      },
+      {
+        "label": "Omnicom Media",
+        "pct": 0.5
+      },
+      {
+        "label": "WPP Media",
+        "pct": 0.5
+      },
+      {
+        "label": "dentsu",
+        "pct": 0.5
+      },
+      {
+        "label": "LATAM Airlines",
+        "pct": 0.5
+      }
+    ],
+    "Ubicación": [
+      {
+        "label": "Área metropolitana de Santiago",
+        "pct": 30.0
+      },
+      {
+        "label": "Buenos Aires y alrededores",
+        "pct": 10.0
+      },
+      {
+        "label": "Área metropolitana de Bogotá D.C.",
+        "pct": 5.0
+      },
+      {
+        "label": "Área metropolitana de Ciudad de México",
+        "pct": 5.0
+      },
+      {
+        "label": "Madrid y alrededores",
+        "pct": 4.0
+      },
+      {
+        "label": "Área metropolitana de Lima",
+        "pct": 3.0
+      },
+      {
+        "label": "Barcelona y alrededores",
+        "pct": 2.0
+      },
+      {
+        "label": "Córdoba y alrededores, Argentina",
+        "pct": 1.0
+      },
+      {
+        "label": "Área metropolitana de Valparaíso",
+        "pct": 1.0
+      },
+      {
+        "label": "Área metropolitana de Medellín",
+        "pct": 0.5
+      }
+    ],
+    "Tamaño de la empresa": [
+      {
+        "label": "11 - 50 empleados",
+        "pct": 16.0
+      },
+      {
+        "label": "2 - 10 empleados",
+        "pct": 14.0
+      },
+      {
+        "label": "51 - 200 empleados",
+        "pct": 14.0
+      },
+      {
+        "label": "Más de 10.001 empleados",
+        "pct": 11.0
+      },
+      {
+        "label": "1.001 - 5.000 empleados",
+        "pct": 8.0
+      },
+      {
+        "label": "201 - 500 empleados",
+        "pct": 7.0
+      },
+      {
+        "label": "501 - 1.000 empleados",
+        "pct": 6.0
+      },
+      {
+        "label": "5.001 - 10.000 empleados",
+        "pct": 3.0
+      },
+      {
+        "label": "0 - 1 empleados",
+        "pct": 2.0
+      }
+    ],
+    "Nivel de responsabilidad": [
+      {
+        "label": "Con experiencia",
+        "pct": 39.0
+      },
+      {
+        "label": "Sin experiencia",
+        "pct": 22.0
+      },
+      {
+        "label": "Director",
+        "pct": 9.0
+      },
+      {
+        "label": "Gerente",
+        "pct": 7.0
+      },
+      {
+        "label": "Directivo",
+        "pct": 4.0
+      },
+      {
+        "label": "Propietario",
+        "pct": 3.0
+      },
+      {
+        "label": "Vicepresidente",
+        "pct": 2.0
+      },
+      {
+        "label": "Socio",
+        "pct": 1.0
+      },
+      {
+        "label": "Formación",
+        "pct": 0.5
+      }
+    ],
+    "Cargo": [
+      {
+        "label": "Fundador",
+        "pct": 3.0
+      },
+      {
+        "label": "Jefe de marketing",
+        "pct": 3.0
+      },
+      {
+        "label": "Especialista en marketing",
+        "pct": 2.0
+      },
+      {
+        "label": "Cofundador",
+        "pct": 2.0
+      },
+      {
+        "label": "Especialista en medios",
+        "pct": 2.0
+      },
+      {
+        "label": "Consejero delegado",
+        "pct": 2.0
+      },
+      {
+        "label": "Coordinador de marketing",
+        "pct": 1.0
+      },
+      {
+        "label": "Analista de marketing",
+        "pct": 1.0
+      },
+      {
+        "label": "Especialista en marketing digital",
+        "pct": 1.0
+      },
+      {
+        "label": "Director de marca",
+        "pct": 1.0
+      }
+    ],
+    "Sector": [
+      {
+        "label": "Servicios de publicidad",
+        "pct": 26.0
+      },
+      {
+        "label": "Servicios de marketing",
+        "pct": 16.0
+      },
+      {
+        "label": "Tecnología, información e internet",
+        "pct": 4.0
+      },
+      {
+        "label": "Consultoría y servicios a empresas",
+        "pct": 4.0
+      },
+      {
+        "label": "Servicios y consultoría de TI",
+        "pct": 4.0
+      },
+      {
+        "label": "Comercio al por menor",
+        "pct": 3.0
+      },
+      {
+        "label": "Servicios de relaciones públicas y comunicaciones",
+        "pct": 3.0
+      },
+      {
+        "label": "Servicios financieros",
+        "pct": 3.0
+      },
+      {
+        "label": "Desarrollo de software",
+        "pct": 2.0
+      },
+      {
+        "label": "Bienes inmuebles",
+        "pct": 1.0
+      }
+    ]
+  }
+}

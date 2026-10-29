@@ -11,11 +11,3 @@ export const SOCIAL = {
   x: '',
   email: '',
 };
-
-// Cifras de LinkedIn para la portada. Deja en null las que no quieras mostrar.
-export const LINKEDIN_STATS: { label: string; value: string | null }[] = [
-  { label: 'seguidores en LinkedIn', value: null },
-  { label: 'impresiones en el último año', value: null },
-  { label: 'publicaciones', value: null },
-  { label: 'interacciones', value: null },
-];
