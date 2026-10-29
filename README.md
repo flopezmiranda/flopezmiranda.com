@@ -35,3 +35,15 @@ Al hacer push a `main`, GitHub Actions compila y publica el sitio automáticamen
 - `src/consts.ts` — nombre, descripción y enlaces a redes.
 - `src/pages/sobre-mi.astro` — tu biografía.
 - `src/styles/global.css` — colores y tipografía.
+
+## Actualizar las cifras de LinkedIn
+
+1. En LinkedIn: **Análisis → Impresiones de publicaciones → Últimos 365 días → Exportar**.
+2. Ejecuta:
+
+   ```bash
+   pip install openpyxl
+   python scripts/import_linkedin.py ruta/al/AnalisisConjunto_....xlsx
+   ```
+
+3. Sube el cambio de `src/data/linkedin.json` a `main` y la web se actualiza sola.
