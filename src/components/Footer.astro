@@ -1,27 +1,35 @@
 ---
-import { SOCIAL, SITE_TITLE } from '../consts';
+import { SOCIAL, SITE_TITLE, LINKEDIN_URL } from '../consts';
 const year = new Date().getFullYear();
 ---
 
-<footer class="container">
-  <p class="sign serif">Hablemos en <a href={SOCIAL.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a></p>
-  <div class="bottom">
-    <span>© {year} {SITE_TITLE}</span>
-    <span class="links">
-      {SOCIAL.x && <a href={SOCIAL.x} target="_blank" rel="noopener">X</a>}
-      {SOCIAL.email && <a href={`mailto:${SOCIAL.email}`}>Email</a>}
-      <a href="/rss.xml">RSS</a>
-    </span>
+<footer class="ink">
+  <div class="container">
+    <p class="brand">Felipe<strong>LópezMiranda</strong></p>
+    <div class="cols">
+      <div>
+        <p class="title-xl">Hablemos en<br /><em>LinkedIn</em></p>
+        <a class="pill" href={LINKEDIN_URL} target="_blank" rel="noopener">Sígueme en LinkedIn</a>
+      </div>
+      <ul class="links">
+        <li><a href="/blog/">Escritos</a></li>
+        <li><a href="/sobre-mi/">Sobre mí</a></li>
+        {SOCIAL.email && <li><a href={`mailto:${SOCIAL.email}`}>{SOCIAL.email}</a></li>}
+        <li><a href="/rss.xml">RSS</a></li>
+      </ul>
+    </div>
+    <p class="copy">© {year} {SITE_TITLE}</p>
   </div>
 </footer>
 
 <style>
-  footer { margin-top: 140px; padding-bottom: 40px; }
-  .sign { font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1; margin: 0 0 48px; }
-  .sign a { color: var(--accent); text-decoration: none; }
-  .sign a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
-  .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--muted); }
-  .links { display: flex; gap: 18px; }
-  .links a { text-decoration: none; }
-  .links a:hover { color: var(--text); }
+  footer { margin-top: 0; padding: 72px 0 32px; }
+  .brand { font-family: var(--serif); font-size: 1.2rem; margin: 0 0 64px; }
+  .brand strong { font-family: var(--sans); font-weight: 600; font-size: 0.95rem; }
+  .cols { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 40px; }
+  .title-xl { margin: 0 0 28px; }
+  .links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 0.9rem; }
+  .links a { color: var(--muted); text-decoration: none; }
+  .links a:hover { color: #fff; }
+  .copy { margin: 72px 0 0; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.78rem; color: var(--muted); }
 </style>
