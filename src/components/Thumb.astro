@@ -20,17 +20,17 @@ const hi = words.reduce((best, w, i) => (w.length > words[best].length ? i : bes
 
 <style>
   .thumb { position: relative; aspect-ratio: 16 / 9; border-radius: 10px 10px 0 0; overflow: hidden; display: flex; align-items: flex-end; padding: 12px 14px; }
-  .thumb::before { content: ''; position: absolute; width: 70%; aspect-ratio: 1; right: -20%; top: -35%; border-radius: 50%; background: radial-gradient(circle, rgba(182, 255, 59, 0.22), transparent 70%); }
-  .thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(rgba(182, 255, 59, 0.06) 1px, transparent 1px) 0 0 / 100% 22px; }
-  .v0 { background: linear-gradient(135deg, #1f3a12, #0a0f0a); }
-  .v1 { background: linear-gradient(135deg, #0f3b2c, #0a0f0a); }
-  .v2 { background: linear-gradient(135deg, #2c4a10, #101a0c); }
-  .v3 { background: linear-gradient(135deg, #12332a, #1d2b16); }
-  .v4 { background: linear-gradient(135deg, #263a1c, #0a1410); }
-  .t { position: relative; z-index: 1; margin: 0; font-family: var(--head); font-weight: 800; font-size: clamp(0.95rem, 1.6vw, 1.15rem); line-height: 1.05; text-transform: uppercase; color: #fff; text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35); max-width: 88%; }
-  .hl { color: var(--lime); }
-  .badge, .corner { position: absolute; z-index: 1; font-family: var(--head); font-weight: 700; font-size: 0.68rem; padding: 2px 7px; border-radius: 5px; background: rgba(10, 15, 10, 0.85); color: var(--text); }
-  .badge { background: var(--lime); color: #0a0f0a; }
+  .thumb::before { content: ''; position: absolute; width: 70%; aspect-ratio: 1; right: -20%; top: -35%; border-radius: 50%; background: radial-gradient(circle, rgba(var(--accent-rgb), 0.22), transparent 70%); }
+  .thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(rgba(var(--accent-rgb), 0.06) 1px, transparent 1px) 0 0 / 100% 22px; }
+  .v0 { background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 30%, var(--thumb-base)), var(--thumb-base)); }
+  .v1 { background: linear-gradient(135deg, color-mix(in srgb, var(--accent-2) 28%, var(--thumb-base)), var(--thumb-base)); }
+  .v2 { background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 45%, var(--thumb-base)), color-mix(in srgb, var(--accent) 8%, var(--thumb-base))); }
+  .v3 { background: linear-gradient(135deg, color-mix(in srgb, var(--accent-2) 40%, var(--thumb-base)), color-mix(in srgb, var(--accent) 15%, var(--thumb-base))); }
+  .v4 { background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 20%, var(--thumb-base)), color-mix(in srgb, var(--accent-2) 20%, var(--thumb-base))); }
+  .t { position: relative; z-index: 1; margin: 0; font-family: var(--head); font-weight: 800; font-size: clamp(0.95rem, 1.6vw, 1.15rem); line-height: 1.05; text-transform: uppercase; color: var(--thumb-text); text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35); max-width: 88%; }
+  .hl { color: var(--accent); }
+  .badge, .corner { position: absolute; z-index: 1; font-family: var(--head); font-weight: 700; font-size: 0.68rem; padding: 2px 7px; border-radius: 5px; background: color-mix(in srgb, var(--thumb-base) 85%, transparent); color: var(--thumb-text); }
+  .badge { background: var(--accent); color: var(--on-accent); }
   .badge { top: 10px; left: 10px; }
   .corner { bottom: 10px; right: 10px; }
 </style>

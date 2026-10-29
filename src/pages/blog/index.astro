@@ -45,7 +45,7 @@ const categories = ['Todos', 'Marketing', 'Datos', 'IA'];
   .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
   button { font: inherit; font-family: var(--head); font-size: 0.82rem; font-weight: 500; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
   button:hover { color: var(--text); }
-  button[aria-pressed='true'] { background: var(--lime); color: #0a0f0a; border-color: transparent; }
+  button[aria-pressed='true'] { background: var(--accent); color: var(--on-accent); border-color: transparent; }
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .grid > div[hidden] { display: none; }
   @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
