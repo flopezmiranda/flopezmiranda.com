@@ -5,8 +5,13 @@ import Base from './Base.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { PERSON_ID, SITE_URL } from '../seo';
 
-type Props = CollectionEntry<'blog'>['data'] & { minutes: number };
-const { title, description, pubDate, updatedDate, category, tags, minutes, originalUrl, series, edition } = Astro.props;
+type Props = CollectionEntry<'blog'>['data'] & { minutes: number; slug: string; headings: { depth: number; slug: string; text: string }[] };
+const { title, description, pubDate, updatedDate, category, tags, minutes, originalUrl, series, edition, slug, headings } = Astro.props;
+const cover = `/img/covers/${slug}.webp`;
+const ogImage = `/og/blog/${slug}.png`;
+// Índice solo si el artículo tiene 3 o más subtítulos
+const toc = headings.filter((h) => h.depth <= 3);
+const showToc = toc.length >= 3;
 const url = `${SITE_URL}${Astro.url.pathname}`;
 const article = {
   '@type': 'BlogPosting',
@@ -22,7 +27,7 @@ const article = {
   keywords: tags.join(', '),
   author: { '@id': PERSON_ID },
   publisher: { '@id': PERSON_ID },
-  image: `${SITE_URL}/og/felipe-lopez-miranda.png`,
+  image: `${SITE_URL}${ogImage}`,
   ...(originalUrl ? { sameAs: originalUrl } : {}),
   ...(series ? { isPartOf: { '@type': 'CreativeWorkSeries', name: series } } : {}),
 };
@@ -32,6 +37,8 @@ const article = {
   title={title}
   description={description}
   type="article"
+  image={ogImage}
+  imageAlt={`Portada del artículo: ${title}`}
   published={pubDate}
   modified={updatedDate ?? pubDate}
   schema={[article]}
@@ -56,7 +63,32 @@ const article = {
         )
       }
     </header>
-    <div class="prose"><slot /></div>
+    <figure class="cover">
+      <img src={cover} alt={`Portada del artículo: ${title}`} width="1600" height="900" fetchpriority="high" />
+    </figure>
+    {
+      showToc && (
+        <nav class="toc card" aria-labelledby="toc-title">
+          <p id="toc-title" class="kicker">En este artículo</p>
+          <ol>
+            {toc.map((h) => (
+              <li class={`d${h.depth}`}>
+                <a href={`#${h.slug}`}>{h.text}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )
+    }
+    <div class="prose article-body"><slot /></div>
+    <aside class="author card" aria-label="Sobre el autor">
+      <img src="/img/retrato.webp" alt="Felipe López Miranda" width="96" height="96" loading="lazy" />
+      <div>
+        <p class="kicker">Escrito por</p>
+        <p class="name"><a href="/sobre-mi/">Felipe López Miranda</a></p>
+        <p class="bio">CMO & Growth Lead en TOCTOC, periodista y Magíster en Marketing. Escribe sobre performance, datos e IA y conduce Efecto Podcast.</p>
+      </div>
+    </aside>
     <footer class="card">
       {tags.length > 0 && <p class="tags">{tags.map((t) => <span>#{t}</span>)}</p>}
       <p>¿Te sirvió? Sigamos la conversación en LinkedIn.</p>
@@ -69,7 +101,7 @@ const article = {
 </Base>
 
 <style>
-  header { padding: 56px 0 32px; margin-bottom: 32px; border-bottom: 1px solid var(--line); }
+  header { padding: 56px 0 28px; }
   h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 14px 0 16px; }
   .lead { font-size: 1.15rem; color: var(--muted); margin: 0; }
   .origin { margin: 18px 0 0; padding: 10px 14px; border-radius: 10px; background: var(--card); border: 1px solid var(--line); font-size: 0.88rem; color: var(--muted); }
@@ -78,4 +110,36 @@ const article = {
   footer p { margin: 0 0 14px; }
   .tags { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.82rem; color: var(--muted); }
   .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .cover { margin: 0 0 36px; border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 50px -28px rgba(11, 27, 58, 0.55); }
+  .cover img { display: block; width: 100%; height: auto; }
+  .toc { padding: 18px 22px; margin: 0 0 36px; }
+  .toc ol { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 6px; font-size: 0.92rem; }
+  .toc li.d3 { margin-left: 16px; list-style: circle; }
+  .toc a { color: var(--text); text-decoration: none; }
+  .toc a:hover { color: var(--accent); }
+  .author { display: flex; gap: 18px; align-items: center; padding: 20px; margin-top: 48px; }
+  .author img { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .author p { margin: 0; }
+  .author .name { font-family: var(--head); font-weight: 700; font-size: 1.1rem; margin: 2px 0 4px; }
+  .author .name a { text-decoration: none; }
+  .author .bio { font-size: 0.9rem; color: var(--muted); }
+
+  /* Texto más visual */
+  .article-body :global(> p:first-child) { font-size: 1.2rem; line-height: 1.6; color: var(--text); }
+  .article-body :global(h2) { font-size: 1.6rem; margin-top: 2.2em; padding-top: 1.2em; border-top: 1px solid var(--line); scroll-margin-top: 80px; }
+  .article-body :global(h3) { font-size: 1.2rem; scroll-margin-top: 80px; }
+  .article-body :global(h2::before) { content: ''; display: block; width: 40px; height: 4px; border-radius: 2px; background: var(--gradient); margin-bottom: 14px; }
+  .article-body :global(blockquote) { margin: 2em 0; padding: 22px 26px; border: 0; border-radius: var(--radius); background: var(--card); font-size: 1.25rem; line-height: 1.5; font-family: var(--head); font-weight: 600; color: var(--text); position: relative; }
+  .article-body :global(blockquote::before) { content: '“'; position: absolute; top: -18px; left: 18px; font-size: 4rem; line-height: 1; color: var(--accent); font-family: Georgia, serif; }
+  .article-body :global(blockquote p) { margin: 0; }
+  .article-body :global(ul) { list-style: none; padding-left: 0; }
+  .article-body :global(ul > li) { position: relative; padding-left: 28px; margin: 0.5em 0; }
+  .article-body :global(ul > li::before) { content: ''; position: absolute; left: 4px; top: 0.6em; width: 10px; height: 10px; border-radius: 3px; background: var(--accent); transform: rotate(45deg); }
+  .article-body :global(ol) { padding-left: 1.4em; }
+  .article-body :global(ol > li::marker) { color: var(--accent); font-family: var(--head); font-weight: 700; }
+  .article-body :global(hr) { border: 0; height: 24px; margin: 2.4em 0; text-align: center; }
+  .article-body :global(hr::after) { content: '• • •'; color: var(--accent); letter-spacing: 0.6em; font-size: 1rem; }
+  .article-body :global(a) { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  @media (max-width: 560px) { .author { flex-direction: column; align-items: flex-start; } }
 </style>

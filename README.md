@@ -62,6 +62,14 @@ python scripts/import_linkedin_shares.py ruta/a/Shares.csv    # publicaciones ->
 - `/linkedin/` muestra las publicaciones del último año, agrupadas por mes.
 - Ambos scripts aplican la regla de marca: "Efecto Wow" se reemplaza por Efecto Podcast o Efecto Newsletter según el contexto.
 
+## Portadas de los escritos
+
+```bash
+python scripts/make_covers.py
+```
+
+Genera una portada por artículo en `public/img/covers/` y su imagen para compartir en `public/og/blog/`. El dibujo depende del tema del título (WhatsApp, Google Ads, IA, e-commerce…) y el color, de la categoría. Si agregas un artículo nuevo, vuelve a correrlo.
+
 ## SEO, AEO y GEO
 
 - **Datos estructurados**: `src/seo.ts` define la ficha de Persona, el sitio, Efecto Podcast y DroneImagen. Cada página suma lo suyo (preguntas frecuentes, migas de pan, artículo) con la prop `schema` de `Base`.
