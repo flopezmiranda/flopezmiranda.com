@@ -2,17 +2,31 @@
 import Base from '../../layouts/Base.astro';
 import PostCard from '../../components/PostCard.astro';
 import { getPosts } from '../../utils';
+import LinkedInButtons from '../../components/LinkedInButtons.astro';
 
 const posts = await getPosts();
 const categories = ['Todos', 'Marketing', 'Datos', 'IA'];
 ---
 
-<Base title="Escritos" description="Artículos sobre marketing, datos e inteligencia artificial.">
+<Base
+  title="Escritos"
+  description="Artículos de Felipe López Miranda sobre marketing, datos e inteligencia artificial."
+  noindex={posts.length === 0}
+  crumbs={[{ name: 'Escritos', path: '/blog/' }]}
+>
   <section class="section container">
     <p class="kicker">Blog</p>
     <h1>Escritos</h1>
     <p class="muted intro">Ideas más largas sobre marketing, datos e inteligencia artificial.</p>
-    <div class="filters" role="group" aria-label="Filtrar por tema">
+    {
+      posts.length === 0 && (
+        <div class="card empty">
+          <p>Pronto publicaré aquí mis primeros artículos. Mientras tanto, todo mi contenido está en LinkedIn.</p>
+          <LinkedInButtons />
+        </div>
+      )
+    }
+    <div class="filters" role="group" aria-label="Filtrar por tema" hidden={posts.length === 0}>
       {categories.map((c) => <button type="button" data-filter={c}>{c}</button>)}
     </div>
     <div class="grid">
@@ -48,5 +62,7 @@ const categories = ['Todos', 'Marketing', 'Datos', 'IA'];
   button[aria-pressed='true'] { background: var(--accent); color: var(--on-accent); border-color: transparent; }
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .grid > div[hidden] { display: none; }
+  .empty { padding: 24px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+  .empty p { margin: 0; color: var(--muted); }
   @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
 </style>

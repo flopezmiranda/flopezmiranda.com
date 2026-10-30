@@ -3,7 +3,8 @@ import LinkedInButtons from '../components/LinkedInButtons.astro';
 import Base from '../layouts/Base.astro';
 import LinkedInPostCard from '../components/LinkedInPostCard.astro';
 import AudienceBars from '../components/AudienceBars.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, LINKEDIN_URL, SOCIAL, TOPICS } from '../consts';
+import { SITE_DESCRIPTION, LINKEDIN_URL, TOPICS } from '../consts';
+import { faqPage, podcast, droneimagen } from '../seo';
 import { LINKEDIN, compact, formatNumber } from '../data/linkedin';
 
 const featured = LINKEDIN.topPosts.slice(0, 8);
@@ -56,29 +57,14 @@ const faqs = [
   },
 ];
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Person',
-      name: 'Felipe López Miranda',
-      url: 'https://flopezmiranda.com/',
-      image: 'https://flopezmiranda.com/img/retrato.webp',
-      jobTitle: 'CMO & Growth Lead',
-      worksFor: { '@type': 'Organization', name: 'TOCTOC', url: 'https://www.toctoc.com' },
-      sameAs: [LINKEDIN_URL, SOCIAL.instagram, 'https://efectopodcast.com/', 'https://www.droneimagen.cl/'].filter(Boolean),
-      knowsAbout: ['Marketing digital', 'Performance marketing', 'Analítica', 'Inteligencia artificial', 'Branding'],
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-    },
-  ],
-};
 ---
 
-<Base title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<Base
+  title="Inicio"
+  fullTitle="Felipe López Miranda | Marketing, datos e inteligencia artificial"
+  description="Felipe López Miranda, CMO & Growth Lead en TOCTOC y creador de Efecto Podcast. Marketing, datos e IA para más de 25 mil profesionales en LinkedIn."
+  schema={[faqPage(faqs), podcast, droneimagen]}
+>
 
   <!-- Portada -->
   <section class="hero">
@@ -98,13 +84,14 @@ const jsonLd = {
           <div><dd class="num">{compact(LINKEDIN.impressions).replace(' ', '')}</dd><dt>impresiones al año</dt></div>
           <div><dd class="num">39</dd><dt>episodios de podcast</dt></div>
         </dl>
+        <p class="source">Datos de LinkedIn Analytics al {new Date(LINKEDIN.period.to).toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })}.</p>
       </div>
 
       <div class="stack">
-        <figure class="ph back-1"><img src="/img/podcast-1.webp" alt="" /></figure>
-        <figure class="ph back-2"><img src="/img/retrato.webp" alt="" /></figure>
+        <figure class="ph back-1"><img src="/img/podcast-1.webp" alt="" width="1600" height="900" decoding="async" /></figure>
+        <figure class="ph back-2"><img src="/img/retrato.webp" alt="" width="1254" height="1254" decoding="async" /></figure>
         <figure class="ph front">
-          <img src="/img/evento-20k.webp" alt="Felipe en el escenario celebrando 20 mil seguidores en LinkedIn" />
+          <img src="/img/evento-20k.webp" alt="Felipe López Miranda en el escenario, en el evento por sus 20 mil seguidores en LinkedIn" width="832" height="1191" fetchpriority="high" />
           <figcaption>
             <span class="kicker">En vivo · Hito de LinkedIn</span>
             <strong>Celebrando 20K seguidores</strong>
@@ -188,7 +175,7 @@ const jsonLd = {
     <div class="projects">
       <a class="card project" href="https://efectopodcast.com/" target="_blank" rel="noopener">
         <figure>
-          <img src="/img/podcast-2.webp" alt="Felipe en el estudio de Efecto Podcast" loading="lazy" />
+          <img src="/img/podcast-2.webp" alt="Felipe López Miranda en el estudio de Efecto Podcast" width="1600" height="900" loading="lazy" decoding="async" />
           <span class="pod-badge"><img src="/img/efecto-podcast-logo.png" alt="" width="34" height="28" /></span>
         </figure>
         <div class="p-body">
@@ -202,7 +189,7 @@ const jsonLd = {
         </div>
       </a>
       <a class="card project" href="/droneimagen/">
-        <figure><img src="/img/drone/costanera.webp" alt="Fotografía aérea de una costanera junto al mar, de DroneImagen" loading="lazy" /></figure>
+        <figure><img src="/img/drone/costanera.webp" alt="Fotografía aérea de una costanera junto al mar, de DroneImagen" width="1500" height="1125" loading="lazy" decoding="async" /></figure>
         <div class="p-body">
           <p class="kicker">Banco de fotos · Creador</p>
           <h3>DroneImagen</h3>
@@ -232,7 +219,7 @@ const jsonLd = {
   <!-- Sobre mí -->
   <section class="section container">
     <div class="card about">
-      <figure><img src="/img/retrato.webp" alt="Retrato de Felipe López Miranda" loading="lazy" /></figure>
+      <figure><img src="/img/retrato.webp" alt="Retrato de Felipe López Miranda" width="1254" height="1254" loading="lazy" decoding="async" /></figure>
       <div>
         <p class="kicker">Sobre mí</p>
         <h2>Hola, soy <span class="grad">Felipe</span></h2>
@@ -273,6 +260,7 @@ const jsonLd = {
   .stats { display: flex; gap: 32px; margin: 32px 0 0; }
   .stats dd { margin: 0; font-family: var(--head); font-weight: 700; font-size: 1.6rem; line-height: 1; }
   .stats dt { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+  .source { margin: 14px 0 0; font-size: 0.72rem; color: var(--faint); }
 
   .stack { position: relative; height: 420px; }
   .ph { position: absolute; margin: 0; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 60px -25px rgba(11, 27, 58, 0.45); }

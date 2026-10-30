@@ -47,3 +47,12 @@ Al hacer push a `main`, GitHub Actions compila y publica el sitio automáticamen
    ```
 
 3. Sube el cambio de `src/data/linkedin.json` a `main` y la web se actualiza sola.
+
+## SEO, AEO y GEO
+
+- **Datos estructurados**: `src/seo.ts` define la ficha de Persona, el sitio, Efecto Podcast y DroneImagen. Cada página suma lo suyo (preguntas frecuentes, migas de pan, artículo) con la prop `schema` de `Base`.
+- **Título, descripción e imagen para redes**: props `title`/`fullTitle`, `description`, `image` de `Base`. Las imágenes para compartir están en `public/og/` (1200×630).
+- **`/llms.txt`**: resumen para asistentes de IA, se genera solo en `src/pages/llms.txt.ts` con las cifras de LinkedIn.
+- **`robots.txt`**: permite a buscadores y rastreadores de IA.
+- **IndexNow**: después de cada publicación, GitHub Actions avisa a Bing y Yandex (clave en `public/<clave>.txt`).
+- **Artículos**: los de ejemplo están con `draft: true`. Mientras no haya artículos publicados, `/blog/` queda fuera del sitemap y con `noindex`.

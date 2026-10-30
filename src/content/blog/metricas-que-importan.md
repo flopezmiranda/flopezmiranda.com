@@ -3,6 +3,7 @@ title: '5 métricas de marketing que sí mueven el negocio'
 description: 'Deja de reportar likes. Estas son las métricas que conectan marketing con ingresos.'
 pubDate: 2026-10-28
 category: 'Datos'
+draft: true # contenido de ejemplo, oculto
 tags: ['métricas', 'analítica', 'ROI']
 ---
 

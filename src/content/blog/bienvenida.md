@@ -3,6 +3,7 @@ title: 'Bienvenidos: marketing, datos e IA sin humo'
 description: 'Por qué abro este blog y qué vas a encontrar aquí cada semana.'
 pubDate: 2026-10-29
 category: 'Marketing'
+draft: true # contenido de ejemplo, oculto
 tags: ['blog', 'estrategia']
 ---
 

@@ -37,3 +37,18 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Avisa a Bing, Yandex y otros buscadores (IndexNow) que el sitio cambió.
+  indexnow:
+    needs: deploy
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Ping IndexNow
+        run: |
+          sleep 30
+          URLS=$(curl -s https://flopezmiranda.com/sitemap-0.xml | grep -o '<loc>[^<]*' | sed 's/<loc>//' | jq -R . | jq -s -c .)
+          echo "$URLS"
+          curl -s -o /dev/null -w "%{http_code}\n" -X POST https://api.indexnow.org/IndexNow \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            -d "{\"host\":\"flopezmiranda.com\",\"key\":\"f83bf2ae8c32414db7a79e68245eedf2\",\"keyLocation\":\"https://flopezmiranda.com/f83bf2ae8c32414db7a79e68245eedf2.txt\",\"urlList\":$URLS}"

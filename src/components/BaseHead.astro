@@ -1,18 +1,33 @@
 ---
 import '../styles/global.css';
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, LINKEDIN_URL, SOCIAL } from '../consts';
+import { person, website, breadcrumbs, type Crumb } from '../seo';
 
-interface Props {
+export interface SeoProps {
   title: string;
   description: string;
+  /** Título completo tal cual (sin agregar " · Felipe López Miranda") */
+  fullTitle?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: 'website' | 'article' | 'profile';
+  noindex?: boolean;
+  /** Nodos schema.org adicionales para esta página */
+  schema?: object[];
+  crumbs?: Crumb[];
+  published?: Date;
+  modified?: Date;
 }
 
-const { title, description } = Astro.props;
+const { title, description, fullTitle: forcedTitle, image = '/og/felipe-lopez-miranda.png', imageAlt = 'Felipe López Miranda: marketing, datos e inteligencia artificial', type = 'website', noindex = false, schema = [], crumbs, published, modified } = Astro.props as SeoProps;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const fullTitle = title === SITE_TITLE ? title : `${title} · ${SITE_TITLE}`;
+const fullTitle = forcedTitle ?? (title === SITE_TITLE ? title : `${title} · ${SITE_TITLE}`);
+const imageURL = new URL(image, Astro.site);
+const graph = { '@context': 'https://schema.org', '@graph': [website, person, ...schema, ...(crumbs ? [breadcrumbs(crumbs)] : [])] };
 ---
 
 <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="theme-color" content="#ffffff" />
 <script is:inline>
   // Aplica el modo oscuro guardado antes de pintar la página (evita parpadeo)
@@ -20,21 +35,43 @@ const fullTitle = title === SITE_TITLE ? title : `${title} · ${SITE_TITLE}`;
     if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark';
   } catch (e) {}
 </script>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
+<meta name="author" content="Felipe López Miranda" />
+
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
+<link rel="alternate" type="text/plain" title="Resumen para modelos de lenguaje" href={new URL('llms.txt', Astro.site)} />
+<link rel="me" href={LINKEDIN_URL} />
+{SOCIAL.instagram && <link rel="me" href={SOCIAL.instagram} />}
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap"
-  rel="stylesheet"
-/>
-<link rel="canonical" href={canonicalURL} />
-<title>{fullTitle}</title>
-<meta name="description" content={description} />
-<meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<!-- Open Graph / redes sociales -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="Felipe López Miranda" />
+<meta property="og:locale" content="es_CL" />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={imageAlt} />
+{type === 'profile' && <meta property="profile:first_name" content="Felipe" />}
+{type === 'profile' && <meta property="profile:last_name" content="López Miranda" />}
+{published && <meta property="article:published_time" content={published.toISOString()} />}
+{modified && <meta property="article:modified_time" content={modified.toISOString()} />}
+{type === 'article' && <meta property="article:author" content={LINKEDIN_URL} />}
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />
+<meta name="twitter:image:alt" content={imageAlt} />
+
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />

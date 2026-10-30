@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { faqPage, droneimagen } from '../seo';
 import { DI, MAIN_LINKS, MORE_LINKS, PLACES, REGIONS, COLLECTIONS, PHOTOS } from '../data/droneimagen';
 
 const url = (path: string) => `${DI}${path}`;
@@ -17,23 +18,17 @@ const faqs = [
   { q: '¿Cómo encuentro una foto específica?', a: 'La galería tiene búsqueda inteligente con IA: puedes escribir lo que buscas con tus palabras, como "playa al atardecer" o "cerros de Valparaíso".' },
 ];
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebSite',
-      name: 'DroneImagen',
-      url: `${DI}/`,
-      description: 'Banco de fotos gratis con más de 1.100 fotografías aéreas de Chile tomadas con drone.',
-      creator: { '@type': 'Person', name: 'Felipe López Miranda', url: 'https://flopezmiranda.com/' },
-    },
-    { '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
-  ],
-};
 ---
 
-<Base title="DroneImagen" description="DroneImagen: banco de fotos gratis con más de 1.100 fotografías aéreas de Chile tomadas con drone por Felipe López Miranda.">
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+<Base
+  title="DroneImagen"
+  fullTitle="DroneImagen: 1.100 fotos aéreas gratis de Chile"
+  description="Banco de fotos gratis con más de 1.100 fotografías aéreas de Chile tomadas con drone por Felipe López Miranda. Alta resolución, sin marca de agua."
+  image="/og/droneimagen.jpg"
+  imageAlt="Fotografía aérea de una costanera junto al mar, de DroneImagen"
+  schema={[droneimagen, faqPage(faqs)]}
+  crumbs={[{ name: 'DroneImagen', path: '/droneimagen/' }]}
+>
 
   <section class="hero">
     <div class="container hero-grid">

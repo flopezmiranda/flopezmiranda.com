@@ -3,13 +3,38 @@ import LinkedInButtons from '../components/LinkedInButtons.astro';
 import type { CollectionEntry } from 'astro:content';
 import Base from './Base.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { LINKEDIN_URL } from '../consts';
+import { PERSON_ID, SITE_URL } from '../seo';
 
 type Props = CollectionEntry<'blog'>['data'] & { minutes: number };
 const { title, description, pubDate, updatedDate, category, tags, minutes } = Astro.props;
+const url = `${SITE_URL}${Astro.url.pathname}`;
+const article = {
+  '@type': 'BlogPosting',
+  '@id': `${url}#article`,
+  headline: title,
+  description,
+  url,
+  mainEntityOfPage: url,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  inLanguage: 'es-CL',
+  articleSection: category,
+  keywords: tags.join(', '),
+  author: { '@id': PERSON_ID },
+  publisher: { '@id': PERSON_ID },
+  image: `${SITE_URL}/og/felipe-lopez-miranda.png`,
+};
 ---
 
-<Base title={title} description={description}>
+<Base
+  title={title}
+  description={description}
+  type="article"
+  published={pubDate}
+  modified={updatedDate ?? pubDate}
+  schema={[article]}
+  crumbs={[{ name: 'Escritos', path: '/blog/' }, { name: title, path: Astro.url.pathname }]}
+>
   <article class="container narrow">
     <header>
       <p class="kicker">{category} · <FormattedDate date={pubDate} /> · {minutes} min de lectura</p>
