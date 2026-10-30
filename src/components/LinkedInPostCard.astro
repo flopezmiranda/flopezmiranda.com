@@ -1,5 +1,5 @@
 ---
-import { compact, formatNumber, shareFor, cleanHeadline, type LinkedInPost } from '../data/linkedin';
+import { compact, formatNumber, shareFor, cleanHeadline, postPath, type LinkedInPost } from '../data/linkedin';
 import FormattedDate from './FormattedDate.astro';
 import Thumb from './Thumb.astro';
 
@@ -12,7 +12,7 @@ const share = shareFor(post);
 const headline = share ? cleanHeadline(share.headline) : `${post.title}…`;
 ---
 
-<a class="card post" href={share?.url ?? post.url} target="_blank" rel="noopener">
+<a class="card post" href={(share && postPath(share)) ?? share?.url ?? post.url} target={share && postPath(share) ? undefined : '_blank'} rel="noopener">
   <Thumb text={headline} badge={`#${rank}`} corner={post.impressions ? compact(post.impressions) : undefined} variant={rank - 1} />
   <div class="body">
     <p class="kicker">{post.impressions != null ? `${formatNumber(post.impressions)} impresiones` : 'LinkedIn'}</p>

@@ -1,0 +1,136 @@
+---
+import Base from '../../layouts/Base.astro';
+import LinkedInButtons from '../../components/LinkedInButtons.astro';
+import { POST_PAGES, TAG_PAGES, LINKEDIN, formatNumber, cleanHeadline, type LinkedInShare } from '../../data/linkedin';
+import { postToHtml } from '../../lib/post-text';
+import { PERSON_ID, SITE_URL } from '../../seo';
+
+export function getStaticPaths() {
+  return POST_PAGES.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: (typeof POST_PAGES)[number] };
+const path = `/linkedin/${post.slug}/`;
+const title = cleanHeadline(post.headline).replace(/\s+/g, ' ');
+const body = post.text.startsWith(post.headline) ? post.text.slice(post.headline.length).trim() : post.text;
+const html = postToHtml(body, TAG_PAGES, path);
+const summary = body.replace(/#\S+/g, '').replace(/\s+/g, ' ').trim();
+const description = summary.length > 155 ? summary.slice(0, 152).replace(/\s\S*$/, '') + '…' : summary;
+const date = new Date(post.date);
+const top = LINKEDIN.topPosts.find((t) => t.url.includes(post.id));
+
+// Relacionadas: más hashtags en común, luego misma categoría y fecha cercana
+const score = (p: LinkedInShare) =>
+  p.tags.filter((t) => post.tags.includes(t)).length * 10 + (p.category === post.category ? 3 : 0) -
+  Math.abs(+new Date(p.date) - +date) / 864e5 / 60;
+const related = POST_PAGES.filter((p) => p.id !== post.id).sort((a, b) => score(b) - score(a)).slice(0, 4);
+const idx = POST_PAGES.findIndex((p) => p.id === post.id);
+const newer = POST_PAGES[idx - 1];
+const older = POST_PAGES[idx + 1];
+const fmt = (d: string) => new Date(d).toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+const posting = {
+  '@type': 'SocialMediaPosting',
+  '@id': `${SITE_URL}${path}#post`,
+  headline: title.slice(0, 110),
+  articleBody: post.text,
+  url: `${SITE_URL}${path}`,
+  mainEntityOfPage: `${SITE_URL}${path}`,
+  datePublished: date.toISOString(),
+  inLanguage: 'es-CL',
+  wordCount: post.words,
+  keywords: post.tags.join(', '),
+  author: { '@id': PERSON_ID },
+  sameAs: post.url,
+  sharedContent: { '@type': 'WebPage', url: post.url },
+  ...(top?.interactions ? { interactionStatistic: { '@type': 'InteractionCounter', interactionType: 'https://schema.org/LikeAction', userInteractionCount: top.interactions } } : {}),
+};
+---
+
+<Base
+  title={title}
+  fullTitle={`${title.length > 62 ? title.slice(0, 60).replace(/\s\S*$/, '') + '…' : title} · Felipe López Miranda`}
+  description={description}
+  type="article"
+  published={date}
+  schema={[posting]}
+  crumbs={[{ name: 'Publicaciones', path: '/linkedin/' }, { name: title.slice(0, 60), path }]}
+>
+  <article class="container narrow">
+    <header>
+      <p class="kicker">
+        Publicación en LinkedIn · <time datetime={post.date}>{fmt(post.date)}</time>
+        {top?.impressions && ` · ${formatNumber(top.impressions)} impresiones`}
+      </p>
+      <h1>{title}</h1>
+      <p class="origin">
+        Esta publicación es de mi perfil de LinkedIn.{' '}
+        <a href={post.url} target="_blank" rel="noopener">Ver, comentar y compartir en LinkedIn ↗</a>
+      </p>
+    </header>
+
+    <div class="prose post-body" set:html={html} />
+
+    {
+      post.tags.length > 0 && (
+        <p class="tags">
+          {post.tags.map((t) =>
+            TAG_PAGES.get(t) ? <a href={TAG_PAGES.get(t)}>#{t}</a> : <span>#{t}</span>,
+          )}
+        </p>
+      )
+    }
+
+    <div class="card cta">
+      <p>Publico algo así casi todos los días en LinkedIn.</p>
+      <LinkedInButtons />
+    </div>
+
+    <nav class="pager" aria-label="Más publicaciones">
+      {newer ? <a href={`/linkedin/${newer.slug}/`}>← Más reciente</a> : <span />}
+      <a href="/linkedin/">Todas las publicaciones</a>
+      {older ? <a href={`/linkedin/${older.slug}/`}>Anterior →</a> : <span />}
+    </nav>
+
+    <section class="related" aria-labelledby="rel">
+      <h2 id="rel">Publicaciones relacionadas</h2>
+      <ul>
+        {related.map((r) => (
+          <li>
+            <a href={`/linkedin/${r.slug}/`}>
+              <strong>{cleanHeadline(r.headline)}</strong>
+              <span>{fmt(r.date)}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+</Base>
+
+<style>
+  header { padding: 48px 0 24px; margin-bottom: 24px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: clamp(1.7rem, 4.5vw, 2.5rem); margin: 12px 0 16px; overflow-wrap: anywhere; }
+  .origin { margin: 0; padding: 10px 14px; border-radius: 10px; background: var(--card); border: 1px solid var(--line); font-size: 0.88rem; color: var(--muted); }
+  .origin a { color: var(--accent); font-weight: 500; }
+  .post-body { overflow-wrap: anywhere; }
+  .post-body :global(p) { margin: 0 0 1.1em; }
+  .post-body :global(a) { color: var(--accent); }
+  .post-body :global(span.tag) { color: var(--muted); font-weight: 500; }
+  .post-body :global(a.tag) { color: var(--accent); font-weight: 500; text-decoration: none; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0; }
+  .tags a, .tags span { padding: 4px 12px; border-radius: 999px; border: 1px solid var(--line); font-size: 0.82rem; text-decoration: none; color: var(--muted); }
+  .tags a:hover { border-color: var(--accent); color: var(--accent); }
+  .cta { padding: 20px; margin: 32px 0; display: flex; flex-direction: column; gap: 14px; }
+  .cta p { margin: 0; font-family: var(--head); font-weight: 600; }
+  .pager { display: flex; justify-content: space-between; gap: 12px; font-size: 0.88rem; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .pager a { color: var(--accent); text-decoration: none; }
+  .related { margin-top: 32px; }
+  .related h2 { font-size: 1.2rem; margin-bottom: 12px; }
+  .related ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .related a { display: flex; flex-direction: column; gap: 4px; height: 100%; padding: 14px 16px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); text-decoration: none; }
+  .related a:hover { border-color: var(--accent); }
+  .related strong { font-family: var(--head); font-size: 0.92rem; line-height: 1.35; overflow-wrap: anywhere; }
+  .related span { font-size: 0.78rem; color: var(--faint); }
+  @media (max-width: 560px) { .related ul { grid-template-columns: 1fr; } }
+</style>

@@ -1,8 +1,8 @@
 ---
-import Base from '../layouts/Base.astro';
-import LinkedInButtons from '../components/LinkedInButtons.astro';
-import { SHARES, LINKEDIN, formatNumber } from '../data/linkedin';
-import { SITE_URL, PERSON_ID } from '../seo';
+import Base from '../../layouts/Base.astro';
+import LinkedInButtons from '../../components/LinkedInButtons.astro';
+import { SHARES, LINKEDIN, TAGS, formatNumber, postPath } from '../../data/linkedin';
+import { SITE_URL, PERSON_ID } from '../../seo';
 
 const recent = SHARES.filter((p) => p.recent);
 const monthKey = (d: string) => d.slice(0, 7);
@@ -43,11 +43,15 @@ const page = {
     <p class="kicker">Archivo</p>
     <h1>Publicaciones en LinkedIn</h1>
     <p class="intro muted">
-      {recent.length} publicaciones del último año sobre marketing, performance, datos e IA. Cada una lleva a su post
-      original, donde puedes comentar y seguir la conversación con {formatNumber(LINKEDIN.followers)} profesionales.
+      {recent.length} publicaciones del último año sobre marketing, performance, datos e IA. Cada una tiene su página con
+      el texto completo y el enlace al post original, donde puedes comentar junto a {formatNumber(LINKEDIN.followers)} profesionales.
     </p>
     <LinkedInButtons />
 
+    <nav class="topics" aria-label="Temas">
+      <span>Temas:</span>
+      {TAGS.map((t) => <a href={t.path}>#{t.tag} <span>{t.count}</span></a>)}
+    </nav>
     <nav class="months" aria-label="Meses">
       {groups.map((g) => <a href={`#m-${g.key}`}>{g.name} <span>{g.posts.length}</span></a>)}
     </nav>
@@ -61,9 +65,15 @@ const page = {
               <li>
                 <time datetime={p.date}>{fmt(p.date)}</time>
                 <div>
-                  <a href={p.url} target="_blank" rel="noopener">
-                    <strong>{p.headline}</strong>
-                  </a>
+                  {postPath(p) ? (
+                    <a href={postPath(p)}>
+                      <strong>{p.headline}</strong>
+                    </a>
+                  ) : (
+                    <a href={p.url} target="_blank" rel="noopener">
+                      <strong>{p.headline}</strong> <span class="ext">↗</span>
+                    </a>
+                  )}
                   {excerpt(p) && <p>{excerpt(p)}</p>}
                 </div>
               </li>
@@ -82,6 +92,11 @@ const page = {
   .months a { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); font-size: 0.82rem; text-decoration: none; }
   .months a:hover { border-color: var(--accent); color: var(--accent); }
   .months span { color: var(--faint); margin-left: 4px; }
+  .topics { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 28px 0 0; font-size: 0.82rem; }
+  .topics > span { color: var(--faint); }
+  .topics a { padding: 5px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); text-decoration: none; }
+  .topics a span { opacity: 0.6; margin-left: 2px; }
+  .ext { color: var(--faint); font-size: 0.8em; }
   .month { margin-top: 40px; scroll-margin-top: 80px; }
   .month h2 { font-size: 1.3rem; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
   ol { list-style: none; margin: 0; padding: 0; }

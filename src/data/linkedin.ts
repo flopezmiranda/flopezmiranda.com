@@ -44,6 +44,9 @@ export interface LinkedInShare {
   url: string;
   headline: string;
   text: string;
+  words: number;
+  slug: string | null;
+  tags: string[];
   category: string;
   recent: boolean;
 }
@@ -61,3 +64,16 @@ export function shareFor(post: LinkedInPost) {
 export function cleanHeadline(s: string) {
   return s.replace(/^[^\p{L}\p{N}¡¿"“]+/u, '').trim();
 }
+
+// Páginas propias de publicaciones y temas (hashtags con 4 o más publicaciones)
+export const POST_PAGES = SHARES.filter((p) => p.slug && p.recent) as (LinkedInShare & { slug: string; words: number; tags: string[] })[];
+export const tagSlug = (t: string) =>
+  t.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+const tagCount = new Map<string, number>();
+POST_PAGES.forEach((p) => p.tags.forEach((t) => tagCount.set(t, (tagCount.get(t) ?? 0) + 1)));
+export const TAGS = [...tagCount.entries()]
+  .filter(([, n]) => n >= 4)
+  .sort((a, b) => b[1] - a[1])
+  .map(([tag, count]) => ({ tag, count, slug: tagSlug(tag), path: `/linkedin/tema/${tagSlug(tag)}/` }));
+export const TAG_PAGES = new Map(TAGS.map((t) => [t.tag, t.path]));
+export const postPath = (p: { slug?: string | null; recent?: boolean }) => (p.slug && p.recent ? `/linkedin/${p.slug}/` : undefined);

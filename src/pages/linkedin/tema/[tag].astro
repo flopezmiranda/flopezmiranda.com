@@ -1,0 +1,68 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { POST_PAGES, TAGS, cleanHeadline } from '../../../data/linkedin';
+import { SITE_URL, PERSON_ID } from '../../../seo';
+
+export function getStaticPaths() {
+  return TAGS.map((t) => ({ params: { tag: t.slug }, props: { t } }));
+}
+const { t } = Astro.props as { t: (typeof TAGS)[number] };
+const posts = POST_PAGES.filter((p) => p.tags.includes(t.tag));
+const fmt = (d: string) => new Date(d).toLocaleDateString('es-CL', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+const excerpt = (text: string, headline: string) => {
+  const rest = text.slice(text.indexOf(headline) + headline.length).replace(/\s+/g, ' ').trim();
+  return rest.length > 200 ? rest.slice(0, 200).replace(/\s\S*$/, '') + '…' : rest;
+};
+const page = {
+  '@type': 'CollectionPage',
+  url: `${SITE_URL}${t.path}`,
+  name: `#${t.tag}: publicaciones de Felipe López Miranda`,
+  inLanguage: 'es-CL',
+  author: { '@id': PERSON_ID },
+};
+---
+
+<Base
+  title={`#${t.tag}`}
+  fullTitle={`#${t.tag}: ${posts.length} publicaciones de Felipe López Miranda`}
+  description={`Todas las publicaciones de Felipe López Miranda en LinkedIn con el hashtag #${t.tag}: ${posts.length} posts sobre marketing, performance e IA.`}
+  schema={[page]}
+  crumbs={[{ name: 'Publicaciones', path: '/linkedin/' }, { name: `#${t.tag}`, path: t.path }]}
+>
+  <section class="section container narrow">
+    <p class="kicker">Tema</p>
+    <h1>#{t.tag}</h1>
+    <p class="muted">{posts.length} publicaciones con este hashtag.</p>
+    <nav class="others" aria-label="Otros temas">
+      {TAGS.map((o) => <a href={o.path} aria-current={o.tag === t.tag ? 'page' : undefined}>#{o.tag} <span>{o.count}</span></a>)}
+    </nav>
+    <ol>
+      {
+        posts.map((p) => (
+          <li>
+            <time datetime={p.date}>{fmt(p.date)}</time>
+            <a href={`/linkedin/${p.slug}/`}>
+              <strong>{cleanHeadline(p.headline)}</strong>
+            </a>
+            <p>{excerpt(p.text, p.headline)}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</Base>
+
+<style>
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 10px 0 6px; overflow-wrap: anywhere; }
+  .others { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 8px; }
+  .others a { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); font-size: 0.8rem; text-decoration: none; }
+  .others a[aria-current='page'] { background: var(--accent); color: var(--on-accent); border-color: transparent; }
+  .others span { opacity: 0.6; margin-left: 2px; }
+  ol { list-style: none; margin: 24px 0 0; padding: 0; }
+  li { padding: 16px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px; }
+  time { font-size: 0.78rem; color: var(--faint); }
+  li a { text-decoration: none; }
+  li a:hover strong { color: var(--accent); }
+  li strong { font-family: var(--head); font-weight: 600; overflow-wrap: anywhere; }
+  li p { margin: 0; font-size: 0.9rem; color: var(--muted); overflow-wrap: anywhere; }
+</style>
