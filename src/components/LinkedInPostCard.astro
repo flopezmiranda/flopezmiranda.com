@@ -1,5 +1,5 @@
 ---
-import { compact, formatNumber, shareFor, cleanHeadline, postPath, type LinkedInPost } from '../data/linkedin';
+import { compact, formatNumber, shareFor, cleanHeadline, postPath, postCover, type LinkedInPost } from '../data/linkedin';
 import FormattedDate from './FormattedDate.astro';
 import Thumb from './Thumb.astro';
 
@@ -10,10 +10,20 @@ interface Props {
 const { post, rank } = Astro.props;
 const share = shareFor(post);
 const headline = share ? cleanHeadline(share.headline) : `${post.title}…`;
+const cover = postCover(share?.id);
 ---
 
 <a class="card post" href={(share && postPath(share)) ?? share?.url ?? post.url} target={share && postPath(share) ? undefined : '_blank'} rel="noopener">
-  <Thumb text={headline} badge={`#${rank}`} corner={post.impressions ? compact(post.impressions) : undefined} variant={rank - 1} />
+  {
+    cover ? (
+      <figure class="cover">
+        <img src={cover} alt="" width="1600" height="900" loading="lazy" decoding="async" />
+        <span class="rank">#{rank}</span>
+      </figure>
+    ) : (
+      <Thumb text={headline} badge={`#${rank}`} corner={post.impressions ? compact(post.impressions) : undefined} variant={rank - 1} />
+    )
+  }
   <div class="body">
     <p class="kicker">{post.impressions != null ? `${formatNumber(post.impressions)} impresiones` : 'LinkedIn'}</p>
     <h3>{headline}</h3>
@@ -22,7 +32,11 @@ const headline = share ? cleanHeadline(share.headline) : `${post.title}…`;
 </a>
 
 <style>
-  .post { display: flex; flex-direction: column; height: 100%; }
+  .post { display: flex; flex-direction: column; height: 100%; overflow: hidden; }
+  .cover { position: relative; margin: 0; aspect-ratio: 16 / 9; overflow: hidden; }
+  .cover img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .post:hover .cover img { transform: scale(1.03); }
+  .rank { position: absolute; bottom: 10px; right: 10px; padding: 3px 9px; border-radius: 999px; background: #ffd60a; color: #0b1b3a; font-family: var(--head); font-weight: 800; font-size: 0.72rem; }
   .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
   .kicker { font-size: 0.64rem; }
   h3 { font-size: 0.98rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }

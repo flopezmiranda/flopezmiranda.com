@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import LinkedInButtons from '../../components/LinkedInButtons.astro';
-import { POST_PAGES, TAG_PAGES, LINKEDIN, formatNumber, cleanHeadline, type LinkedInShare } from '../../data/linkedin';
+import { POST_PAGES, TAG_PAGES, LINKEDIN, formatNumber, cleanHeadline, postCover, postOg, type LinkedInShare } from '../../data/linkedin';
 import { postToHtml } from '../../lib/post-text';
 import { PERSON_ID, SITE_URL } from '../../seo';
 
@@ -18,6 +18,8 @@ const summary = body.replace(/#\S+/g, '').replace(/\s+/g, ' ').trim();
 const description = summary.length > 155 ? summary.slice(0, 152).replace(/\s\S*$/, '') + '…' : summary;
 const date = new Date(post.date);
 const top = LINKEDIN.topPosts.find((t) => t.url.includes(post.id));
+const cover = postCover(post.id);
+const og = postOg(post.id);
 
 // Relacionadas: más hashtags en común, luego misma categoría y fecha cercana
 const score = (p: LinkedInShare) =>
@@ -43,6 +45,7 @@ const posting = {
   author: { '@id': PERSON_ID },
   sameAs: post.url,
   sharedContent: { '@type': 'WebPage', url: post.url },
+  ...(og ? { image: `${SITE_URL}${og}` } : {}),
   ...(top?.interactions ? { interactionStatistic: { '@type': 'InteractionCounter', interactionType: 'https://schema.org/LikeAction', userInteractionCount: top.interactions } } : {}),
 };
 ---
@@ -52,6 +55,8 @@ const posting = {
   fullTitle={`${title.length > 62 ? title.slice(0, 60).replace(/\s\S*$/, '') + '…' : title} · Felipe López Miranda`}
   description={description}
   type="article"
+  image={og}
+  imageAlt={og ? `Portada de la publicación: ${title}` : undefined}
   published={date}
   schema={[posting]}
   crumbs={[{ name: 'Publicaciones', path: '/linkedin/' }, { name: title.slice(0, 60), path }]}
@@ -68,6 +73,14 @@ const posting = {
         <a href={post.url} target="_blank" rel="noopener">Ver, comentar y compartir en LinkedIn ↗</a>
       </p>
     </header>
+
+    {
+      cover && (
+        <figure class="cover">
+          <img src={cover} alt={`Portada de la publicación: ${title}`} width="1600" height="900" fetchpriority="high" />
+        </figure>
+      )
+    }
 
     <div class="prose post-body" set:html={html} />
 
@@ -113,6 +126,8 @@ const posting = {
   h1 { font-size: clamp(1.7rem, 4.5vw, 2.5rem); margin: 12px 0 16px; overflow-wrap: anywhere; }
   .origin { margin: 0; padding: 10px 14px; border-radius: 10px; background: var(--card); border: 1px solid var(--line); font-size: 0.88rem; color: var(--muted); }
   .origin a { color: var(--accent); font-weight: 500; }
+  .cover { margin: 0 0 28px; border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 50px -28px rgba(11, 27, 58, 0.55); }
+  .cover img { display: block; width: 100%; height: auto; }
   .post-body { overflow-wrap: anywhere; }
   .post-body :global(p) { margin: 0 0 1.1em; }
   .post-body :global(a) { color: var(--accent); }

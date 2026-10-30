@@ -68,7 +68,7 @@ python scripts/import_linkedin_shares.py ruta/a/Shares.csv    # publicaciones ->
 python scripts/make_covers.py
 ```
 
-Genera una portada por artículo en `public/img/covers/` y su imagen para compartir en `public/og/blog/`. El dibujo depende del tema del título (WhatsApp, Google Ads, IA, e-commerce…) y el color, de la categoría. Si agregas un artículo nuevo, vuelve a correrlo.
+Genera una portada por artículo en `public/img/covers/` y su imagen para compartir en `public/og/blog/`. El dibujo depende del tema del título (WhatsApp, Google Ads, IA, e-commerce…) y el color, de la categoría. Si agregas un artículo nuevo, vuelve a correrlo. También crea portadas para las 50 publicaciones de "Lo más leído" (`public/img/covers/posts/`, `public/og/posts/`); vuelve a correrlo cuando actualices las cifras de LinkedIn.
 
 ## SEO, AEO y GEO
 

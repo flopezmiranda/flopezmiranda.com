@@ -77,3 +77,9 @@ export const TAGS = [...tagCount.entries()]
   .map(([tag, count]) => ({ tag, count, slug: tagSlug(tag), path: `/linkedin/tema/${tagSlug(tag)}/` }));
 export const TAG_PAGES = new Map(TAGS.map((t) => [t.tag, t.path]));
 export const postPath = (p: { slug?: string | null; recent?: boolean }) => (p.slug && p.recent ? `/linkedin/${p.slug}/` : undefined);
+
+// Publicaciones con portada propia (scripts/make_covers.py)
+import coverIds from './post-covers.json';
+const COVER_IDS = new Set(coverIds as string[]);
+export const postCover = (id?: string) => (id && COVER_IDS.has(id) ? `/img/covers/posts/${id}.webp` : undefined);
+export const postOg = (id?: string) => (id && COVER_IDS.has(id) ? `/og/posts/${id}.jpg` : undefined);

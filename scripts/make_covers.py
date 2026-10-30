@@ -4,12 +4,15 @@ Uso:
     python scripts/make_covers.py
 
 Crea public/img/covers/<slug>.webp (1600x900, portada del artículo y tarjetas) y
-public/og/blog/<slug>.png (1200x630, imagen al compartir). El dibujo depende del tema
+public/og/blog/<slug>.png (1200x630, imagen al compartir). También genera portadas para las
+50 publicaciones de "Lo más leído" en public/img/covers/posts/ y public/og/posts/. El dibujo depende del tema
 (palabras clave del título) y los colores de la categoría.
 """
 
+import json
 import math
 import re
+import unicodedata
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
@@ -174,10 +177,19 @@ def m_rocket(d, x, y):
     d.polygon([(x + 180, y + 380), (x + 230, y + 480), (x + 280, y + 380)], fill=YELLOW)
 
 
+# Solo para publicaciones de LinkedIn (se revisan antes que MOTIFS)
+POST_MOTIFS = [
+    (r'mundial|f[uú]tbol|bielsa|selecci[oó]n|16avos|cuartos de final', m_ball),
+    (r'google', m_search),
+    (r'spotify|youtube|reel', m_play),
+    (r'funnel|embudo', m_funnel),
+    (r'\berror\b|cuidado', m_alert),
+]
+
 MOTIFS = [
     (r'whatsapp', m_chat),
     (r'google ads', m_search),
-    (r'herramientas|ia aplicada|\bia\b', m_spark),
+    (r'herramientas|ia aplicada|\bia\b|gemini|nano ?banana|chatgpt|prompt', m_spark),
     (r'shopify|ecommerce|e-commerce', m_bag),
     (r'facebook|collection', m_phone),
     (r'pollo|influenc', m_play),
@@ -204,10 +216,15 @@ def wrap(draw, text, fnt, width):
     return lines + [cur]
 
 
-def cover(meta, slug):
-    dark, mid, accent = PALETTES.get(meta['category'], PALETTES['Marketing'])
+def no_emoji(text):
+    """Inter no tiene emojis: se quitan para el texto de la imagen."""
+    keep = [c for c in text if unicodedata.category(c)[0] in 'LNPZ' or c in '$%+&@']
+    return re.sub(r'\s+', ' ', ''.join(keep)).strip(' -–—·')
+
+
+def cover(category, title, kicker, motif_text, label=None, subtitle=None, motifs=None):
+    dark, mid, accent = PALETTES.get(category, PALETTES['Marketing'])
     im = Image.new('RGB', (W, H), dark)
-    # Degradado diagonal + brillo
     grad = Image.linear_gradient('L').rotate(90).resize((W, H)).filter(ImageFilter.GaussianBlur(40))
     im = Image.composite(Image.new('RGB', (W, H), mid), im, grad)
     glow = Image.new('L', (W, H), 0)
@@ -219,54 +236,93 @@ def cover(meta, slug):
     for gy in range(0, H, 80):
         d.line([(0, gy), (W, gy)], fill=(255, 255, 255, 14), width=1)
 
-    # Dibujo del tema a la derecha
-    title = meta['title']
-    motif = next((fn for pat, fn in MOTIFS if re.search(pat, (title + ' ' + slug).lower())), m_target)
+    motif = next((fn for pat, fn in (motifs or []) + MOTIFS if re.search(pat, motif_text.lower())), m_target)
     layer = Image.new('RGBA', (W, H), (0, 0, 0, 0))
     motif(ImageDraw.Draw(layer), 1040, 200)
     im.paste(layer, (0, 0), layer)
     d = ImageDraw.Draw(im, 'RGBA')
 
-    # Etiquetas
     x = 90
-    kicker = f"{meta['category'].upper()} · {meta['pubDate'][:4]}"
     d.text((x, 90), kicker, font=font('Inter-Bold.otf', 30), fill=(255, 255, 255, 220))
-    if meta['series']:
-        label = f"EFECTO NEWSLETTER{' · #' + meta['edition'] if meta['edition'] else ''}"
+    if label:
         f = font('Inter-Black.otf', 28)
         tw = d.textlength(label, font=f)
         d.rounded_rectangle((x, 140, x + tw + 44, 192), 26, fill=YELLOW)
         d.text((x + 22, 147), label, font=f, fill='#0b1b3a')
 
-    # Título: se achica hasta caber en 5 líneas
-    clean = re.sub(r'\s+', ' ', title.replace('“', '"').replace('”', '"')).strip()
+    clean = no_emoji(title.replace('“', '"').replace('”', '"'))
+    sub_lines, sf = [], None
+    if subtitle:
+        sf = font('Inter-Medium.otf', 34)
+        sub_lines = wrap(d, no_emoji(subtitle), sf, 860)[:2]
+    max_lines = 5 - len(sub_lines)
     for size in (88, 80, 72, 64, 58, 52):
         f = font('InterDisplay-Black.otf', size)
         lines = wrap(d, clean, f, 860)
-        if len(lines) <= 5:
+        if len(lines) <= max_lines:
             break
-    y = H - 140 - len(lines) * int(size * 1.08)
+    lh, sh = int(size * 1.08), 44
+    y = H - 140 - len(lines) * lh - (len(sub_lines) * sh + 18 if sub_lines else 0)
     for ln in lines:
         d.text((x, y), ln, font=f, fill=WHITE)
-        y += int(size * 1.08)
+        y += lh
+    if sub_lines:
+        y += 18
+        for ln in sub_lines:
+            d.text((x, y), ln, font=sf, fill=(255, 255, 255, 215))
+            y += sh
 
-    # Pie
     d.rounded_rectangle((x, H - 96, x + 74, H - 56), 10, fill=WHITE)
     d.text((x + 37, H - 76), 'FLM', font=font('Inter-Black.otf', 22), fill=dark, anchor='mm')
     d.text((x + 92, H - 76), 'Felipe López Miranda · flopezmiranda.com', font=font('Inter-Medium.otf', 26), fill=(255, 255, 255, 210), anchor='lm')
     return im
 
 
-def main():
+def save(im, cover_path, og_path, og_format='PNG'):
+    im.save(cover_path, 'WEBP', quality=84)
+    og = im.resize((1200, 675)).crop((0, 22, 1200, 652))
+    og.save(og_path, og_format, **({'optimize': True} if og_format == 'PNG' else {'quality': 82}))
+
+
+def article_covers():
     COVERS.mkdir(parents=True, exist_ok=True)
     OG.mkdir(parents=True, exist_ok=True)
     for md in sorted(BLOG.glob('*.md')):
-        meta = frontmatter(md.read_text(encoding='utf-8'))
-        im = cover(meta, md.stem)
-        im.save(COVERS / f'{md.stem}.webp', 'WEBP', quality=84)
-        og = im.resize((1200, 675)).crop((0, 22, 1200, 652))
-        og.save(OG / f'{md.stem}.png', optimize=True)
+        m = frontmatter(md.read_text(encoding='utf-8'))
+        label = f"EFECTO NEWSLETTER{' · #' + m['edition'] if m['edition'] else ''}" if m['series'] else None
+        im = cover(m['category'], m['title'], f"{m['category'].upper()} · {m['pubDate'][:4]}", m['title'] + ' ' + md.stem, label)
+        save(im, COVERS / f'{md.stem}.webp', OG / f'{md.stem}.png')
         print(md.stem)
+
+
+def post_covers(limit=50):
+    """Portadas para las publicaciones de "Lo más leído" (src/data/linkedin.json)."""
+    data = ROOT / 'src' / 'data'
+    top = json.loads((data / 'linkedin.json').read_text())['topPosts'][:limit]
+    shares = {p['id']: p for p in json.loads((data / 'linkedin-posts.json').read_text())}
+    out_c, out_og = COVERS / 'posts', ROOT / 'public' / 'og' / 'posts'
+    out_c.mkdir(parents=True, exist_ok=True)
+    out_og.mkdir(parents=True, exist_ok=True)
+    done = []
+    for rank, t in enumerate(top, 1):
+        pid = re.search(r'(\d{15,})', t['url']).group(1)
+        p = shares.get(pid)
+        if not p:
+            continue
+        lines = [l for l in p['text'].split('\n') if len(no_emoji(l)) > 12]
+        subtitle = next((l for l in lines[1:4] if no_emoji(l) and no_emoji(l) not in no_emoji(p['headline'])), None)
+        imp = f"{t['impressions']:,}".replace(',', '.') if t.get('impressions') else ''
+        kicker = f"LINKEDIN · {p['date'][:4]}" + (f" · {imp} IMPRESIONES" if imp else '')
+        im = cover(p['category'], p['headline'], kicker, p['headline'] + ' ' + p['text'][:400], subtitle=subtitle, motifs=POST_MOTIFS)
+        save(im, out_c / f'{pid}.webp', out_og / f'{pid}.jpg', 'JPEG')
+        done.append(pid)
+    (data / 'post-covers.json').write_text(json.dumps(done) + '\n')
+    print(f'{len(done)} portadas de publicaciones')
+
+
+def main():
+    article_covers()
+    post_covers()
 
 
 if __name__ == '__main__':

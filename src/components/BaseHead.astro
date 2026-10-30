@@ -19,7 +19,9 @@ export interface SeoProps {
   modified?: Date;
 }
 
-const { title, description, fullTitle: forcedTitle, image = '/og/felipe-lopez-miranda.png', imageAlt = 'Felipe López Miranda: marketing, datos e inteligencia artificial', type = 'website', noindex = false, schema = [], crumbs, published, modified } = Astro.props as SeoProps;
+const { title, description, fullTitle: forcedTitle, image: imageProp, imageAlt: imageAltProp, type = 'website', noindex = false, schema = [], crumbs, published, modified } = Astro.props as SeoProps;
+const image = imageProp ?? '/og/felipe-lopez-miranda.png';
+const imageAlt = imageAltProp ?? 'Felipe López Miranda: marketing, datos e inteligencia artificial';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = forcedTitle ?? (title === SITE_TITLE ? title : `${title} · ${SITE_TITLE}`);
 const imageURL = new URL(image, Astro.site);
