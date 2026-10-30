@@ -1,5 +1,5 @@
 ---
-import { compact, formatNumber, type LinkedInPost } from '../data/linkedin';
+import { compact, formatNumber, shareFor, cleanHeadline, type LinkedInPost } from '../data/linkedin';
 import FormattedDate from './FormattedDate.astro';
 import Thumb from './Thumb.astro';
 
@@ -8,13 +8,15 @@ interface Props {
   rank: number;
 }
 const { post, rank } = Astro.props;
+const share = shareFor(post);
+const headline = share ? cleanHeadline(share.headline) : `${post.title}…`;
 ---
 
-<a class="card post" href={post.url} target="_blank" rel="noopener">
-  <Thumb text={post.title} badge={`#${rank}`} corner={post.impressions ? compact(post.impressions) : undefined} variant={rank - 1} />
+<a class="card post" href={share?.url ?? post.url} target="_blank" rel="noopener">
+  <Thumb text={headline} badge={`#${rank}`} corner={post.impressions ? compact(post.impressions) : undefined} variant={rank - 1} />
   <div class="body">
     <p class="kicker">{post.impressions != null ? `${formatNumber(post.impressions)} impresiones` : 'LinkedIn'}</p>
-    <h3>{post.title}…</h3>
+    <h3>{headline}</h3>
     <p class="meta"><FormattedDate date={new Date(post.date)} />{post.interactions != null && ` · ${formatNumber(post.interactions)} interacciones`}</p>
   </div>
 </a>
@@ -23,6 +25,6 @@ const { post, rank } = Astro.props;
   .post { display: flex; flex-direction: column; height: 100%; }
   .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
   .kicker { font-size: 0.64rem; }
-  h3 { font-size: 0.98rem; line-height: 1.3; }
+  h3 { font-size: 0.98rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .meta { margin: auto 0 0; font-size: 0.75rem; color: var(--faint); }
 </style>

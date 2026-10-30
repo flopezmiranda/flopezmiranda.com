@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import LinkedInButtons from '../components/LinkedInButtons.astro';
+import { SHARES, LINKEDIN, formatNumber } from '../data/linkedin';
+import { SITE_URL, PERSON_ID } from '../seo';
+
+const recent = SHARES.filter((p) => p.recent);
+const monthKey = (d: string) => d.slice(0, 7);
+const monthName = (k: string) => {
+  const s = new Date(`${k}-15`).toLocaleDateString('es-CL', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};
+const groups = [...new Set(recent.map((p) => monthKey(p.date)))].map((k) => ({
+  key: k,
+  name: monthName(k),
+  posts: recent.filter((p) => monthKey(p.date) === k),
+}));
+const excerpt = (p: (typeof SHARES)[number]) => {
+  const rest = p.text.slice(p.text.indexOf(p.headline) + p.headline.length).replace(/\s+/g, ' ').trim();
+  return rest.length > 240 ? rest.slice(0, 240).replace(/\s\S*$/, '') + '…' : rest;
+};
+const fmt = (d: string) => new Date(d).toLocaleDateString('es-CL', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+
+const page = {
+  '@type': 'CollectionPage',
+  '@id': `${SITE_URL}/linkedin/#page`,
+  url: `${SITE_URL}/linkedin/`,
+  name: 'Publicaciones de Felipe López Miranda en LinkedIn',
+  inLanguage: 'es-CL',
+  author: { '@id': PERSON_ID },
+  about: ['Marketing digital', 'Performance marketing', 'Inteligencia artificial', 'Analítica'],
+};
+---
+
+<Base
+  title="Publicaciones en LinkedIn"
+  fullTitle="Publicaciones de Felipe López Miranda en LinkedIn"
+  description={`Archivo de las ${recent.length} publicaciones de Felipe López Miranda en LinkedIn del último año: marketing, performance, datos e inteligencia artificial.`}
+  schema={[page]}
+  crumbs={[{ name: 'Publicaciones', path: '/linkedin/' }]}
+>
+  <section class="section container">
+    <p class="kicker">Archivo</p>
+    <h1>Publicaciones en LinkedIn</h1>
+    <p class="intro muted">
+      {recent.length} publicaciones del último año sobre marketing, performance, datos e IA. Cada una lleva a su post
+      original, donde puedes comentar y seguir la conversación con {formatNumber(LINKEDIN.followers)} profesionales.
+    </p>
+    <LinkedInButtons />
+
+    <nav class="months" aria-label="Meses">
+      {groups.map((g) => <a href={`#m-${g.key}`}>{g.name} <span>{g.posts.length}</span></a>)}
+    </nav>
+
+    {
+      groups.map((g) => (
+        <section class="month" id={`m-${g.key}`} aria-labelledby={`h-${g.key}`}>
+          <h2 id={`h-${g.key}`}>{g.name}</h2>
+          <ol>
+            {g.posts.map((p) => (
+              <li>
+                <time datetime={p.date}>{fmt(p.date)}</time>
+                <div>
+                  <a href={p.url} target="_blank" rel="noopener">
+                    <strong>{p.headline}</strong>
+                  </a>
+                  {excerpt(p) && <p>{excerpt(p)}</p>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))
+    }
+  </section>
+</Base>
+
+<style>
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 10px 0 12px; }
+  .intro { max-width: 640px; margin: 0 0 20px; }
+  .months { display: flex; flex-wrap: wrap; gap: 8px; margin: 32px 0 8px; }
+  .months a { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); font-size: 0.82rem; text-decoration: none; }
+  .months a:hover { border-color: var(--accent); color: var(--accent); }
+  .months span { color: var(--faint); margin-left: 4px; }
+  .month { margin-top: 40px; scroll-margin-top: 80px; }
+  .month h2 { font-size: 1.3rem; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  ol { list-style: none; margin: 0; padding: 0; }
+  li { display: grid; grid-template-columns: 70px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  time { font-size: 0.8rem; color: var(--faint); padding-top: 2px; }
+  li div { min-width: 0; }
+  li a { text-decoration: none; }
+  li a:hover strong { color: var(--accent); }
+  li strong { font-family: var(--head); font-weight: 600; font-size: 0.98rem; line-height: 1.35; overflow-wrap: anywhere; }
+  li p { margin: 6px 0 0; font-size: 0.9rem; color: var(--muted); overflow-wrap: anywhere; }
+  @media (max-width: 560px) { li { grid-template-columns: 1fr; gap: 4px; } }
+</style>

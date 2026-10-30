@@ -48,6 +48,20 @@ Al hacer push a `main`, GitHub Actions compila y publica el sitio automáticamen
 
 3. Sube el cambio de `src/data/linkedin.json` a `main` y la web se actualiza sola.
 
+## Importar contenido de LinkedIn
+
+Del archivo "Obtener una copia de tus datos" de LinkedIn:
+
+```bash
+pip install markdownify
+python scripts/import_linkedin_articles.py ruta/a/Articles   # artículos y newsletter -> src/content/blog/
+python scripts/import_linkedin_shares.py ruta/a/Shares.csv    # publicaciones -> src/data/linkedin-posts.json
+```
+
+- Los artículos quedan con su fecha original y un enlace al original en LinkedIn. Las imágenes no se copian (los enlaces de LinkedIn caducan).
+- `/linkedin/` muestra las publicaciones del último año, agrupadas por mes.
+- Ambos scripts aplican la regla de marca: "Efecto Wow" se reemplaza por Efecto Podcast o Efecto Newsletter según el contexto.
+
 ## SEO, AEO y GEO
 
 - **Datos estructurados**: `src/seo.ts` define la ficha de Persona, el sitio, Efecto Podcast y DroneImagen. Cada página suma lo suyo (preguntas frecuentes, migas de pan, artículo) con la prop `schema` de `Base`.
@@ -55,4 +69,4 @@ Al hacer push a `main`, GitHub Actions compila y publica el sitio automáticamen
 - **`/llms.txt`**: resumen para asistentes de IA, se genera solo en `src/pages/llms.txt.ts` con las cifras de LinkedIn.
 - **`robots.txt`**: permite a buscadores y rastreadores de IA.
 - **IndexNow**: después de cada publicación, GitHub Actions avisa a Bing y Yandex (clave en `public/<clave>.txt`).
-- **Artículos**: los de ejemplo están con `draft: true`. Mientras no haya artículos publicados, `/blog/` queda fuera del sitemap y con `noindex`.
+- **Artículos**: si todos los artículos son borradores (`draft: true`), `/blog/` queda fuera del sitemap y con `noindex`.

@@ -12,6 +12,11 @@ const blog = defineCollection({
     category: z.enum(['Marketing', 'Datos', 'IA']),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    /** Enlace a la publicación original en LinkedIn */
+    originalUrl: z.string().url().optional(),
+    /** Serie a la que pertenece (por ejemplo, la newsletter) */
+    series: z.string().optional(),
+    edition: z.number().optional(),
   }),
 });
 

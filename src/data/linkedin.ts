@@ -34,3 +34,30 @@ export function compact(n: number) {
   return full.format(n);
 }
 export const formatNumber = (n: number) => full.format(n);
+
+// Publicaciones con texto completo (generadas con scripts/import_linkedin_shares.py)
+import postsData from './linkedin-posts.json';
+
+export interface LinkedInShare {
+  id: string;
+  date: string;
+  url: string;
+  headline: string;
+  text: string;
+  category: string;
+  recent: boolean;
+}
+
+export const SHARES = postsData as LinkedInShare[];
+const byId = new Map(SHARES.map((p) => [p.id, p]));
+
+/** Texto real de una publicación de "Lo más leído", si está en el archivo exportado */
+export function shareFor(post: LinkedInPost) {
+  const id = post.url.match(/(\d{15,})/)?.[1];
+  return id ? byId.get(id) : undefined;
+}
+
+/** Quita emojis y símbolos sueltos del inicio de un titular para usarlo en miniaturas */
+export function cleanHeadline(s: string) {
+  return s.replace(/^[^\p{L}\p{N}¡¿"“]+/u, '').trim();
+}

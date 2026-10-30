@@ -5,19 +5,19 @@ import { getPosts } from '../../utils';
 import LinkedInButtons from '../../components/LinkedInButtons.astro';
 
 const posts = await getPosts();
-const categories = ['Todos', 'Marketing', 'Datos', 'IA'];
+const categories = ['Todos', 'Newsletter', 'Marketing', 'Datos', 'IA'];
 ---
 
 <Base
   title="Escritos"
-  description="Artículos de Felipe López Miranda sobre marketing, datos e inteligencia artificial."
+  description="Artículos de Felipe López Miranda sobre marketing, performance, datos e inteligencia artificial, y las ediciones de su newsletter Efecto Newsletter."
   noindex={posts.length === 0}
   crumbs={[{ name: 'Escritos', path: '/blog/' }]}
 >
   <section class="section container">
     <p class="kicker">Blog</p>
     <h1>Escritos</h1>
-    <p class="muted intro">Ideas más largas sobre marketing, datos e inteligencia artificial.</p>
+    <p class="muted intro">{posts.length} artículos sobre marketing, performance, datos e inteligencia artificial, incluidas las ediciones de mi newsletter en LinkedIn.</p>
     {
       posts.length === 0 && (
         <div class="card empty">
@@ -32,7 +32,7 @@ const categories = ['Todos', 'Marketing', 'Datos', 'IA'];
     <div class="grid">
       {
         posts.map((post, i) => (
-          <div data-cat={post.data.category}>
+          <div data-cat={post.data.category} data-series={post.data.series ? 'Newsletter' : ''}>
             <PostCard post={post} index={i} />
           </div>
         ))
@@ -46,7 +46,7 @@ const categories = ['Todos', 'Marketing', 'Datos', 'IA'];
   const items = document.querySelectorAll<HTMLElement>('.grid > [data-cat]');
   function apply(cat: string) {
     buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === cat)));
-    items.forEach((el) => (el.hidden = cat !== 'Todos' && el.dataset.cat !== cat));
+    items.forEach((el) => (el.hidden = cat !== 'Todos' && el.dataset.cat !== cat && el.dataset.series !== cat));
   }
   buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter!)));
   const initial = new URLSearchParams(location.search).get('cat');

@@ -1,6 +1,6 @@
 // /llms.txt: resumen del sitio para modelos de lenguaje (ChatGPT, Claude, Perplexity, Gemini).
 import type { APIRoute } from 'astro';
-import { LINKEDIN, formatNumber, compact } from '../data/linkedin';
+import { LINKEDIN, formatNumber, compact, shareFor } from '../data/linkedin';
 import { LINKEDIN_URL, NEWSLETTER_URL, SOCIAL } from '../consts';
 import { getPosts } from '../utils';
 
@@ -22,6 +22,10 @@ export const GET: APIRoute = async () => {
 - [Inicio](https://flopezmiranda.com/): presentación, temas, publicaciones más leídas, audiencia y proyectos.
 - [Sobre mí](https://flopezmiranda.com/sobre-mi/): biografía, formación y preguntas frecuentes.
 - [DroneImagen](https://flopezmiranda.com/droneimagen/): su banco de más de 1.100 fotos aéreas gratis de Chile.
+- [Publicaciones](https://flopezmiranda.com/linkedin/): archivo de sus publicaciones de LinkedIn del último año.
+- [Escritos](https://flopezmiranda.com/blog/): artículos y ediciones de su newsletter.
+
+## Artículos
 ${posts.map((p) => `- [${p.data.title}](https://flopezmiranda.com/blog/${p.id}/): ${p.data.description}`).join('\n')}
 
 ## Proyectos
@@ -29,7 +33,7 @@ ${posts.map((p) => `- [${p.data.title}](https://flopezmiranda.com/blog/${p.id}/)
 - [DroneImagen](https://www.droneimagen.cl/): banco de fotos gratis con más de 1.100 fotografías aéreas de Chile tomadas por Felipe; descarga en alta resolución sin marca de agua para uso personal y comercial.
 
 ## Publicaciones de LinkedIn con más alcance
-${top.map((p) => `- ${p.date}: "${p.title}…" (${p.impressions ? formatNumber(p.impressions) + ' impresiones' : ''}) ${p.url}`).join('\n')}
+${top.map((p) => `- ${p.date}: "${shareFor(p)?.headline ?? p.title + '…'}" (${p.impressions ? formatNumber(p.impressions) + ' impresiones' : ''}) ${p.url}`).join('\n')}
 
 ## Contacto y redes
 - LinkedIn: ${LINKEDIN_URL}

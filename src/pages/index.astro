@@ -5,9 +5,12 @@ import LinkedInPostCard from '../components/LinkedInPostCard.astro';
 import AudienceBars from '../components/AudienceBars.astro';
 import { SITE_DESCRIPTION, LINKEDIN_URL, TOPICS } from '../consts';
 import { faqPage, podcast, droneimagen } from '../seo';
+import PostCard from '../components/PostCard.astro';
+import { getPosts } from '../utils';
 import { LINKEDIN, compact, formatNumber } from '../data/linkedin';
 
 const featured = LINKEDIN.topPosts.slice(0, 8);
+const latest = (await getPosts()).slice(0, 4);
 const followersK = Math.floor(LINKEDIN.followers / 1000);
 const audience = LINKEDIN.audience;
 const marketingShare = (audience['Sector'] ?? []).slice(0, 2).reduce((s, i) => s + i.pct, 0);
@@ -147,10 +150,27 @@ const faqs = [
   <section class="section container">
     <div class="section-head">
       <h2>Lo más leído en LinkedIn</h2>
-      <a href={`${LINKEDIN_URL}recent-activity/all/`} target="_blank" rel="noopener">Ver todo →</a>
+      <a href="/linkedin/">Ver todas las publicaciones →</a>
     </div>
     <div class="grid4">{featured.map((post, i) => <LinkedInPostCard post={post} rank={i + 1} />)}</div>
   </section>
+
+  <!-- Últimos artículos -->
+  {
+    latest.length > 0 && (
+      <section class="section container">
+        <div class="section-head">
+          <h2>Últimos artículos</h2>
+          <a href="/blog/">Ver todos los escritos →</a>
+        </div>
+        <div class="grid4">
+          {latest.map((post, i) => (
+            <PostCard post={post} index={i} />
+          ))}
+        </div>
+      </section>
+    )
+  }
 
   <!-- Audiencia -->
   <section class="section container">
