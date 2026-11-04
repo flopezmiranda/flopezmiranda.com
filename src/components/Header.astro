@@ -15,7 +15,7 @@ const active = (href: string) => (href === '/' ? path === '/' : href.startsWith(
 
 <header>
   <div class="container bar">
-    <a href="/" class="logo"><span class="mark">FLM</span><span class="name">Felipe López Miranda</span></a>
+    <a href="/" class="logo"><img class="mark" src="/img/logo-fl-96.png" alt="" width="32" height="32" /><span class="name">Felipe López Miranda</span></a>
     <nav>
       {links.map((l) => <a href={l.href} class:list={{ on: active(l.href) }}>{l.label}</a>)}
     </nav>
@@ -58,7 +58,7 @@ const active = (href: string) => (href === '/' ? path === '/' : href.startsWith(
   header { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
   .bar { display: flex; align-items: center; gap: 20px; height: 60px; }
   .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--head); }
-  .mark { font-weight: 800; font-size: 0.85rem; padding: 4px 7px; border-radius: 7px; background: var(--accent); color: var(--on-accent); }
+  .mark { width: 34px; height: 34px; border-radius: 50%; display: block; }
   .name { font-weight: 600; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
   nav:not(.mobile) { display: flex; gap: 4px; margin-left: auto; }
   nav:not(.mobile) a { padding: 6px 12px; border-radius: 999px; font-size: 0.82rem; font-family: var(--head); font-weight: 500; color: var(--muted); text-decoration: none; }

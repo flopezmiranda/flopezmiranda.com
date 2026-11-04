@@ -274,9 +274,10 @@ def cover(category, title, kicker, motif_text, label=None, subtitle=None, motifs
             d.text((x, y), ln, font=sf, fill=(255, 255, 255, 215))
             y += sh
 
-    d.rounded_rectangle((x, H - 96, x + 74, H - 56), 10, fill=WHITE)
-    d.text((x + 37, H - 76), 'FLM', font=font('Inter-Black.otf', 22), fill=dark, anchor='mm')
-    d.text((x + 92, H - 76), 'Felipe López Miranda · flopezmiranda.com', font=font('Inter-Medium.otf', 26), fill=(255, 255, 255, 210), anchor='lm')
+    logo = Image.open(ROOT / 'public' / 'img' / 'logo-fl.png').convert('RGBA').resize((56, 56), Image.LANCZOS)
+    im.paste(logo, (x, H - 104), logo)
+    d = ImageDraw.Draw(im, 'RGBA')
+    d.text((x + 70, H - 76), 'Felipe López Miranda · flopezmiranda.com', font=font('Inter-Medium.otf', 26), fill=(255, 255, 255, 210), anchor='lm')
     return im
 
 
