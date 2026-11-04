@@ -1,0 +1,36 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  updated: string; // AAAA-MM-DD
+}
+const { title, description, path, updated } = Astro.props;
+const fecha = new Date(updated).toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+
+<Base title={title} description={description} crumbs={[{ name: title, path }]}>
+  <article class="section container narrow">
+    <p class="kicker">Información legal</p>
+    <h1>{title}</h1>
+    <p class="muted">Última actualización: {fecha}</p>
+    <div class="prose legal"><slot /></div>
+    <nav class="others" aria-label="Otras páginas legales">
+      <a href="/privacidad/">Política de privacidad</a>
+      <a href="/cookies/">Política de cookies</a>
+      <a href="/terminos/">Términos de uso</a>
+      <a href="/contacto/">Contacto</a>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  h1 { font-size: clamp(2rem, 5vw, 2.8rem); margin: 10px 0 6px; }
+  .legal { margin-top: 28px; }
+  .legal :global(h2) { font-size: 1.3rem; margin-top: 2em; }
+  .legal :global(table) { font-size: 0.9rem; }
+  .others { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 0.9rem; }
+  .others a { color: var(--accent); }
+</style>

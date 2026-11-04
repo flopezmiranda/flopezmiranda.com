@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE_TITLE, LINKEDIN_URL, SOCIAL } from '../consts';
+import { SITE_TITLE, LINKEDIN_URL, SOCIAL, ADSENSE_CLIENT } from '../consts';
 import { person, website, breadcrumbs, type Crumb } from '../seo';
 
 export interface SeoProps {
@@ -42,6 +42,7 @@ const graph = { '@context': 'https://schema.org', '@graph': [website, person, ..
 <link rel="canonical" href={canonicalURL} />
 <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
 <meta name="author" content="Felipe López Miranda" />
+<meta name="google-adsense-account" content={ADSENSE_CLIENT} />
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="sitemap" href="/sitemap-index.xml" />
@@ -77,3 +78,6 @@ const graph = { '@context': 'https://schema.org', '@graph': [website, person, ..
 <meta name="twitter:image:alt" content={imageAlt} />
 
 <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+
+<!-- Google AdSense -->
+<script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`} crossorigin="anonymous"></script>

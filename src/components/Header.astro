@@ -8,6 +8,7 @@ const links = [
   { href: '/blog/', label: 'Escritos' },
   { href: '/linkedin/', label: 'Publicaciones' },
   { href: '/sobre-mi/', label: 'Sobre mí' },
+  { href: '/contacto/', label: 'Contacto' },
 ];
 const active = (href: string) => (href === '/' ? path === '/' : href.startsWith('/#') ? false : path.startsWith(href));
 ---
@@ -53,6 +54,6 @@ const active = (href: string) => (href === '/' ? path === '/' : href.startsWith(
   .sun { display: none; }
   :global([data-theme='dark']) .sun { display: inline; }
   :global([data-theme='dark']) .moon { display: none; }
-  @media (max-width: 920px) { nav { display: none; } .theme { margin-left: auto; } }
+  @media (max-width: 1020px) { nav { display: none; } .theme { margin-left: auto; } }
   @media (max-width: 420px) { .name { display: none; } }
 </style>

@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import LinkedInButtons from '../components/LinkedInButtons.astro';
+import { SOCIAL, LINKEDIN_URL } from '../consts';
+import { PERSON_ID, SITE_URL } from '../seo';
+
+const page = {
+  '@type': 'ContactPage',
+  url: `${SITE_URL}/contacto/`,
+  name: 'Contacto · Felipe López Miranda',
+  inLanguage: 'es-CL',
+  about: { '@id': PERSON_ID },
+};
+---
+
+<Base
+  title="Contacto"
+  description="Cómo contactar a Felipe López Miranda: email, LinkedIn e Instagram. Consultas, charlas, entrevistas y colaboraciones."
+  schema={[page]}
+  crumbs={[{ name: 'Contacto', path: '/contacto/' }]}
+>
+  <section class="section container narrow">
+    <p class="kicker">Contacto</p>
+    <h1>Hablemos</h1>
+    <p class="lead">
+      Escríbeme por consultas sobre marketing y performance, invitaciones a charlas o a{' '}
+      <a href="https://efectopodcast.com/" target="_blank" rel="noopener">Efecto Podcast</a>, entrevistas o
+      colaboraciones. Respondo en un plazo de 2 a 3 días hábiles.
+    </p>
+
+    <div class="channels">
+      <div class="card channel">
+        <p class="kicker">Email</p>
+        <p class="value"><a href={`mailto:${SOCIAL.email}`}>{SOCIAL.email}</a></p>
+        <p class="muted">Para consultas, prensa y colaboraciones.</p>
+      </div>
+      <div class="card channel">
+        <p class="kicker">LinkedIn</p>
+        <p class="value"><a href={LINKEDIN_URL} target="_blank" rel="noopener">/in/flopezmiranda ↗</a></p>
+        <p class="muted">Donde publico casi todos los días. También respondo mensajes directos.</p>
+      </div>
+      {
+        SOCIAL.instagram && (
+          <div class="card channel">
+            <p class="kicker">Instagram</p>
+            <p class="value"><a href={SOCIAL.instagram} target="_blank" rel="noopener">@flopezmiranda ↗</a></p>
+            <p class="muted">Lo más personal y detrás de cámaras.</p>
+          </div>
+        )
+      }
+    </div>
+
+    <p class="muted small">
+      Para temas de Efecto Podcast también puedes escribir a{' '}
+      <a href="mailto:contacto@efectopodcast.com">contacto@efectopodcast.com</a>. Lee cómo trato tus datos en la{' '}
+      <a href="/privacidad/">política de privacidad</a>.
+    </p>
+    <LinkedInButtons />
+  </section>
+</Base>
+
+<style>
+  h1 { font-size: clamp(2.2rem, 6vw, 3.2rem); margin: 10px 0 12px; }
+  .lead { font-size: 1.1rem; color: var(--muted); margin: 0 0 28px; }
+  .lead a, .small a { color: var(--accent); }
+  .channels { display: grid; gap: 14px; margin-bottom: 24px; }
+  .channel { padding: 18px 20px; }
+  .channel p { margin: 0; }
+  .value { font-family: var(--head); font-weight: 700; font-size: 1.2rem; margin: 4px 0 !important; overflow-wrap: anywhere; }
+  .value a { text-decoration: none; color: var(--text); }
+  .value a:hover { color: var(--accent); }
+  .small { font-size: 0.88rem; margin: 0 0 20px; }
+</style>

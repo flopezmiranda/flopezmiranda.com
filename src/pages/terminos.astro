@@ -1,0 +1,55 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { SOCIAL } from '../consts';
+---
+
+<Legal
+  title="Términos de uso"
+  description="Condiciones de uso de flopezmiranda.com: propiedad del contenido, enlaces externos, publicidad y limitación de responsabilidad."
+  path="/terminos/"
+  updated="2026-11-04"
+>
+  <p>Al usar <strong>flopezmiranda.com</strong> aceptas estos términos. Si no estás de acuerdo, te pido no usar el sitio.</p>
+
+  <h2>1. Contenido</h2>
+  <p>
+    Los artículos, publicaciones, textos, portadas y fotografías del sitio son de <strong>Felipe López Miranda</strong>,
+    salvo que se indique otra cosa. Puedes citarlos y compartir sus enlaces mencionando la fuente. No está permitido
+    copiarlos completos ni usarlos con fines comerciales sin autorización escrita.
+  </p>
+  <p>
+    Parte del contenido se publicó originalmente en LinkedIn; cada página enlaza a su versión original. Las marcas y
+    nombres de terceros mencionados pertenecen a sus dueños y se citan solo con fines informativos o de análisis.
+  </p>
+
+  <h2>2. Carácter informativo</h2>
+  <p>
+    El contenido refleja opiniones y experiencias personales sobre marketing, datos e inteligencia artificial. Es
+    informativo y no constituye asesoría profesional. Las plataformas publicitarias y herramientas cambian seguido, así
+    que revisa siempre la información oficial antes de tomar decisiones.
+  </p>
+
+  <h2>3. Publicidad</h2>
+  <p>
+    El sitio muestra anuncios de Google AdSense. Los anunciantes son responsables de sus anuncios; su aparición no
+    significa que yo recomiende esos productos o servicios.
+  </p>
+
+  <h2>4. Enlaces externos</h2>
+  <p>
+    El sitio enlaza a LinkedIn, Efecto Podcast, DroneImagen y otros sitios. No soy responsable del contenido ni de las
+    políticas de sitios que no administro.
+  </p>
+
+  <h2>5. Responsabilidad</h2>
+  <p>
+    Hago lo posible por que la información sea correcta y el sitio esté disponible, pero no puedo garantizarlo en todo
+    momento. No respondo por daños derivados del uso del sitio o de decisiones tomadas a partir de su contenido.
+  </p>
+
+  <h2>6. Ley aplicable y contacto</h2>
+  <p>
+    Estos términos se rigen por las leyes de Chile. Para cualquier consulta escribe a{' '}
+    <a href={`mailto:${SOCIAL.email}`}>{SOCIAL.email}</a>.
+  </p>
+</Legal>

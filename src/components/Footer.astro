@@ -28,10 +28,17 @@ const year = new Date().getFullYear();
       <li><a href="/sobre-mi/">Sobre mí</a></li>
       <li><a href="/blog/">Escritos</a></li>
       <li><a href="/linkedin/">Publicaciones</a></li>
+      <li><a href="/contacto/">Contacto</a></li>
       <li><a href="/rss.xml">RSS</a></li>
     </ul>
   </div>
-  <p class="container copy">© {year} {SITE_TITLE}</p>
+  <p class="container copy">
+    © {year} {SITE_TITLE} ·{' '}
+    <a href="/privacidad/">Política de privacidad</a> ·{' '}
+    <a href="/cookies/">Cookies</a> ·{' '}
+    <a href="/terminos/">Términos de uso</a> ·{' '}
+    <a href="/contacto/">Contacto</a>
+  </p>
 </footer>
 
 <style>
@@ -44,6 +51,7 @@ const year = new Date().getFullYear();
   .h { font-family: var(--head); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-bottom: 4px; }
   ul a { color: var(--muted); text-decoration: none; }
   ul a:hover { color: var(--text); }
+  .copy a { color: inherit; }
   .copy { margin: 48px auto 0; padding-block: 20px; font-size: 0.75rem; color: var(--faint); }
   @media (max-width: 720px) { .cols { grid-template-columns: 1fr 1fr; } .brand { grid-column: 1 / -1; } }
 </style>
