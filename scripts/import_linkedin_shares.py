@@ -34,8 +34,23 @@ def clean(text):
             line = line[:-1]
         lines.append(line.replace('""', '"').strip())
     text = '\n'.join(lines)
-    text = re.sub(r'\n{3,}', '\n\n', text).strip()
-    return plain(fix_brand(text))
+    text = strip_media_refs(plain(fix_brand(text)))
+    return re.sub(r'\n{3,}', '\n\n', text).strip()
+
+
+# Referencias a imágenes o videos que solo existen en LinkedIn: "(Ver imagen)", "(ver gráfica adjunta)"...
+MEDIA_REF = re.compile(r'\s*\((?:ver|mira)\s+(?:la\s+)?(?:imagen|gr[aá]fic[ao]|tabla|video|foto|carrusel)[^)]*\)', re.I)
+
+
+def strip_media_refs(text):
+    out = []
+    for line in text.split('\n'):
+        new = MEDIA_REF.sub('', line)
+        # Si la línea quedó solo con emojis o signos, se elimina
+        if new != line and not re.search(r'[A-Za-zÁÉÍÓÚáéíóúÑñ0-9]', new):
+            continue
+        out.append(new.rstrip())
+    return '\n'.join(out)
 
 
 def post_id(url):
@@ -46,7 +61,10 @@ def post_id(url):
 def main(path, months=12):
     rows = list(csv.DictReader(open(path, encoding='utf-8')))
     top_ids = {post_id(p['url']) for p in json.loads(STATS.read_text())['topPosts']}
-    since = (datetime.now() - timedelta(days=30 * months)).strftime('%Y-%m-%d')
+    # El "último año" parte en el período del Excel de LinkedIn (no en la fecha de hoy), para que
+    # las páginas ya publicadas no desaparezcan al volver a correr el script.
+    period_from = json.loads(STATS.read_text())['period']['from']
+    since = min(period_from, (datetime.now() - timedelta(days=30 * months)).strftime('%Y-%m-%d'))
     posts = []
     used = set()
     for r in rows:

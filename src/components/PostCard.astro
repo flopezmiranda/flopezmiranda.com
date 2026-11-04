@@ -13,7 +13,7 @@ const { title, description, pubDate, category } = post.data;
 <a class="card post" href={`/blog/${post.id}/`}>
   <figure class="cover">
     <img src={`/img/covers/${post.id}.webp`} alt="" width="1600" height="900" loading="lazy" decoding="async" />
-    {post.data.series && <span class="badge">Newsletter</span>}
+    {post.data.exclusive ? <span class="badge">Guía exclusiva</span> : post.data.series && <span class="badge">Newsletter</span>}
   </figure>
   <div class="body">
     <p class="kicker">{category}</p>

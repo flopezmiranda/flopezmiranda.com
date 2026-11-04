@@ -5,7 +5,7 @@ import { getPosts } from '../../utils';
 import LinkedInButtons from '../../components/LinkedInButtons.astro';
 
 const posts = await getPosts();
-const categories = ['Todos', 'Newsletter', 'Marketing', 'Datos', 'IA'];
+const categories = ['Todos', 'Guías', 'Newsletter', 'Marketing', 'Datos', 'IA'];
 ---
 
 <Base
@@ -17,7 +17,7 @@ const categories = ['Todos', 'Newsletter', 'Marketing', 'Datos', 'IA'];
   <section class="section container">
     <p class="kicker">Blog</p>
     <h1>Escritos</h1>
-    <p class="muted intro">{posts.length} artículos sobre marketing, performance, datos e inteligencia artificial, incluidas las ediciones de mi newsletter en LinkedIn.</p>
+    <p class="muted intro">{posts.length} artículos sobre marketing, performance, datos e inteligencia artificial: guías exclusivas de este sitio y las ediciones de mi newsletter en LinkedIn.</p>
     {
       posts.length === 0 && (
         <div class="card empty">
@@ -32,7 +32,7 @@ const categories = ['Todos', 'Newsletter', 'Marketing', 'Datos', 'IA'];
     <div class="grid">
       {
         posts.map((post, i) => (
-          <div data-cat={post.data.category} data-series={post.data.series ? 'Newsletter' : ''}>
+          <div data-cat={post.data.category} data-series={post.data.exclusive ? 'Guías' : post.data.series ? 'Newsletter' : ''}>
             <PostCard post={post} index={i} />
           </div>
         ))

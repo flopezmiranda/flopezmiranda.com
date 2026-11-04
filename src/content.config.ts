@@ -17,6 +17,8 @@ const blog = defineCollection({
     /** Serie a la que pertenece (por ejemplo, la newsletter) */
     series: z.string().optional(),
     edition: z.number().optional(),
+    /** Contenido escrito solo para este sitio (no publicado en LinkedIn) */
+    exclusive: z.boolean().default(false),
   }),
 });
 

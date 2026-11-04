@@ -187,6 +187,8 @@ POST_MOTIFS = [
 ]
 
 MOTIFS = [
+    (r'andromeda', m_phone),
+    (r'aprendizaje|se[nñ]ales', m_funnel),
     (r'whatsapp', m_chat),
     (r'google ads', m_search),
     (r'herramientas|ia aplicada|\bia\b|gemini|nano ?banana|chatgpt|prompt', m_spark),
@@ -288,8 +290,11 @@ def article_covers():
     COVERS.mkdir(parents=True, exist_ok=True)
     OG.mkdir(parents=True, exist_ok=True)
     for md in sorted(BLOG.glob('*.md')):
-        m = frontmatter(md.read_text(encoding='utf-8'))
+        raw = md.read_text(encoding='utf-8')
+        m = frontmatter(raw)
         label = f"EFECTO NEWSLETTER{' · #' + m['edition'] if m['edition'] else ''}" if m['series'] else None
+        if re.search(r'^exclusive:\s*true', raw, re.M):
+            label = 'GUÍA EXCLUSIVA'
         im = cover(m['category'], m['title'], f"{m['category'].upper()} · {m['pubDate'][:4]}", m['title'] + ' ' + md.stem, label)
         save(im, COVERS / f'{md.stem}.webp', OG / f'{md.stem}.png')
         print(md.stem)

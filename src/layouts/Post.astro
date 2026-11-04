@@ -6,7 +6,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import { PERSON_ID, SITE_URL } from '../seo';
 
 type Props = CollectionEntry<'blog'>['data'] & { minutes: number; slug: string; headings: { depth: number; slug: string; text: string }[] };
-const { title, description, pubDate, updatedDate, category, tags, minutes, originalUrl, series, edition, slug, headings } = Astro.props;
+const { title, description, pubDate, updatedDate, category, tags, minutes, originalUrl, series, edition, slug, headings, exclusive } = Astro.props;
 const cover = `/img/covers/${slug}.webp`;
 const ogImage = `/og/blog/${slug}.png`;
 // Índice solo si el artículo tiene 3 o más subtítulos
@@ -23,7 +23,7 @@ const article = {
   datePublished: pubDate.toISOString(),
   dateModified: (updatedDate ?? pubDate).toISOString(),
   inLanguage: 'es-CL',
-  articleSection: category,
+  articleSection: exclusive ? 'Guía' : category,
   keywords: tags.join(', '),
   author: { '@id': PERSON_ID },
   publisher: { '@id': PERSON_ID },
@@ -50,6 +50,13 @@ const article = {
       <h1>{title}</h1>
       <p class="lead">{description}</p>
       {updatedDate && <p class="muted">Actualizado el <FormattedDate date={updatedDate} /></p>}
+      {
+        exclusive && (
+          <p class="origin exclusive">
+            <strong>Guía exclusiva de flopezmiranda.com.</strong> Reúne y amplía lo que he publicado sobre este tema.
+          </p>
+        )
+      }
       {
         originalUrl && (
           <p class="origin">
@@ -106,6 +113,7 @@ const article = {
   .lead { font-size: 1.15rem; color: var(--muted); margin: 0; }
   .origin { margin: 18px 0 0; padding: 10px 14px; border-radius: 10px; background: var(--card); border: 1px solid var(--line); font-size: 0.88rem; color: var(--muted); }
   .origin a { color: var(--accent); font-weight: 500; }
+  .origin.exclusive { background: rgba(var(--accent-rgb), 0.08); border-color: rgba(var(--accent-rgb), 0.3); color: var(--text); }
   footer { margin-top: 56px; padding: 24px; }
   footer p { margin: 0 0 14px; }
   .tags { display: flex; flex-wrap: wrap; gap: 12px; font-size: 0.82rem; color: var(--muted); }
