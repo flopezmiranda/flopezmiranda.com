@@ -23,10 +23,26 @@ const active = (href: string) => (href === '/' ? path === '/' : href.startsWith(
       <span class="moon">☾</span><span class="sun">☀︎</span>
     </button>
     <a class="btn btn-primary cta" href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn ↗</a>
+    <button class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <nav id="mobile-menu" class="mobile" aria-label="Menú" hidden>
+    {links.map((l) => <a href={l.href} class:list={{ on: active(l.href) }}>{l.label}</a>)}
+    <a href="/privacidad/" class="small">Política de privacidad</a>
+  </nav>
 </header>
 
 <script>
+  const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') !== 'true';
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    if (menu) menu.hidden = !open;
+  });
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => btn?.click()));
   const root = document.documentElement;
   document.querySelector('.theme')?.addEventListener('click', () => {
     const dark = root.dataset.theme !== 'dark';
@@ -44,16 +60,28 @@ const active = (href: string) => (href === '/' ? path === '/' : href.startsWith(
   .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--head); }
   .mark { font-weight: 800; font-size: 0.85rem; padding: 4px 7px; border-radius: 7px; background: var(--accent); color: var(--on-accent); }
   .name { font-weight: 600; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; }
-  nav { display: flex; gap: 4px; margin-left: auto; }
-  nav a { padding: 6px 12px; border-radius: 999px; font-size: 0.82rem; font-family: var(--head); font-weight: 500; color: var(--muted); text-decoration: none; }
-  nav a:hover { color: var(--text); }
-  nav a.on { color: var(--text); background: var(--card-2); }
+  nav:not(.mobile) { display: flex; gap: 4px; margin-left: auto; }
+  nav:not(.mobile) a { padding: 6px 12px; border-radius: 999px; font-size: 0.82rem; font-family: var(--head); font-weight: 500; color: var(--muted); text-decoration: none; }
+  nav:not(.mobile) a:hover { color: var(--text); }
+  nav:not(.mobile) a.on { color: var(--text); background: var(--card-2); }
   .cta { padding: 7px 14px; font-size: 0.8rem; }
   .theme { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--text); cursor: pointer; font-size: 0.95rem; }
   .theme:hover { border-color: var(--accent); }
   .sun { display: none; }
   :global([data-theme='dark']) .sun { display: inline; }
   :global([data-theme='dark']) .moon { display: none; }
-  @media (max-width: 1020px) { nav { display: none; } .theme { margin-left: auto; } }
+  .menu-btn { display: none; width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--line); background: transparent; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
+  .menu-btn span { display: block; width: 18px; height: 2px; border-radius: 1px; background: var(--text); transition: transform 0.2s, opacity 0.2s; }
+  .menu-btn[aria-expanded='true'] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .menu-btn[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+  .menu-btn[aria-expanded='true'] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .mobile { display: flex; flex-direction: column; gap: 2px; padding: 8px 16px 16px; border-top: 1px solid var(--line); background: var(--bg); }
+  .mobile[hidden] { display: none; }
+  .mobile a { padding: 12px 8px; border-radius: 10px; font-family: var(--head); font-weight: 600; font-size: 1rem; color: var(--text); text-decoration: none; }
+  .mobile a.on { background: var(--card-2); }
+  .mobile a.small { font-size: 0.85rem; font-weight: 500; color: var(--muted); }
+  @media (min-width: 1021px) { .mobile { display: none !important; } }
+  @media (max-width: 1020px) { nav:not(.mobile) { display: none; } .theme { margin-left: auto; } .menu-btn { display: flex; } }
+  @media (max-width: 420px) { .cta { display: none; } }
   @media (max-width: 420px) { .name { display: none; } }
 </style>
