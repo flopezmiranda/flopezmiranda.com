@@ -1,6 +1,6 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import { POST_PAGES, TAGS, cleanHeadline } from '../../../data/linkedin';
+import { POST_PAGES, TAGS, postTitle } from '../../../data/linkedin';
 import { SITE_URL, PERSON_ID } from '../../../seo';
 
 export function getStaticPaths() {
@@ -42,7 +42,7 @@ const page = {
           <li>
             <time datetime={p.date}>{fmt(p.date)}</time>
             <a href={`/linkedin/${p.slug}/`}>
-              <strong>{cleanHeadline(p.headline)}</strong>
+              <strong>{postTitle(p)}</strong>
             </a>
             <p>{excerpt(p.text, p.headline)}</p>
           </li>

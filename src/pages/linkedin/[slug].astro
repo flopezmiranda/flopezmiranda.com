@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import LinkedInButtons from '../../components/LinkedInButtons.astro';
-import { POST_PAGES, TAG_PAGES, LINKEDIN, formatNumber, cleanHeadline, postCover, postOg, type LinkedInShare } from '../../data/linkedin';
+import { POST_PAGES, TAG_PAGES, LINKEDIN, formatNumber, cleanHeadline, postCover, postOg, postTitle, noEmoji, type LinkedInShare } from '../../data/linkedin';
 import { postToHtml } from '../../lib/post-text';
 import { PERSON_ID, SITE_URL } from '../../seo';
 
@@ -11,10 +11,10 @@ export function getStaticPaths() {
 
 const { post } = Astro.props as { post: (typeof POST_PAGES)[number] };
 const path = `/linkedin/${post.slug}/`;
-const title = cleanHeadline(post.headline).replace(/\s+/g, ' ');
+const title = postTitle(post);
 const body = post.text.startsWith(post.headline) ? post.text.slice(post.headline.length).trim() : post.text;
 const html = postToHtml(body, TAG_PAGES, path);
-const summary = body.replace(/#\S+/g, '').replace(/\s+/g, ' ').trim();
+const summary = noEmoji(body.replace(/#(\p{L}[\p{L}\p{N}_]*)/gu, '$1')).replace(/^[^\p{L}\p{N}¡¿"“]+/u, '');
 const description = summary.length > 155 ? summary.slice(0, 152).replace(/\s\S*$/, '') + '…' : summary;
 const date = new Date(post.date);
 const top = LINKEDIN.topPosts.find((t) => t.url.includes(post.id));
@@ -52,7 +52,7 @@ const posting = {
 
 <Base
   title={title}
-  fullTitle={`${title.length > 62 ? title.slice(0, 60).replace(/\s\S*$/, '') + '…' : title} · Felipe López Miranda`}
+  fullTitle={title.length > 58 ? `${title.slice(0, 60).replace(/[\s,;:.-]+\S*$/, '')}…` : `${title} · Felipe López Miranda`}
   description={description}
   type="article"
   image={og}
@@ -111,7 +111,7 @@ const posting = {
         {related.map((r) => (
           <li>
             <a href={`/linkedin/${r.slug}/`}>
-              <strong>{cleanHeadline(r.headline)}</strong>
+              <strong>{postTitle(r)}</strong>
               <span>{fmt(r.date)}</span>
             </a>
           </li>

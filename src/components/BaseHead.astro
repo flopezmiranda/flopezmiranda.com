@@ -1,6 +1,14 @@
 ---
+// Fuentes alojadas en el propio sitio (más rápido y sin conexión a Google Fonts)
+import '@fontsource/poppins/latin-500.css';
+import '@fontsource/poppins/latin-600.css';
+import '@fontsource/poppins/latin-700.css';
+import '@fontsource/poppins/latin-800.css';
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
 import '../styles/global.css';
-import { SITE_TITLE, LINKEDIN_URL, SOCIAL, ADSENSE_CLIENT } from '../consts';
+import { SITE_TITLE, LINKEDIN_URL, SOCIAL, ADSENSE_CLIENT, BING_VERIFICATION } from '../consts';
 import { person, website, breadcrumbs, type Crumb } from '../seo';
 
 export interface SeoProps {
@@ -43,20 +51,19 @@ const graph = { '@context': 'https://schema.org', '@graph': [website, person, ..
 <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'} />
 <meta name="author" content="Felipe López Miranda" />
 <meta name="google-adsense-account" content={ADSENSE_CLIENT} />
+{BING_VERIFICATION && <meta name="msvalidate.01" content={BING_VERIFICATION} />}
 
 <link rel="icon" href="/favicon.ico" sizes="any" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="sitemap" href="/sitemap-index.xml" />
-<link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
+<link rel="alternate" type="application/rss+xml" title={`${SITE_TITLE} · Escritos`} href={new URL('rss.xml', Astro.site)} />
+<link rel="alternate" type="application/rss+xml" title={`${SITE_TITLE} · Publicaciones`} href={new URL('linkedin/rss.xml', Astro.site)} />
 <link rel="alternate" type="text/plain" title="Resumen para modelos de lenguaje" href={new URL('llms.txt', Astro.site)} />
 <link rel="me" href={LINKEDIN_URL} />
 {SOCIAL.instagram && <link rel="me" href={SOCIAL.instagram} />}
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
 <!-- Open Graph / redes sociales -->
 <meta property="og:type" content={type} />

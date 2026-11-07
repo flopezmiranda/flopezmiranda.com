@@ -5,6 +5,16 @@ pubDate: 2026-11-04
 category: 'IA'
 tags: ['Guía', 'Google Ads', 'AI Max', 'Performance Max']
 exclusive: true
+tldr: 'AI Max es la capa de IA de las campañas de búsqueda de Google Ads: interpreta la intención y el contexto del usuario en vez de depender solo de keywords. Performance Max lleva la automatización a todos los canales de Google. Ambas funcionan bien solo con buenas señales de conversión y paciencia: espera al menos 12 a 14 días antes de pasar a tCPA o tROAS.'
+faq:
+  - q: '¿Qué es AI Max en Google Ads?'
+    a: 'Es la evolución de las campañas de búsqueda con IA. En vez de responder solo a keywords, interpreta la intención del usuario a partir de sus búsquedas, navegación, comportamiento de compra y otras señales, y descubre búsquedas que no habrías previsto.'
+  - q: '¿Cuál es la diferencia entre AI Max y Performance Max?'
+    a: 'AI Max trabaja en la red de búsqueda y captura intención directa, clave en el fondo del funnel. Performance Max combina Search, Display, YouTube y Discover en una sola campaña y sirve para escalar cuando ya hay señales de conversión sólidas.'
+  - q: '¿Cuándo usar tCPA o tROAS en AI Max?'
+    a: 'Si la cuenta tiene histórico de conversiones, después del día 12 a 14 de aprendizaje. Sin histórico, primero hay que entrenar la campaña y luego optimizar.'
+  - q: '¿Las keywords siguen sirviendo en Google Ads?'
+    a: 'Sí, pero ya no son el centro: son una señal más junto a la intención implícita, el comportamiento, el momento, el creativo y la oferta.'
 ---
 
 "Felipe, arma una campaña en Google, pero que la maneje la IA. Y ojalá sin mucho esfuerzo." Esa frase de mi JEFE imaginario resume lo que muchos esperan de AI Max y Performance Max. La respuesta corta es que **sí se puede, pero con condiciones**. Esta guía ordena lo que he aprendido sobre ambas campañas durante el último año, probándolas en inmobiliario, educación, retail y telecomunicaciones.

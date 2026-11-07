@@ -77,4 +77,10 @@ Genera una portada por artículo en `public/img/covers/` y su imagen para compar
 - **`/llms.txt`**: resumen para asistentes de IA, se genera solo en `src/pages/llms.txt.ts` con las cifras de LinkedIn.
 - **`robots.txt`**: permite a buscadores y rastreadores de IA.
 - **IndexNow**: después de cada publicación, GitHub Actions avisa a Bing y Yandex (clave en `public/<clave>.txt`).
+- **`/llms-full.txt`**: texto completo de guías y artículos para asistentes de IA (`src/pages/llms-full.txt.ts`).
+- **RSS**: `/rss.xml` (escritos) y `/linkedin/rss.xml` (publicaciones).
+- **Sitemap con fechas reales**: `astro.config.mjs` toma la fecha de cada artículo y publicación. Cambia `PAGES_UPDATED` cuando edites páginas fijas.
+- **Guías (AEO)**: los campos `tldr` (respuesta rápida) y `faq` del frontmatter se muestran en la página y generan datos estructurados FAQPage.
+- **Bing**: `BING_VERIFICATION` en `src/consts.ts` agrega la meta `msvalidate.01` si no importaste el sitio desde Search Console.
+- **Fuentes**: Poppins e Inter alojadas en el sitio con `@fontsource` (sin Google Fonts).
 - **Artículos**: si todos los artículos son borradores (`draft: true`), `/blog/` queda fuera del sitemap y con `noindex`.

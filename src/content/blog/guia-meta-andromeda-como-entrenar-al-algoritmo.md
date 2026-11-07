@@ -5,6 +5,16 @@ pubDate: 2026-11-04
 category: 'IA'
 tags: ['Guía', 'Meta Ads', 'Andromeda', 'Performance marketing']
 exclusive: true
+tldr: 'Meta Andromeda es el sistema de IA con que Meta elige qué anuncio mostrar, a quién y cuándo. Ya no gana quien segmenta mejor, sino quien entrena mejor al algoritmo: eventos limpios y señales de negocio por API de Conversiones, una estructura simple (1 campaña, 2 a 3 conjuntos, 6 a 10 anuncios) y mucha variedad creativa, porque el creativo es el nuevo targeting.'
+faq:
+  - q: '¿Qué es Meta Andromeda?'
+    a: 'Es el sistema de inteligencia artificial que Meta usa para recuperar y ordenar anuncios. Funciona sobre Advantage+ y decide en tiempo real qué creativos mostrar, a quién, cuándo mover presupuesto y qué señales del negocio priorizar.'
+  - q: '¿Cómo se estructura una campaña para Andromeda?'
+    a: 'Con un objetivo de conversión, datos limpios, una estructura simple de 1 campaña, 2 a 3 conjuntos de anuncios y 6 a 10 anuncios por conjunto, creatividades variadas por familias de ángulo y copys claros.'
+  - q: '¿Cuál es la diferencia entre eventos y señales en Meta Ads?'
+    a: 'Los eventos son lo que el usuario hace en tu sitio (compra, lead, inicio de pago). Las señales son lo que el negocio le enseña al algoritmo, normalmente desde el CRM por API de Conversiones: qué lead fue bueno, qué venta valió más o qué conversación terminó en cierre.'
+  - q: '¿Qué métricas mirar además del CPA en Meta Ads?'
+    a: 'La clasificación del porcentaje de interacción, el porcentaje de clics salientes, el tiempo de reproducción del video y el índice de recuerdo del anuncio. Los videos deberían lograr al menos un 25 % de visualización.'
 ---
 
 Durante el último año escribí más de veinte publicaciones sobre Meta Andromeda. Algunas fueron árboles de decisión, otras funnels, otras simples desahogos con mi JEFE imaginario. Esta guía junta todo ese aprendizaje en un solo lugar, ordenado de principio a fin, para que no tengas que armar el rompecabezas tú.

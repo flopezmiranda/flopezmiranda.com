@@ -83,3 +83,31 @@ import coverIds from './post-covers.json';
 const COVER_IDS = new Set(coverIds as string[]);
 export const postCover = (id?: string) => (id && COVER_IDS.has(id) ? `/img/covers/posts/${id}.webp` : undefined);
 export const postOg = (id?: string) => (id && COVER_IDS.has(id) ? `/og/posts/${id}.jpg` : undefined);
+
+// --- Títulos para buscadores ---
+const EMOJI = /[\p{Extended_Pictographic}\u{FE0F}\u{200D}\u{20E3}\u{1F3FB}-\u{1F3FF}]/gu;
+/** Quita emojis, flechas decorativas y espacios repetidos */
+export const noEmoji = (s: string) =>
+  s.replace(EMOJI, '').replace(/[⭢➝↪︎→←⬆⬇]/g, '').replace(/\s+/g, ' ').replace(/\s+([.,:;!?…])/g, '$1').trim();
+
+const clip = (s: string, max: number) => (s.length <= max ? s : s.slice(0, max - 1).replace(/[\s,;:.-]+\S*$/, '') + '…');
+
+/** Título de una publicación para <title> y H1: sin emojis y con contexto si el titular es muy corto */
+export function postTitle(p: { headline: string; text: string }) {
+  let t = noEmoji(p.headline)
+    .replace(/#(\p{L}[\p{L}\p{N}_]*)/gu, '$1')
+    .replace(/^\[([^\]]+)\]\s*/, '$1: ') // "[PODCAST] Texto" -> "PODCAST: Texto"
+    .replace(/^([^\[]*?)\]\s*/, '$1: ') // corchete suelto al inicio
+    .replace(/^[^\p{L}\p{N}¡¿"“]+/u, '')
+    .replace(/\s*[-–—]+$/, '')
+    .trim();
+  if (t.length < 38) {
+    const lines = p.text.split('\n').map(noEmoji).filter((l) => l.replace(/[^\p{L}]/gu, '').length > 12);
+    const next = lines.find((l) => !t.includes(l) && !l.includes(t));
+    if (next) {
+      const rest = next.replace(/#(\p{L}[\p{L}\p{N}_]*)/gu, '$1').replace(/^[^\p{L}\p{N}¡¿"“]+/u, '');
+      t = /[?!]$/.test(t) ? `${t} ${rest}` : `${t.replace(/[.…]+$/, '')}: ${rest}`;
+    }
+  }
+  return clip(t, 90);
+}

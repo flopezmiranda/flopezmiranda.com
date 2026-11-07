@@ -3,10 +3,10 @@ import LinkedInButtons from '../components/LinkedInButtons.astro';
 import type { CollectionEntry } from 'astro:content';
 import Base from './Base.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { PERSON_ID, SITE_URL } from '../seo';
+import { PERSON_ID, SITE_URL, faqPage } from '../seo';
 
 type Props = CollectionEntry<'blog'>['data'] & { minutes: number; slug: string; headings: { depth: number; slug: string; text: string }[] };
-const { title, description, pubDate, updatedDate, category, tags, minutes, originalUrl, series, edition, slug, headings, exclusive } = Astro.props;
+const { title, description, pubDate, updatedDate, category, tags, minutes, originalUrl, series, edition, slug, headings, exclusive, tldr, faq } = Astro.props;
 const cover = `/img/covers/${slug}.webp`;
 const ogImage = `/og/blog/${slug}.png`;
 // Índice solo si el artículo tiene 3 o más subtítulos
@@ -29,6 +29,8 @@ const article = {
   publisher: { '@id': PERSON_ID },
   image: `${SITE_URL}${ogImage}`,
   ...(originalUrl ? { sameAs: originalUrl } : {}),
+  ...(tldr ? { abstract: tldr } : {}),
+  timeRequired: `PT${minutes}M`,
   ...(series ? { isPartOf: { '@type': 'CreativeWorkSeries', name: series } } : {}),
 };
 ---
@@ -41,7 +43,7 @@ const article = {
   imageAlt={`Portada del artículo: ${title}`}
   published={pubDate}
   modified={updatedDate ?? pubDate}
-  schema={[article]}
+  schema={faq.length ? [article, faqPage(faq)] : [article]}
   crumbs={[{ name: 'Escritos', path: '/blog/' }, { name: title, path: Astro.url.pathname }]}
 >
   <article class="container narrow">
@@ -74,6 +76,14 @@ const article = {
       <img src={cover} alt={`Portada del artículo: ${title}`} width="1600" height="900" fetchpriority="high" />
     </figure>
     {
+      tldr && (
+        <aside class="tldr" aria-labelledby="tldr-title">
+          <p id="tldr-title" class="kicker">Respuesta rápida</p>
+          <p>{tldr}</p>
+        </aside>
+      )
+    }
+    {
       showToc && (
         <nav class="toc card" aria-labelledby="toc-title">
           <p id="toc-title" class="kicker">En este artículo</p>
@@ -88,6 +98,19 @@ const article = {
       )
     }
     <div class="prose article-body"><slot /></div>
+    {
+      faq.length > 0 && (
+        <section class="faq" aria-labelledby="faq-title">
+          <h2 id="faq-title">Preguntas frecuentes</h2>
+          {faq.map((f, i) => (
+            <details open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </section>
+      )
+    }
     <aside class="author card" aria-label="Sobre el autor">
       <img src="/img/retrato.webp" alt="Felipe López Miranda" width="96" height="96" loading="lazy" />
       <div>
@@ -122,6 +145,13 @@ const article = {
   .cover { margin: 0 0 36px; border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 50px -28px rgba(11, 27, 58, 0.55); }
   .cover img { display: block; width: 100%; height: auto; }
   .toc { padding: 18px 22px; margin: 0 0 36px; }
+  .tldr { margin: 0 0 36px; padding: 18px 22px; border-radius: var(--radius); background: rgba(var(--accent-rgb), 0.08); border: 1px solid rgba(var(--accent-rgb), 0.3); }
+  .tldr p:last-child { margin: 8px 0 0; font-size: 1.05rem; line-height: 1.6; }
+  .faq { margin-top: 48px; }
+  .faq h2 { font-size: 1.5rem; margin-bottom: 8px; }
+  .faq details { border-bottom: 1px solid var(--line); padding: 14px 0; }
+  .faq summary { cursor: pointer; font-family: var(--head); font-weight: 600; }
+  .faq details p { margin: 10px 0 0; color: var(--muted); }
   .toc ol { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 6px; font-size: 0.92rem; }
   .toc li.d3 { margin-left: 16px; list-style: circle; }
   .toc a { color: var(--text); text-decoration: none; }

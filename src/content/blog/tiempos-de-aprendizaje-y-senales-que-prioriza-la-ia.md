@@ -5,6 +5,16 @@ pubDate: 2026-11-04
 category: 'Datos'
 tags: ['Guía', 'Performance marketing', 'Datos', 'IA']
 exclusive: true
+tldr: 'Toda campaña con IA necesita un período de aprendizaje: si cambias presupuesto, creativos o audiencias en esos días, lo rompes y pagas más caro. Google aprende más lento porque cruza señales de varios canales; Meta y TikTok aprenden rápido si el creativo funciona. La IA no optimiza por CTR, sino por señales de comportamiento, intención y negocio.'
+faq:
+  - q: '¿Cuánto dura el período de aprendizaje de una campaña?'
+    a: 'Depende de la plataforma. Google necesita más tiempo porque optimiza en varios canales (al menos 12 a 14 días antes de pujas como tCPA o tROAS). Meta y TikTok maduran más rápido, pero dependen mucho del creativo.'
+  - q: '¿Por qué no hay que tocar una campaña los primeros días?'
+    a: 'Porque el algoritmo está acumulando señales para decidir a quién mostrar los anuncios y cuánto pujar. Cambiar presupuesto, creativos o audiencias reinicia ese aprendizaje y encarece los resultados.'
+  - q: '¿El CTR sigue siendo importante?'
+    a: 'Es un síntoma, no una señal de optimización. Las plataformas con IA priorizan el engagement de calidad, las microintenciones, los eventos propios del negocio, la relevancia entre anuncio y landing y la retención del creativo.'
+  - q: '¿Qué señales prioriza la IA publicitaria?'
+    a: 'Engagement de calidad, microintenciones, velocidad de aprendizaje, eventos propios (first-party), estabilidad de cohortes, relevancia entre anuncio y landing, índice de fricción, resonancia creativa, señales de fatiga y potencial de conversión observado.'
 ---
 
 "Me apagaron un conjunto de anuncios que llevaba menos de 48 horas porque estaba muy caro." "El cliente cambió la estrategia de puja el primer día, y a la semana tres veces más." Comentarios así me llegan casi todas las semanas. Detrás de todos hay el mismo problema: **pensar que una campaña con inteligencia artificial funciona desde el día uno**.

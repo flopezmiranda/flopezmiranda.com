@@ -19,6 +19,10 @@ const blog = defineCollection({
     edition: z.number().optional(),
     /** Contenido escrito solo para este sitio (no publicado en LinkedIn) */
     exclusive: z.boolean().default(false),
+    /** Respuesta corta al inicio (AEO: lo que citan buscadores y asistentes de IA) */
+    tldr: z.string().optional(),
+    /** Preguntas frecuentes al final, con datos estructurados FAQPage */
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
   }),
 });
 

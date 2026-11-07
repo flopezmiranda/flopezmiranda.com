@@ -25,8 +25,13 @@ export const GET: APIRoute = async () => {
 - [Publicaciones](https://flopezmiranda.com/linkedin/): archivo de sus publicaciones de LinkedIn del último año.
 - [Escritos](https://flopezmiranda.com/blog/): artículos y ediciones de su newsletter.
 
-## Artículos
-${posts.map((p) => `- [${p.data.title}](https://flopezmiranda.com/blog/${p.id}/): ${p.data.description}`).join('\n')}
+- [Contenido completo](https://flopezmiranda.com/llms-full.txt): texto íntegro de las guías y artículos, en un solo archivo.
+
+## Guías exclusivas (lo más completo del sitio)
+${posts.filter((p) => p.data.exclusive).map((p) => `- [${p.data.title}](https://flopezmiranda.com/blog/${p.id}/): ${p.data.tldr ?? p.data.description}`).join('\n')}
+
+## Artículos y newsletter
+${posts.filter((p) => !p.data.exclusive).map((p) => `- [${p.data.title}](https://flopezmiranda.com/blog/${p.id}/): ${p.data.description}`).join('\n')}
 
 ## Proyectos
 - [Efecto Podcast](https://efectopodcast.com/): podcast chileno de conversaciones sobre marketing, negocios, emprendimiento, IA y creatividad. 39 episodios (unas 32 horas) con 17 invitados. Canal principal en YouTube: https://www.youtube.com/@efecto_podcast
