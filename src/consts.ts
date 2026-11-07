@@ -8,7 +8,7 @@ export const LINKEDIN_URL = 'https://www.linkedin.com/in/flopezmiranda/';
 export const ADSENSE_CLIENT = 'ca-pub-4575022400399296';
 
 // Verificación de Bing Webmaster Tools (meta msvalidate.01). Déjalo vacío si importaste el sitio desde Search Console.
-export const BING_VERIFICATION = '';
+export const BING_VERIFICATION = 'ED47257FF940F0BCB4A9F25B4A342CBE';
 
 export const NEWSLETTER_URL = 'https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7346352735975292928';
 
