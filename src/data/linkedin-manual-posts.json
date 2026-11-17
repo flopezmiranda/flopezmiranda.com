@@ -10,6 +10,13 @@
   "tags": [],
   "category": "Datos",
   "recent": true,
-  "manual": true
+  "manual": true,
+  "image": "/img/posts/me-pidieron-subir-el-roas-y-arme-un-plan-todo-con.webp",
+  "ogImage": "/img/posts/me-pidieron-subir-el-roas-y-arme-un-plan-todo-con.jpg",
+  "imageSize": [
+   1200,
+   900
+  ],
+  "imageAlt": "Matriz de señales para subir tu ROAS con IA: calidad de señales superficiales, de interacción, de contexto, de intención y de valor en Google Ads, Meta, TikTok y Pinterest, en escala de 1 a 10"
  }
 ]

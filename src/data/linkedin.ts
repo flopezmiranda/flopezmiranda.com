@@ -52,6 +52,9 @@ export interface LinkedInShare {
   recent: boolean;
   /** Diseño propio (Cowork) usado como imagen principal */
   image?: string;
+  ogImage?: string;
+  imageSize?: [number, number];
+  imageAlt?: string;
   manual?: boolean;
 }
 
@@ -93,7 +96,8 @@ import coverIds from './post-covers.json';
 const COVER_IDS = new Set(coverIds as string[]);
 const byIdImg = new Map(SHARES.filter((p) => p.image).map((p) => [p.id, p.image!]));
 export const postCover = (id?: string) => (id && byIdImg.get(id)) || (id && COVER_IDS.has(id) ? `/img/covers/posts/${id}.webp` : undefined);
-export const postOg = (id?: string) => (id && byIdImg.get(id)) || (id && COVER_IDS.has(id) ? `/og/posts/${id}.jpg` : undefined);
+const byIdOg = new Map(SHARES.filter((p) => p.image).map((p) => [p.id, p.ogImage ?? p.image!]));
+export const postOg = (id?: string) => (id && byIdOg.get(id)) || (id && COVER_IDS.has(id) ? `/og/posts/${id}.jpg` : undefined);
 
 // --- Títulos para buscadores ---
 const EMOJI = /[\p{Extended_Pictographic}\u{FE0F}\u{200D}\u{20E3}\u{1F3FB}-\u{1F3FF}]/gu;

@@ -76,12 +76,12 @@ const posting = {
 
     {
       cover && (
-        <figure class:list={['cover', { design: !!post.image }]}>
+        <figure class:list={['cover', { design: !!post.image && (post.imageSize?.[1] ?? 0) > (post.imageSize?.[0] ?? 0) }]}>
           <img
             src={cover}
-            alt={post.image ? `Gráfica de Felipe López Miranda: ${title}` : `Portada de la publicación: ${title}`}
-            width={post.image ? 1080 : 1600}
-            height={post.image ? 1350 : 900}
+            alt={post.imageAlt ?? (post.image ? `Gráfica de Felipe López Miranda: ${title}` : `Portada de la publicación: ${title}`)}
+            width={post.imageSize?.[0] ?? 1600}
+            height={post.imageSize?.[1] ?? 900}
             fetchpriority="high"
           />
         </figure>
