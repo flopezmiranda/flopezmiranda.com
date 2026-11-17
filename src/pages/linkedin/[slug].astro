@@ -76,8 +76,14 @@ const posting = {
 
     {
       cover && (
-        <figure class="cover">
-          <img src={cover} alt={`Portada de la publicación: ${title}`} width="1600" height="900" fetchpriority="high" />
+        <figure class:list={['cover', { design: !!post.image }]}>
+          <img
+            src={cover}
+            alt={post.image ? `Gráfica de Felipe López Miranda: ${title}` : `Portada de la publicación: ${title}`}
+            width={post.image ? 1080 : 1600}
+            height={post.image ? 1350 : 900}
+            fetchpriority="high"
+          />
         </figure>
       )
     }
@@ -128,6 +134,7 @@ const posting = {
   .origin a { color: var(--accent); font-weight: 500; }
   .cover { margin: 0 0 28px; border-radius: var(--radius); overflow: hidden; box-shadow: 0 24px 50px -28px rgba(11, 27, 58, 0.55); }
   .cover img { display: block; width: 100%; height: auto; }
+  .cover.design { max-width: 560px; margin-inline: auto; }
   .post-body { overflow-wrap: anywhere; }
   .post-body :global(p) { margin: 0 0 1.1em; }
   .post-body :global(a) { color: var(--accent); }

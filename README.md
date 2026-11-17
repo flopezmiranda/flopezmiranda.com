@@ -62,6 +62,14 @@ python scripts/import_linkedin_shares.py ruta/a/Shares.csv    # publicaciones ->
 - `/linkedin/` muestra las publicaciones del último año, agrupadas por mes.
 - Ambos scripts aplican la regla de marca: "Efecto Wow" se reemplaza por Efecto Podcast o Efecto Newsletter según el contexto.
 
+### Publicaciones sueltas (solo el texto)
+
+```bash
+python scripts/add_linkedin_post.py post.txt [--date AAAA-MM-DD] [--url ENLACE] [--image diseño.png]
+```
+
+Se guardan en `src/data/linkedin-manual-posts.json` y se mezclan con las del Shares.csv (sin duplicar). Con `--image`, el diseño (1080×1350) queda como imagen principal y para compartir.
+
 ## Portadas de los escritos
 
 ```bash

@@ -26,7 +26,8 @@ const articles = fs
   .filter((a) => !a.draft);
 const hasPosts = articles.length > 0;
 
-const posts = JSON.parse(fs.readFileSync('./src/data/linkedin-posts.json', 'utf8')).filter((p) => p.recent);
+const readJson = (f) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : []);
+const posts = [...readJson('./src/data/linkedin-manual-posts.json'), ...readJson('./src/data/linkedin-posts.json')].filter((p) => p.recent);
 const tagSlug = (t) => t.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
 const latest = (dates) => dates.filter(Boolean).sort().at(-1);
 

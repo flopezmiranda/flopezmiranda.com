@@ -37,6 +37,7 @@ export const formatNumber = (n: number) => full.format(n);
 
 // Publicaciones con texto completo (generadas con scripts/import_linkedin_shares.py)
 import postsData from './linkedin-posts.json';
+import manualData from './linkedin-manual-posts.json';
 
 export interface LinkedInShare {
   id: string;
@@ -49,9 +50,18 @@ export interface LinkedInShare {
   tags: string[];
   category: string;
   recent: boolean;
+  /** Diseño propio (Cowork) usado como imagen principal */
+  image?: string;
+  manual?: boolean;
 }
 
-export const SHARES = postsData as LinkedInShare[];
+// Importadas del Shares.csv + pegadas a mano (scripts/add_linkedin_post.py), sin duplicar
+const imported = postsData as LinkedInShare[];
+const norm = (t: string) => t.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '').slice(0, 300);
+const seen = new Set(imported.map((p) => norm(p.text)));
+export const SHARES = [...(manualData as LinkedInShare[]).filter((p) => !seen.has(norm(p.text))), ...imported].sort((a, b) =>
+  b.date.localeCompare(a.date),
+);
 const byId = new Map(SHARES.map((p) => [p.id, p]));
 
 /** Texto real de una publicación de "Lo más leído", si está en el archivo exportado */
@@ -81,8 +91,9 @@ export const postPath = (p: { slug?: string | null; recent?: boolean }) => (p.sl
 // Publicaciones con portada propia (scripts/make_covers.py)
 import coverIds from './post-covers.json';
 const COVER_IDS = new Set(coverIds as string[]);
-export const postCover = (id?: string) => (id && COVER_IDS.has(id) ? `/img/covers/posts/${id}.webp` : undefined);
-export const postOg = (id?: string) => (id && COVER_IDS.has(id) ? `/og/posts/${id}.jpg` : undefined);
+const byIdImg = new Map(SHARES.filter((p) => p.image).map((p) => [p.id, p.image!]));
+export const postCover = (id?: string) => (id && byIdImg.get(id)) || (id && COVER_IDS.has(id) ? `/img/covers/posts/${id}.webp` : undefined);
+export const postOg = (id?: string) => (id && byIdImg.get(id)) || (id && COVER_IDS.has(id) ? `/og/posts/${id}.jpg` : undefined);
 
 // --- Títulos para buscadores ---
 const EMOJI = /[\p{Extended_Pictographic}\u{FE0F}\u{200D}\u{20E3}\u{1F3FB}-\u{1F3FF}]/gu;
