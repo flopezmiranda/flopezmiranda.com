@@ -10,7 +10,14 @@
   "tags": [],
   "category": "Marketing",
   "recent": true,
-  "manual": true
+  "manual": true,
+  "image": "/img/posts/funnel-de-whatsapp-para-ventas.webp",
+  "ogImage": "/img/posts/funnel-de-whatsapp-para-ventas.jpg",
+  "imageSize": [
+   1080,
+   1350
+  ],
+  "imageAlt": "Funnel de conversión en WhatsApp en 7 etapas: impresión, clic, conversación, intención, calificación, oportunidad y venta, con la métrica y la pregunta clave de cada una"
  },
  {
   "id": "manual-2026-11-17-me-pidieron-subir-el-roas-y-arme-un-plan-todo-con",
