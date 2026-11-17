@@ -47,7 +47,8 @@ def main():
 
     headline = next((l for l in text.split('\n') if len(re.sub(r'\W', '', l)) > 3), text)[:140].strip()
     used = {p.get('slug') for p in manual + imported}
-    base = slugify(re.sub(r'#\w+', '', headline))[:60].rsplit('-', 1)[0] or 'publicacion'
+    full = slugify(re.sub(r'#\w+', '', headline))
+    base = (full if len(full) <= 60 else full[:60].rsplit('-', 1)[0]) or 'publicacion'
     slug = base if base not in used else f'{base}-{a.date}'
     m = re.search(r'(\d{15,})', a.url)
     post = {

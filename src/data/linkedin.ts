@@ -118,7 +118,8 @@ export function postTitle(p: { headline: string; text: string }) {
     .trim();
   if (t.length < 38) {
     const lines = p.text.split('\n').map(noEmoji).filter((l) => l.replace(/[^\p{L}]/gu, '').length > 12);
-    const next = lines.find((l) => !t.includes(l) && !l.includes(t));
+    // La frase siguiente que aporte contexto (no una que solo introduce otra, como "Te hago una pregunta:")
+    const next = lines.find((l) => !t.includes(l) && !l.includes(t) && !/[:…]$|\.\.\.$/.test(l) && l.replace(/[^\p{L}]/gu, '').length > 18);
     if (next) {
       const rest = next.replace(/#(\p{L}[\p{L}\p{N}_]*)/gu, '$1').replace(/^[^\p{L}\p{N}¡¿"“]+/u, '');
       t = /[?!]$/.test(t) ? `${t} ${rest}` : `${t.replace(/[.…]+$/, '')}: ${rest}`;
