@@ -1,0 +1,19 @@
+---
+// La cuadrícula: 6 capas (2 columnas cada una), 5 niveles (filas) y la serie de plataformas abajo.
+import Celda from './Celda.astro';
+import { CAPAS, NIVELES, ELEMENTOS } from '../../lib/tabla';
+---
+<p class="hint" id="hint">Desliza la tabla hacia el lado para verla completa.</p>
+<div class="scroll" tabindex="0" role="region" aria-label="Tabla periódica (desliza hacia el lado en pantallas chicas)" aria-describedby="hint">
+  <div class="pt" id="pt">
+    <svg id="links" aria-hidden="true"></svg>
+    {CAPAS.map((c, i) => (
+      <h2 class="fh" style={`grid-column:${2 + i * 2}/span 2;grid-row:1;--fc:${c.color}`}><i></i>{c.nombre}</h2>
+    ))}
+    {NIVELES.map((n, i) => (
+      <div class="pl" style={`grid-column:1;grid-row:${i + 2}`}><b>{i + 1}</b>{n}</div>
+    ))}
+    <div class="pl" style="grid-column:1;grid-row:8"><b>★</b>Plataformas</div>
+    {ELEMENTOS.map((e) => <Celda e={e} />)}
+  </div>
+</div>

@@ -1,0 +1,21 @@
+---
+// Una casilla de la tabla. Es un enlace a la página del elemento: con JavaScript abre la ficha lateral
+// sin recargar; sin JavaScript (o con Ctrl/⌘ + clic) abre la página completa.
+import { normalizar, type Elemento } from '../../lib/tabla';
+interface Props { e: Elemento }
+const { e } = Astro.props;
+const q = normalizar(`${e.simbolo} ${e.nombre_corto} ${e.nombre} ${e.que_es}`);
+---
+<a
+  class="el"
+  href={e.url}
+  id={`el-${e.slug}`}
+  data-id={e.slug}
+  data-sym={e.simbolo}
+  data-name={e.nombre}
+  data-capa={e.capa.nombre}
+  data-rel={e.reacciona_con.map((r) => r.slug).join(',')}
+  data-q={q}
+  style={`grid-column:${e.col};grid-row:${e.fila};--fc:${e.capa.color}`}
+  aria-label={`${e.numero}. ${e.nombre}`}
+><span class="z">{e.numero}</span><b class={`s l${e.simbolo.length}`}>{e.simbolo}</b><span class="n">{e.nombre_corto}</span></a>

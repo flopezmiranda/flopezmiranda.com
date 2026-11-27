@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import fs from 'node:fs';
+import { execSync } from 'node:child_process';
 
 const SITE = 'https://flopezmiranda.com';
 // Fecha de la última revisión de las páginas fijas (inicio, sobre mí, legales…). Cámbiala al editarlas.
@@ -51,6 +52,22 @@ lastmod.set('/linkedin/', latestPost);
 lastmod.set('/blog/', latestArticle);
 lastmod.set('/', latest([latestPost, latestArticle, PAGES_UPDATED]));
 priority.set('/', 1.0);
+
+// --- Tabla periódica: la fecha es la del último cambio del archivo de datos en GitHub ---
+let tablaUpdated = PAGES_UPDATED;
+try {
+  tablaUpdated = execSync('git log -1 --format=%cs -- src/data/tabla-periodica.json src/pages/tabla').toString().trim() || PAGES_UPDATED;
+} catch {}
+const tabla = JSON.parse(fs.readFileSync('./src/data/tabla-periodica.json', 'utf8'));
+lastmod.set('/tabla/', tablaUpdated);
+lastmod.set('/tabla/sobre-la-tabla/', tablaUpdated);
+priority.set('/tabla/', 0.9);
+priority.set('/tabla/sobre-la-tabla/', 0.6);
+for (const e of tabla.elementos) {
+  const slug = (e.slug ?? e.simbolo).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  lastmod.set(`/tabla/elemento/${slug}/`, tablaUpdated);
+  priority.set(`/tabla/elemento/${slug}/`, 0.7);
+}
 for (const p of ['/blog/', '/linkedin/', '/sobre-mi/']) priority.set(p, 0.8);
 for (const p of ['/privacidad/', '/cookies/', '/terminos/']) priority.set(p, 0.2);
 

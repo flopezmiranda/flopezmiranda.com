@@ -1,0 +1,58 @@
+---
+// Página principal: la tabla interactiva.
+import Layout from '../../layouts/Tabla.astro';
+import Tabla from '../../components/tabla/Tabla.astro';
+import Herramientas from '../../components/tabla/Herramientas.astro';
+import Ficha from '../../components/tabla/Ficha.astro';
+import { BASE, TITULO, ELEMENTOS, INICIAL, CAPAS, NIVELES } from '../../lib/tabla';
+import { SITE_URL, PERSON_ID } from '../../seo';
+
+const n = ELEMENTOS.length;
+const description = `${n} conceptos del performance marketing ordenados como una tabla periódica: qué es cada uno, cómo se mide, el error más común y con qué elementos reacciona.`;
+const setId = `${SITE_URL}${BASE}/#tabla`;
+const schema = [
+  {
+    '@type': 'DefinedTermSet',
+    '@id': setId,
+    name: TITULO,
+    url: `${SITE_URL}${BASE}/`,
+    description,
+    inLanguage: 'es-CL',
+    author: { '@id': PERSON_ID },
+    hasDefinedTerm: ELEMENTOS.map((e) => ({
+      '@type': 'DefinedTerm',
+      '@id': `${SITE_URL}${e.url}#termino`,
+      name: e.nombre,
+      alternateName: e.simbolo,
+      termCode: e.simbolo,
+      url: `${SITE_URL}${e.url}`,
+    })),
+  },
+];
+---
+<Layout
+  title={`${TITULO} · Felipe López Miranda`}
+  description={description}
+  image={`${BASE}/og/tabla.png`}
+  imageAlt={`${TITULO}: ${n} elementos en ${CAPAS.length} capas y ${NIVELES.length} niveles de madurez.`}
+  schema={schema}
+  crumbs={[{ name: 'Tabla periódica del performance marketing', path: `${BASE}/` }]}
+>
+  <main id="contenido">
+  <div class="band">
+    <div class="top">
+      <div>
+        <h1>{TITULO}</h1>
+        <p class="lead">{n} elementos organizados en {CAPAS.length === 6 ? 'seis' : CAPAS.length} capas del sistema y {NIVELES.length === 5 ? 'cinco' : NIVELES.length} niveles de madurez, más la serie de plataformas. Toca uno para ver qué es, cómo se mide, el error más común y con qué elementos reacciona. <a href={`${BASE}/sobre-la-tabla/`}>Cómo leer la tabla</a>.</p>
+      </div>
+      <Herramientas />
+    </div>
+  </div>
+  <div class="band layout" style="padding-top:0">
+    <section aria-label="Tabla"><Tabla /></section>
+    <aside id="panel" aria-live="polite" data-inicial={INICIAL.slug}><Ficha e={INICIAL} /></aside>
+  </div>
+  </main>
+  {ELEMENTOS.map((e) => <template id={`f-${e.slug}`}><Ficha e={e} /></template>)}
+  <script src="../../scripts/tabla.ts"></script>
+</Layout>

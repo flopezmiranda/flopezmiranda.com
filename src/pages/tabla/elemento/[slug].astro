@@ -1,0 +1,130 @@
+---
+// Una página por elemento: /tabla/elemento/roas/, /tabla/elemento/px/, etc.
+import Layout from '../../../layouts/Tabla.astro';
+import Simbolo from '../../../components/tabla/Simbolo.astro';
+import { BASE, TITULO, ELEMENTOS, CAPAS, PLATAFORMAS, anterior, siguiente, ubicacion, etiquetaMedida, recortar, type Elemento } from '../../../lib/tabla';
+import { SITE_URL, PERSON_ID } from '../../../seo';
+
+export function getStaticPaths() {
+  return ELEMENTOS.map((e) => ({ params: { slug: e.slug }, props: { e } }));
+}
+interface Props { e: Elemento }
+const { e } = Astro.props;
+const prev = anterior(e), next = siguiente(e);
+const url = `${SITE_URL}${e.url}`;
+const title = e.esPlataforma
+  ? `${e.nombre}: dónde rinde y error común | ${TITULO}`
+  : `${e.nombre} (${e.simbolo}): qué es y cómo se mide | ${TITULO}`;
+const description = recortar(`${e.nombre}: ${e.que_es} ${etiquetaMedida(e)}: ${e.como_se_mide}`, 158);
+const relacionados = [...e.reacciona_con, ...e.mencionado_por];
+const share = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+
+const schema = [
+  {
+    '@type': 'DefinedTerm',
+    '@id': `${url}#termino`,
+    name: e.nombre,
+    alternateName: e.simbolo === e.nombre ? undefined : e.simbolo,
+    termCode: e.simbolo,
+    description: e.que_es,
+    url,
+    inDefinedTermSet: { '@type': 'DefinedTermSet', '@id': `${SITE_URL}${BASE}/#tabla`, name: TITULO, url: `${SITE_URL}${BASE}/` },
+  },
+  {
+    '@type': 'WebPage',
+    '@id': url,
+    url,
+    name: title,
+    description,
+    inLanguage: 'es-CL',
+    about: { '@id': `${url}#termino` },
+    author: { '@id': PERSON_ID },
+    primaryImageOfPage: `${SITE_URL}${e.og}`,
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+  },
+];
+
+// Mini mapa: la tabla completa en chico, con este elemento marcado
+const celdas = new Map(ELEMENTOS.map((x) => [`${x.fila}-${x.col}`, x]));
+const filas = [2, 3, 4, 5, 6, 8];
+---
+<Layout
+  title={title}
+  description={description}
+  image={e.og}
+  imageAlt={`${e.simbolo}: ${e.nombre}. ${ubicacion(e)}. ${TITULO}.`}
+  type="article"
+  schema={schema}
+  crumbs={[
+    { name: TITULO, path: `${BASE}/` },
+    { name: e.nombre, path: e.url },
+  ]}
+>
+  <nav class="band crumbs" aria-label="Migas de pan">
+    <ol>
+      <li><a href="/">Inicio</a></li>
+      <li><a href={`${BASE}/`}>Tabla periódica</a></li>
+      <li aria-current="page">{e.nombre}</li>
+    </ol>
+  </nav>
+  <main id="contenido" class="band" style="padding-top:20px">
+    <article>
+      <header class="eh">
+        <Simbolo e={e} size="xl" />
+        <div>
+          <p class="meta">{ubicacion(e)} · Elemento {e.numero} de {ELEMENTOS.length}</p>
+          <h1>{e.nombre}</h1>
+          <p class="lead">Símbolo <strong>{e.simbolo}</strong> · {e.nombre_corto}</p>
+          {e.concepto_propio && <span class="tag">Concepto de Arquitectura de Aprendizaje</span>}
+        </div>
+      </header>
+      <div class="eg">
+        <div>
+          <section class="sec"><h2>Qué es</h2><p>{e.que_es}</p></section>
+          <section class="sec"><h2>{etiquetaMedida(e)}</h2><p>{e.como_se_mide}</p></section>
+          <section class="sec err"><h2>Error común</h2><p>{e.error_comun}</p></section>
+          <section class="sec">
+            <h2>Reacciona con</h2>
+            <ul class="rxl">
+              {relacionados.map((y) => (
+                <li><a href={y.url}><Simbolo e={y} /><span><strong>{y.nombre}</strong><small>{ubicacion(y)}</small></span></a></li>
+              ))}
+            </ul>
+          </section>
+          <div class="acts">
+            <a class="btn pri" href={`${BASE}/#${e.slug}`}>Ver en la tabla interactiva</a>
+            <a class="btn" href={share} target="_blank" rel="noopener">Compartir en LinkedIn ↗</a>
+          </div>
+          <nav class="pn" aria-label="Otros elementos">
+            <a class="btn" href={prev.url} rel="prev">← {prev.simbolo} · {prev.nombre_corto}</a>
+            <a class="btn" href={next.url} rel="next" style="justify-content:flex-end">{next.simbolo} · {next.nombre_corto} →</a>
+          </nav>
+        </div>
+        <aside class="sec" aria-labelledby="ubic">
+          <h2 id="ubic">Ubicación en la tabla</h2>
+          <div class="scroll">
+            <div class="mini">
+              {filas.map((f) => (
+                <>
+                  {f === 8 && <span class="gap" aria-hidden="true"></span>}
+                  {Array.from({ length: 12 }, (_, i) => {
+                    const x = celdas.get(`${f}-${i + 2}`);
+                    if (!x) return <span style="background:none" aria-hidden="true"></span>;
+                    const cls = x === e ? 'on' : relacionados.includes(x) ? 'rel' : '';
+                    return <a class={cls} href={x.url} style={`--fc:${x.capa.color}`} title={x.nombre} aria-label={x.nombre} aria-current={x === e ? 'page' : undefined}>{x.simbolo}</a>;
+                  })}
+                </>
+              ))}
+            </div>
+          </div>
+          <p class="minicap">
+            {e.esPlataforma
+              ? `Está en la serie de ${PLATAFORMAS.nombre.toLowerCase()}, la fila aparte bajo la tabla.`
+              : `Columna de la capa ${e.capa.nombre} (${CAPAS.indexOf(e.capa) + 1} de ${CAPAS.length}) y fila del nivel ${e.nivel}, ${e.nivelNombre}.`}
+            {' '}Con borde, los elementos con que reacciona.
+          </p>
+        </aside>
+      </div>
+    </article>
+  </main>
+</Layout>

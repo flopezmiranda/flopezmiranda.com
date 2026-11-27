@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # historial completo: el sitemap usa la fecha real del último cambio de la tabla
       - uses: actions/setup-node@v4
         with:
           node-version: 22

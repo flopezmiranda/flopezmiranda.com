@@ -1,0 +1,66 @@
+---
+// <head> de las páginas de la tabla: título, descripción, Open Graph, Twitter y datos estructurados.
+import '@fontsource-variable/archivo/wdth.css';
+import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
+import '../../styles/tabla.css';
+import Analitica from './Analitica.astro';
+import { LINKEDIN_URL, BING_VERIFICATION } from '../../consts';
+import { person, website, breadcrumbs, type Crumb } from '../../seo';
+
+export interface Props {
+  /** Título completo de la pestaña y de la tarjeta al compartir */
+  title: string;
+  description: string;
+  /** Ruta de la imagen para compartir (1200×630) */
+  image: string;
+  imageAlt: string;
+  type?: 'website' | 'article';
+  schema?: object[];
+  crumbs?: Crumb[];
+}
+const { title, description, image, imageAlt, type = 'website', schema = [], crumbs } = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/\/?$/, '/'), Astro.site);
+const imageURL = new URL(image, Astro.site);
+const graph = { '@context': 'https://schema.org', '@graph': [website, person, ...schema, ...(crumbs ? [breadcrumbs(crumbs)] : [])] };
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0f1318" />
+<script is:inline>
+  // Respeta el modo oscuro si lo elegiste en el resto del sitio
+  try { if (localStorage.getItem('theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}
+</script>
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<meta name="author" content="Felipe López Miranda" />
+{BING_VERIFICATION && <meta name="msvalidate.01" content={BING_VERIFICATION} />}
+<link rel="preload" href={archivoLatin} as="font" type="font/woff2" crossorigin />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="me" href={LINKEDIN_URL} />
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="Felipe López Miranda" />
+<meta property="og:locale" content="es_CL" />
+<meta property="og:url" content={canonical} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={imageAlt} />
+{type === 'article' && <meta property="article:author" content={LINKEDIN_URL} />}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />
+<meta name="twitter:image:alt" content={imageAlt} />
+
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />
+<Analitica />

@@ -1,0 +1,7 @@
+---
+// La "casilla" grande de un elemento: número arriba y símbolo grande, en el color de su capa.
+import type { Elemento } from '../../lib/tabla';
+interface Props { e: Elemento; size?: '' | 'xl' }
+const { e, size = '' } = Astro.props;
+---
+<div class:list={['big', size]} style={`--fc:${e.capa.color}`} aria-hidden="true"><span>{e.numero}</span><b class={`l${e.simbolo.length}`}>{e.simbolo}</b></div>

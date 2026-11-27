@@ -1,0 +1,1096 @@
+{
+  "titulo": "Tabla periódica del performance marketing",
+  "elemento_inicial": "Hn",
+  "capas": [
+    {
+      "nombre": "Señales",
+      "color": "#45bfff"
+    },
+    {
+      "nombre": "Audiencias",
+      "color": "#a98bff"
+    },
+    {
+      "nombre": "Creatividad",
+      "color": "#ff7f9e"
+    },
+    {
+      "nombre": "Optimización",
+      "color": "#ffb92e"
+    },
+    {
+      "nombre": "Métricas",
+      "color": "#3fd1a6"
+    },
+    {
+      "nombre": "Medición",
+      "color": "#ff935c"
+    }
+  ],
+  "plataformas": {
+    "nombre": "Plataformas",
+    "color": "#b9c0ca"
+  },
+  "niveles": [
+    "Fundamentos",
+    "Operación",
+    "Escala",
+    "Inteligencia",
+    "Ventaja"
+  ],
+  "elementos": [
+    {
+      "simbolo": "Px",
+      "nombre_corto": "Píxel",
+      "nombre": "Píxel de seguimiento",
+      "capa": "Señales",
+      "nivel": 1,
+      "columna": 1,
+      "que_es": "Fragmento de código en tu sitio que registra lo que hace cada visita y se lo devuelve a la plataforma.",
+      "como_se_mide": "Cobertura: qué parte de tus conversiones reales alcanza a ver el píxel.",
+      "error_comun": "Instalarlo y olvidarlo: bloqueadores y navegadores le roban una parte importante de la señal.",
+      "reacciona_con": [
+        "Ev",
+        "Ca",
+        "Rt"
+      ]
+    },
+    {
+      "simbolo": "Ev",
+      "nombre_corto": "Evento",
+      "nombre": "Evento de conversión",
+      "capa": "Señales",
+      "nivel": 1,
+      "columna": 2,
+      "que_es": "Cada acción con nombre que le enseñas al algoritmo: lead, compra, agendamiento, visita a una ficha.",
+      "como_se_mide": "Volumen semanal por evento: con menos de ~50 a la semana el algoritmo aprende lento.",
+      "error_comun": "Optimizar al evento que más se repite en vez del que más vale.",
+      "reacciona_con": [
+        "Px",
+        "Ob",
+        "Fl",
+        "Vc"
+      ]
+    },
+    {
+      "simbolo": "Ca",
+      "nombre_corto": "Conv. API",
+      "nombre": "Conversions API",
+      "capa": "Señales",
+      "nivel": 2,
+      "columna": 1,
+      "que_es": "Envío de eventos de servidor a servidor, sin depender del navegador. Se combina con el píxel y se deduplica con un event_id.",
+      "como_se_mide": "Tasa de deduplicación y porcentaje de eventos que llegan solo por servidor.",
+      "error_comun": "Mandar el mismo evento dos veces sin event_id y duplicar las conversiones.",
+      "reacciona_con": [
+        "Px",
+        "Cs",
+        "Tg",
+        "Of"
+      ]
+    },
+    {
+      "simbolo": "Hn",
+      "nombre_corto": "Hoyo negro",
+      "nombre": "Hoyo negro",
+      "capa": "Señales",
+      "nivel": 2,
+      "columna": 2,
+      "que_es": "Conversiones que sí ocurren en tu negocio (en WhatsApp, por teléfono, en la sala de ventas) pero que nunca vuelven a la plataforma.",
+      "como_se_mide": "Brecha entre las ventas del CRM y las conversiones que reporta la plataforma.",
+      "error_comun": "Creer que la campaña no funciona cuando en realidad el algoritmo está ciego.",
+      "reacciona_con": [
+        "Of",
+        "Wa",
+        "Ca"
+      ],
+      "concepto_propio": true
+    },
+    {
+      "simbolo": "Vc",
+      "nombre_corto": "Valor",
+      "nombre": "Valor de conversión",
+      "capa": "Señales",
+      "nivel": 3,
+      "columna": 1,
+      "que_es": "Monto que acompaña a cada evento para que el algoritmo distinga un lead de UF 2.000 de uno de UF 20.000.",
+      "como_se_mide": "Valor promedio por conversión y ROAS.",
+      "error_comun": "Mandar el mismo valor fijo en todos los eventos: le dices al algoritmo que todo vale igual.",
+      "reacciona_con": [
+        "ROAS",
+        "Pv",
+        "Vp"
+      ]
+    },
+    {
+      "simbolo": "Of",
+      "nombre_corto": "Offline",
+      "nombre": "Conversión offline",
+      "capa": "Señales",
+      "nivel": 3,
+      "columna": 2,
+      "que_es": "Etapas del CRM (visita, reserva, promesa, venta) que subes de vuelta a la plataforma, atadas al clic o a la persona original.",
+      "como_se_mide": "Tasa de coincidencia (match rate) y días de desfase entre el lead y la venta.",
+      "error_comun": "Subir solo la venta final, meses después, cuando la ventana de atribución ya cerró.",
+      "reacciona_con": [
+        "Hn",
+        "Dp",
+        "Vw"
+      ]
+    },
+    {
+      "simbolo": "Cs",
+      "nombre_corto": "Calidad",
+      "nombre": "Calidad de la señal",
+      "capa": "Señales",
+      "nivel": 4,
+      "columna": 1,
+      "que_es": "Qué tan identificable y completo es cada evento: correo, teléfono, IP, ID de clic. En Meta se ve como Event Match Quality.",
+      "como_se_mide": "Puntaje de coincidencia y porcentaje de eventos con identificadores.",
+      "error_comun": "Perseguir volumen de eventos sin revisar si la plataforma logra reconocerlos.",
+      "reacciona_con": [
+        "Ca",
+        "Dp",
+        "Rs"
+      ]
+    },
+    {
+      "simbolo": "Rs",
+      "nombre_corto": "Resolución",
+      "nombre": "Resolución de señales",
+      "capa": "Señales",
+      "nivel": 4,
+      "columna": 2,
+      "que_es": "El nivel de detalle con que el algoritmo ve tu negocio: no es lo mismo “lead” que “lead calificado que agendó visita”.",
+      "como_se_mide": "Cuántas etapas del funnel vuelven a la plataforma como eventos.",
+      "error_comun": "Quedarse en baja resolución por miedo a perder volumen.",
+      "reacciona_con": [
+        "Ev",
+        "Cs",
+        "Of"
+      ],
+      "concepto_propio": true
+    },
+    {
+      "simbolo": "Vp",
+      "nombre_corto": "pLTV",
+      "nombre": "Valor predictivo",
+      "capa": "Señales",
+      "nivel": 5,
+      "columna": 1,
+      "que_es": "Valor estimado de un cliente en el momento en que convierte, calculado con un modelo propio y enviado como señal.",
+      "como_se_mide": "Correlación entre el valor predicho y el valor real a 90 días.",
+      "error_comun": "Predecir con un modelo que nadie recalibra.",
+      "reacciona_con": [
+        "Vc",
+        "LTV",
+        "Pv"
+      ]
+    },
+    {
+      "simbolo": "Cp",
+      "nombre_corto": "Capital",
+      "nombre": "Capital de aprendizaje",
+      "capa": "Señales",
+      "nivel": 5,
+      "columna": 2,
+      "que_es": "Lo que tu cuenta ya le enseñó al algoritmo y que la competencia no puede comprar: historia de señales limpias y consistentes.",
+      "como_se_mide": "Estabilidad del CPA y rapidez para salir de la fase de aprendizaje en campañas nuevas.",
+      "error_comun": "Reiniciar campañas, cambiar eventos o duplicar cuentas y botar lo aprendido.",
+      "reacciona_con": [
+        "Fl",
+        "Rs",
+        "Ec"
+      ],
+      "concepto_propio": true
+    },
+    {
+      "simbolo": "Rt",
+      "nombre_corto": "Retargeting",
+      "nombre": "Retargeting",
+      "capa": "Audiencias",
+      "nivel": 1,
+      "columna": 1,
+      "que_es": "Volver a impactar a quien ya visitó tu sitio, vio un video o interactuó con tu marca.",
+      "como_se_mide": "Frecuencia y CPA incremental frente a prospección.",
+      "error_comun": "Pagar por personas que iban a convertir igual.",
+      "reacciona_con": [
+        "Px",
+        "Ex",
+        "In"
+      ]
+    },
+    {
+      "simbolo": "Ac",
+      "nombre_corto": "Custom",
+      "nombre": "Audiencia personalizada",
+      "capa": "Audiencias",
+      "nivel": 1,
+      "columna": 2,
+      "que_es": "Lista armada con tus propios datos o comportamientos: clientes, leads, visitantes de una sección.",
+      "como_se_mide": "Tamaño y tasa de coincidencia de la lista.",
+      "error_comun": "Usar listas viejas que nadie actualiza.",
+      "reacciona_con": [
+        "Lk",
+        "Dp",
+        "Ex"
+      ]
+    },
+    {
+      "simbolo": "Lk",
+      "nombre_corto": "Lookalike",
+      "nombre": "Audiencia similar",
+      "capa": "Audiencias",
+      "nivel": 2,
+      "columna": 1,
+      "que_es": "La plataforma busca personas parecidas a una lista semilla.",
+      "como_se_mide": "Calidad de la semilla: valen más 1.000 clientes reales que 50.000 visitas.",
+      "error_comun": "Sembrar con leads de mala calidad y escalar el error.",
+      "reacciona_con": [
+        "Ac",
+        "Vl",
+        "Br"
+      ]
+    },
+    {
+      "simbolo": "Ex",
+      "nombre_corto": "Exclusión",
+      "nombre": "Exclusiones",
+      "capa": "Audiencias",
+      "nivel": 2,
+      "columna": 2,
+      "que_es": "Sacar de la campaña a quienes no quieres pagar: clientes actuales, equipo interno, leads ya trabajados.",
+      "como_se_mide": "Porcentaje del presupuesto que se va en público que podrías excluir.",
+      "error_comun": "No excluir y celebrar resultados que vienen de tus propios clientes.",
+      "reacciona_con": [
+        "Rt",
+        "Ac",
+        "In"
+      ]
+    },
+    {
+      "simbolo": "Br",
+      "nombre_corto": "Broad",
+      "nombre": "Segmentación amplia",
+      "capa": "Audiencias",
+      "nivel": 3,
+      "columna": 1,
+      "que_es": "Dejar la audiencia abierta y que la creatividad y la señal hagan el trabajo de encontrar a la persona.",
+      "como_se_mide": "CPA y volumen frente a campañas segmentadas, en un test A/B.",
+      "error_comun": "Abrir la audiencia con una señal débil: el algoritmo no sabe a quién buscar.",
+      "reacciona_con": [
+        "Di",
+        "Cs",
+        "Aa"
+      ]
+    },
+    {
+      "simbolo": "Aa",
+      "nombre_corto": "Automática",
+      "nombre": "Audiencia automática",
+      "capa": "Audiencias",
+      "nivel": 3,
+      "columna": 2,
+      "que_es": "Productos en que la plataforma decide audiencia y ubicaciones: Advantage+, Performance Max, Smart+.",
+      "como_se_mide": "Desglose entre clientes nuevos y existentes en el reporte.",
+      "error_comun": "Darle control total sin exclusiones ni valores.",
+      "reacciona_con": [
+        "Br",
+        "Me",
+        "Go",
+        "Ex"
+      ]
+    },
+    {
+      "simbolo": "Dp",
+      "nombre_corto": "Datos propios",
+      "nombre": "Datos propios (first-party)",
+      "capa": "Audiencias",
+      "nivel": 4,
+      "columna": 1,
+      "que_es": "Información que tu negocio recoge con consentimiento: CRM, formularios, comportamiento en tu sitio.",
+      "como_se_mide": "Porcentaje de la base contactable y con consentimiento vigente.",
+      "error_comun": "Recolectar sin un consentimiento claro: en Chile, con la Ley 21.719, deja de ser opción.",
+      "reacciona_con": [
+        "Ac",
+        "Of",
+        "Cl"
+      ]
+    },
+    {
+      "simbolo": "Vl",
+      "nombre_corto": "Por valor",
+      "nombre": "Segmentación por valor",
+      "capa": "Audiencias",
+      "nivel": 4,
+      "columna": 2,
+      "que_es": "Audiencias armadas según cuánto vale el cliente, no según quién es.",
+      "como_se_mide": "Diferencia de LTV entre segmentos.",
+      "error_comun": "Tratar igual al que compró una vez y al que vuelve todos los años.",
+      "reacciona_con": [
+        "LTV",
+        "Lk",
+        "Vp"
+      ]
+    },
+    {
+      "simbolo": "Cl",
+      "nombre_corto": "Clean room",
+      "nombre": "Clean room",
+      "capa": "Audiencias",
+      "nivel": 5,
+      "columna": 1,
+      "que_es": "Espacio seguro donde cruzas tus datos con los de una plataforma o un socio sin exponer a las personas.",
+      "como_se_mide": "Alcance del cruce y casos de uso que activaste.",
+      "error_comun": "Montarlo sin una pregunta de negocio clara.",
+      "reacciona_con": [
+        "Dp",
+        "Mm",
+        "Rm"
+      ]
+    },
+    {
+      "simbolo": "Hk",
+      "nombre_corto": "Hook",
+      "nombre": "Gancho",
+      "capa": "Creatividad",
+      "nivel": 1,
+      "columna": 1,
+      "que_es": "Los primeros uno a tres segundos que deciden si alguien se queda.",
+      "como_se_mide": "Retención a 3 segundos (thumb-stop rate).",
+      "error_comun": "Partir con el logo.",
+      "reacciona_con": [
+        "Fm",
+        "Ag",
+        "CTR"
+      ]
+    },
+    {
+      "simbolo": "Ct",
+      "nombre_corto": "CTA",
+      "nombre": "Llamado a la acción",
+      "capa": "Creatividad",
+      "nivel": 1,
+      "columna": 2,
+      "que_es": "Lo que le pides a la persona que haga, con una sola acción clara.",
+      "como_se_mide": "CTR y tasa de conversión del paso siguiente.",
+      "error_comun": "Pedir tres cosas a la vez.",
+      "reacciona_con": [
+        "CTR",
+        "Lp",
+        "Ob"
+      ]
+    },
+    {
+      "simbolo": "Fm",
+      "nombre_corto": "Formato",
+      "nombre": "Formato",
+      "capa": "Creatividad",
+      "nivel": 2,
+      "columna": 1,
+      "que_es": "Video vertical, carrusel, estático, colección: cada ubicación premia un formato distinto.",
+      "como_se_mide": "Rendimiento por formato y por ubicación.",
+      "error_comun": "Recortar un video horizontal y llamarlo vertical.",
+      "reacciona_con": [
+        "Hk",
+        "Ug",
+        "Tk"
+      ]
+    },
+    {
+      "simbolo": "Ug",
+      "nombre_corto": "UGC",
+      "nombre": "Contenido de usuarios",
+      "capa": "Creatividad",
+      "nivel": 2,
+      "columna": 2,
+      "que_es": "Piezas con estética de persona real y no de marca: testimonios, reseñas, recorridos.",
+      "como_se_mide": "Hold rate y CPA frente a piezas producidas.",
+      "error_comun": "Guionarlo tanto que se nota que es un aviso.",
+      "reacciona_con": [
+        "Fm",
+        "Ag",
+        "Tk"
+      ]
+    },
+    {
+      "simbolo": "Ag",
+      "nombre_corto": "Ángulo",
+      "nombre": "Ángulo creativo",
+      "capa": "Creatividad",
+      "nivel": 3,
+      "columna": 1,
+      "que_es": "La razón de compra que comunica la pieza: precio, ubicación, seguridad, plusvalía. Cambiar el ángulo cambia a quién llegas.",
+      "como_se_mide": "CPA por ángulo, no solo por pieza.",
+      "error_comun": "Hacer diez versiones del mismo ángulo y llamarlo testing.",
+      "reacciona_con": [
+        "Di",
+        "Ts",
+        "Br"
+      ]
+    },
+    {
+      "simbolo": "Ts",
+      "nombre_corto": "Testing",
+      "nombre": "Testing creativo",
+      "capa": "Creatividad",
+      "nivel": 3,
+      "columna": 2,
+      "que_es": "Un sistema para lanzar, leer y descartar creatividades con reglas fijas.",
+      "como_se_mide": "Tasa de piezas ganadoras y tiempo hasta decidir.",
+      "error_comun": "Declarar una ganadora con tres conversiones.",
+      "reacciona_con": [
+        "Ag",
+        "Xp",
+        "Fa"
+      ]
+    },
+    {
+      "simbolo": "Fa",
+      "nombre_corto": "Fatiga",
+      "nombre": "Fatiga creativa",
+      "capa": "Creatividad",
+      "nivel": 4,
+      "columna": 1,
+      "que_es": "Cuando una pieza ya se vio demasiado y su rendimiento empieza a caer.",
+      "como_se_mide": "Frecuencia al alza con CTR a la baja.",
+      "error_comun": "Esperar a que el CPA se dispare para renovar.",
+      "reacciona_con": [
+        "CTR",
+        "CPM",
+        "Ts"
+      ]
+    },
+    {
+      "simbolo": "Di",
+      "nombre_corto": "Diversidad",
+      "nombre": "Diversidad creativa",
+      "capa": "Creatividad",
+      "nivel": 4,
+      "columna": 2,
+      "que_es": "En campañas amplias, la creatividad es la nueva segmentación: piezas distintas encuentran personas distintas.",
+      "como_se_mide": "Cantidad de conceptos realmente distintos activos.",
+      "error_comun": "Muchas piezas, un solo concepto.",
+      "reacciona_con": [
+        "Br",
+        "Ag",
+        "Ga"
+      ]
+    },
+    {
+      "simbolo": "Ga",
+      "nombre_corto": "IA generativa",
+      "nombre": "Creatividad generativa",
+      "capa": "Creatividad",
+      "nivel": 5,
+      "columna": 1,
+      "que_es": "Producción y variación de piezas con IA, a la velocidad que pide el algoritmo.",
+      "como_se_mide": "Costo y tiempo por concepto nuevo.",
+      "error_comun": "Usar la IA para producir más de lo mismo.",
+      "reacciona_con": [
+        "Di",
+        "Ts",
+        "Ia"
+      ]
+    },
+    {
+      "simbolo": "Ob",
+      "nombre_corto": "Objetivo",
+      "nombre": "Objetivo de campaña",
+      "capa": "Optimización",
+      "nivel": 1,
+      "columna": 1,
+      "que_es": "Lo que le pides optimizar a la plataforma: alcance, tráfico, leads, ventas. Te entrega exactamente lo que pides.",
+      "como_se_mide": "Coherencia entre el objetivo y el evento que importa al negocio.",
+      "error_comun": "Pedir tráfico y esperar ventas.",
+      "reacciona_con": [
+        "Ev",
+        "Pj",
+        "Ct"
+      ]
+    },
+    {
+      "simbolo": "Pr",
+      "nombre_corto": "Presupuesto",
+      "nombre": "Presupuesto",
+      "capa": "Optimización",
+      "nivel": 1,
+      "columna": 2,
+      "que_es": "Cuánto inviertes y cómo se reparte entre campañas y días.",
+      "como_se_mide": "Que alcance para ~50 conversiones semanales por conjunto.",
+      "error_comun": "Repartirlo en tantos conjuntos que ninguno aprende.",
+      "reacciona_con": [
+        "Fl",
+        "Ec",
+        "MER"
+      ]
+    },
+    {
+      "simbolo": "Pj",
+      "nombre_corto": "Puja",
+      "nombre": "Estrategia de puja",
+      "capa": "Optimización",
+      "nivel": 2,
+      "columna": 1,
+      "que_es": "Cómo compite tu anuncio en la subasta: menor costo, costo objetivo, límite de puja.",
+      "como_se_mide": "Variación del CPA y gasto real frente al presupuesto.",
+      "error_comun": "Fijar un costo objetivo por debajo de la realidad y frenar la entrega.",
+      "reacciona_con": [
+        "Ob",
+        "Pv",
+        "CPA"
+      ]
+    },
+    {
+      "simbolo": "Fl",
+      "nombre_corto": "Aprendizaje",
+      "nombre": "Fase de aprendizaje",
+      "capa": "Optimización",
+      "nivel": 2,
+      "columna": 2,
+      "que_es": "El período en que el algoritmo explora después de crear una campaña o editarla de forma importante.",
+      "como_se_mide": "Tiempo y conversiones hasta salir de la fase.",
+      "error_comun": "Editar cada dos días y vivir aprendiendo para siempre.",
+      "reacciona_con": [
+        "Ev",
+        "Pr",
+        "Cp"
+      ]
+    },
+    {
+      "simbolo": "Ec",
+      "nombre_corto": "Estructura",
+      "nombre": "Estructura consolidada",
+      "capa": "Optimización",
+      "nivel": 3,
+      "columna": 1,
+      "que_es": "Menos campañas y conjuntos, con más datos en cada uno.",
+      "como_se_mide": "Conversiones por conjunto por semana.",
+      "error_comun": "Una campaña por comuna, por proyecto y por formato.",
+      "reacciona_con": [
+        "Pr",
+        "Fl",
+        "Br"
+      ]
+    },
+    {
+      "simbolo": "Lp",
+      "nombre_corto": "Landing",
+      "nombre": "Landing page",
+      "capa": "Optimización",
+      "nivel": 3,
+      "columna": 2,
+      "que_es": "La página donde aterriza el clic. La mitad de la optimización pasa después del anuncio.",
+      "como_se_mide": "Tasa de conversión (CVR) y velocidad de carga.",
+      "error_comun": "Mandar el tráfico a la home.",
+      "reacciona_con": [
+        "CVR",
+        "Ct",
+        "An"
+      ]
+    },
+    {
+      "simbolo": "Pv",
+      "nombre_corto": "Puja x valor",
+      "nombre": "Puja por valor",
+      "capa": "Optimización",
+      "nivel": 4,
+      "columna": 1,
+      "que_es": "Optimizar al valor (ROAS objetivo, maximizar valor) en vez de al volumen.",
+      "como_se_mide": "ROAS frente al objetivo y mezcla de valor de las conversiones.",
+      "error_comun": "Activarla sin valores confiables en los eventos.",
+      "reacciona_con": [
+        "Vc",
+        "ROAS",
+        "Vp"
+      ]
+    },
+    {
+      "simbolo": "Xp",
+      "nombre_corto": "Experimento",
+      "nombre": "Experimentación continua",
+      "capa": "Optimización",
+      "nivel": 4,
+      "columna": 2,
+      "que_es": "Un calendario permanente de pruebas, cada una con hipótesis, grupo de control y criterio de cierre.",
+      "como_se_mide": "Pruebas cerradas al mes y cuántas dejan un aprendizaje documentado.",
+      "error_comun": "Probar todo a la vez y no saber qué funcionó.",
+      "reacciona_con": [
+        "Ts",
+        "In",
+        "Hd"
+      ]
+    },
+    {
+      "simbolo": "Ia",
+      "nombre_corto": "Agentes IA",
+      "nombre": "Agentes de optimización",
+      "capa": "Optimización",
+      "nivel": 5,
+      "columna": 1,
+      "que_es": "Sistemas que leen datos, proponen y ejecutan cambios en las campañas, con reglas y supervisión humana.",
+      "como_se_mide": "Tiempo de reacción y decisiones automáticas que mejoran el resultado.",
+      "error_comun": "Automatizar sin una señal limpia: la IA acelera tus errores.",
+      "reacciona_con": [
+        "Ga",
+        "Cs",
+        "Xp"
+      ]
+    },
+    {
+      "simbolo": "CPM",
+      "nombre_corto": "Costo x mil",
+      "nombre": "Costo por mil impresiones",
+      "capa": "Métricas",
+      "nivel": 1,
+      "columna": 1,
+      "que_es": "El precio de la atención: cuánto cuesta que tu aviso se muestre mil veces.",
+      "como_se_mide": "Inversión ÷ impresiones × 1.000.",
+      "error_comun": "Leerlo solo: un CPM bajo puede ser un público que nunca compra.",
+      "reacciona_con": [
+        "CTR",
+        "Fa",
+        "Me"
+      ]
+    },
+    {
+      "simbolo": "CTR",
+      "nombre_corto": "Tasa de clic",
+      "nombre": "Tasa de clics",
+      "capa": "Métricas",
+      "nivel": 1,
+      "columna": 2,
+      "que_es": "Qué porcentaje de quienes ven el anuncio hace clic.",
+      "como_se_mide": "Clics ÷ impresiones.",
+      "error_comun": "Optimizar al clic y atraer curiosos.",
+      "reacciona_con": [
+        "Hk",
+        "Ct",
+        "CPC"
+      ]
+    },
+    {
+      "simbolo": "CPC",
+      "nombre_corto": "Costo x clic",
+      "nombre": "Costo por clic",
+      "capa": "Métricas",
+      "nivel": 2,
+      "columna": 1,
+      "que_es": "Cuánto pagas por cada visita que genera el anuncio.",
+      "como_se_mide": "Inversión ÷ clics.",
+      "error_comun": "Comparar CPC entre campañas con objetivos distintos.",
+      "reacciona_con": [
+        "CPM",
+        "CTR",
+        "CVR"
+      ]
+    },
+    {
+      "simbolo": "CVR",
+      "nombre_corto": "Tasa conv.",
+      "nombre": "Tasa de conversión",
+      "capa": "Métricas",
+      "nivel": 2,
+      "columna": 2,
+      "que_es": "Qué porcentaje de los clics o visitas termina en la acción que buscas.",
+      "como_se_mide": "Conversiones ÷ clics.",
+      "error_comun": "Culpar a la campaña de un problema de la landing o del equipo de ventas.",
+      "reacciona_con": [
+        "Lp",
+        "CPA",
+        "CPC"
+      ]
+    },
+    {
+      "simbolo": "CPA",
+      "nombre_corto": "Costo x adq.",
+      "nombre": "Costo por adquisición",
+      "capa": "Métricas",
+      "nivel": 3,
+      "columna": 1,
+      "que_es": "Cuánto cuesta cada conversión: lead, venta o agendamiento.",
+      "como_se_mide": "Inversión ÷ conversiones.",
+      "error_comun": "Comparar CPA de leads de distinta calidad como si fueran lo mismo.",
+      "reacciona_con": [
+        "CVR",
+        "Pj",
+        "CAC"
+      ]
+    },
+    {
+      "simbolo": "ROAS",
+      "nombre_corto": "Retorno ads",
+      "nombre": "Retorno sobre la inversión publicitaria",
+      "capa": "Métricas",
+      "nivel": 3,
+      "columna": 2,
+      "que_es": "Cuánto valor genera cada peso invertido en medios, según la plataforma.",
+      "como_se_mide": "Valor atribuido ÷ inversión.",
+      "error_comun": "Confundirlo con rentabilidad: no descuenta márgenes ni costos.",
+      "reacciona_con": [
+        "Vc",
+        "Pv",
+        "MER"
+      ]
+    },
+    {
+      "simbolo": "CAC",
+      "nombre_corto": "Costo cliente",
+      "nombre": "Costo de adquisición de cliente",
+      "capa": "Métricas",
+      "nivel": 4,
+      "columna": 1,
+      "que_es": "Todo lo que cuesta conseguir un cliente: medios, equipo, herramientas, comisiones.",
+      "como_se_mide": "Costo total comercial y de marketing ÷ clientes nuevos.",
+      "error_comun": "Llamar CAC al CPA de la plataforma.",
+      "reacciona_con": [
+        "CPA",
+        "LTV",
+        "Pb"
+      ]
+    },
+    {
+      "simbolo": "LTV",
+      "nombre_corto": "Valor vida",
+      "nombre": "Valor de vida del cliente",
+      "capa": "Métricas",
+      "nivel": 4,
+      "columna": 2,
+      "que_es": "El margen que deja un cliente durante toda su relación contigo.",
+      "como_se_mide": "Margen promedio × frecuencia × duración.",
+      "error_comun": "Calcularlo con ingresos y no con margen.",
+      "reacciona_con": [
+        "CAC",
+        "Vp",
+        "Vl"
+      ]
+    },
+    {
+      "simbolo": "MER",
+      "nombre_corto": "Eficiencia",
+      "nombre": "Eficiencia de marketing (MER)",
+      "capa": "Métricas",
+      "nivel": 5,
+      "columna": 1,
+      "que_es": "Ingreso total del negocio dividido por la inversión total en marketing. La vista del directorio.",
+      "como_se_mide": "Ingresos totales ÷ inversión total en marketing.",
+      "error_comun": "Sumar el ROAS de cada plataforma y llegar a un número que no existe.",
+      "reacciona_con": [
+        "ROAS",
+        "Mm",
+        "Pr"
+      ]
+    },
+    {
+      "simbolo": "Pb",
+      "nombre_corto": "Payback",
+      "nombre": "Período de recuperación",
+      "capa": "Métricas",
+      "nivel": 5,
+      "columna": 2,
+      "que_es": "Los meses que tarda un cliente en devolver lo que costó conseguirlo.",
+      "como_se_mide": "CAC ÷ margen mensual por cliente.",
+      "error_comun": "Escalar con un payback más largo que tu caja.",
+      "reacciona_con": [
+        "CAC",
+        "LTV",
+        "MER"
+      ]
+    },
+    {
+      "simbolo": "Ut",
+      "nombre_corto": "UTM",
+      "nombre": "Parámetros UTM",
+      "capa": "Medición",
+      "nivel": 1,
+      "columna": 1,
+      "que_es": "Etiquetas en la URL que indican fuente, medio y campaña de cada visita.",
+      "como_se_mide": "Porcentaje del tráfico pagado sin etiquetar.",
+      "error_comun": "Que cada persona del equipo las escriba a su manera.",
+      "reacciona_con": [
+        "An",
+        "Lc",
+        "Mt"
+      ]
+    },
+    {
+      "simbolo": "An",
+      "nombre_corto": "Analítica",
+      "nombre": "Analítica web",
+      "capa": "Medición",
+      "nivel": 1,
+      "columna": 2,
+      "que_es": "La herramienta que registra lo que pasa en tu sitio, fuera de la plataforma de anuncios; por ejemplo, GA4.",
+      "como_se_mide": "Diferencia entre las sesiones de la analítica y los clics de la plataforma.",
+      "error_comun": "Tener dos fuentes y no conciliarlas nunca.",
+      "reacciona_con": [
+        "Ut",
+        "Lp",
+        "Tg"
+      ]
+    },
+    {
+      "simbolo": "Lc",
+      "nombre_corto": "Último clic",
+      "nombre": "Atribución de último clic",
+      "capa": "Medición",
+      "nivel": 2,
+      "columna": 1,
+      "que_es": "Le da todo el crédito al último punto de contacto antes de la conversión.",
+      "como_se_mide": "Conversiones por canal según el último clic.",
+      "error_comun": "Apagar la parte alta del funnel porque “no convierte”.",
+      "reacciona_con": [
+        "Mt",
+        "In",
+        "Ut"
+      ]
+    },
+    {
+      "simbolo": "Vw",
+      "nombre_corto": "Ventana",
+      "nombre": "Ventana de atribución",
+      "capa": "Medición",
+      "nivel": 2,
+      "columna": 2,
+      "que_es": "Cuántos días después del clic o de la vista la plataforma se adjudica una conversión.",
+      "como_se_mide": "Días configurados frente al ciclo real de compra.",
+      "error_comun": "Usar 7 días en un negocio que cierra en 90.",
+      "reacciona_con": [
+        "Lc",
+        "Of",
+        "Mt"
+      ]
+    },
+    {
+      "simbolo": "Mt",
+      "nombre_corto": "Multitoque",
+      "nombre": "Atribución multitoque",
+      "capa": "Medición",
+      "nivel": 3,
+      "columna": 1,
+      "que_es": "Reparte el crédito entre varios puntos de contacto según un modelo.",
+      "como_se_mide": "Peso de cada canal según el modelo, y qué tan estable es.",
+      "error_comun": "Creer que un modelo de atribución es la verdad y no una opinión.",
+      "reacciona_con": [
+        "Lc",
+        "In",
+        "Mm"
+      ]
+    },
+    {
+      "simbolo": "Tg",
+      "nombre_corto": "Server-side",
+      "nombre": "Etiquetado server-side",
+      "capa": "Medición",
+      "nivel": 3,
+      "columna": 2,
+      "que_es": "Tus etiquetas corren en tu servidor y no en el navegador: más control y menos pérdida de datos.",
+      "como_se_mide": "Eventos recuperados frente al etiquetado en el navegador.",
+      "error_comun": "Migrar sin revisar consentimiento ni deduplicación.",
+      "reacciona_con": [
+        "Ca",
+        "An",
+        "Dp"
+      ]
+    },
+    {
+      "simbolo": "In",
+      "nombre_corto": "Incremental",
+      "nombre": "Incrementalidad",
+      "capa": "Medición",
+      "nivel": 4,
+      "columna": 1,
+      "que_es": "Lo que la campaña causó de verdad: ventas que no habrían ocurrido sin ella.",
+      "como_se_mide": "Lift test o geo-test: diferencia entre el grupo expuesto y el de control.",
+      "error_comun": "Confundir correlación con causa.",
+      "reacciona_con": [
+        "Hd",
+        "Rt",
+        "Mm"
+      ]
+    },
+    {
+      "simbolo": "Hd",
+      "nombre_corto": "Holdout",
+      "nombre": "Grupo de control",
+      "capa": "Medición",
+      "nivel": 4,
+      "columna": 2,
+      "que_es": "Una parte de la audiencia o del territorio que, a propósito, no ve la campaña.",
+      "como_se_mide": "Tamaño del control y significancia del resultado.",
+      "error_comun": "Un control tan chico que ningún resultado es significativo.",
+      "reacciona_con": [
+        "In",
+        "Xp",
+        "Ex"
+      ]
+    },
+    {
+      "simbolo": "Mm",
+      "nombre_corto": "MMM",
+      "nombre": "Marketing mix modeling",
+      "capa": "Medición",
+      "nivel": 5,
+      "columna": 1,
+      "que_es": "Modelo estadístico que estima el aporte de cada canal con datos agregados, sin rastrear personas.",
+      "como_se_mide": "Aporte y retorno marginal por canal.",
+      "error_comun": "Correrlo una vez al año y no calibrarlo con experimentos.",
+      "reacciona_con": [
+        "In",
+        "MER",
+        "Tn"
+      ]
+    },
+    {
+      "simbolo": "Tn",
+      "nombre_corto": "Triangular",
+      "nombre": "Triangulación",
+      "capa": "Medición",
+      "nivel": 5,
+      "columna": 2,
+      "que_es": "Leer plataforma, analítica, experimentos y MMM juntos para decidir, sin casarse con una sola fuente.",
+      "como_se_mide": "Brecha entre fuentes y la decisión que tomaste con ellas.",
+      "error_comun": "Escoger la fuente que mejor habla de ti.",
+      "reacciona_con": [
+        "Mm",
+        "In",
+        "Mt"
+      ]
+    },
+    {
+      "simbolo": "Me",
+      "nombre_corto": "Meta",
+      "nombre": "Meta Ads",
+      "capa": "Plataformas",
+      "columna": 1,
+      "que_es": "Facebook, Instagram y WhatsApp en una subasta que aprende de tus señales.",
+      "como_se_mide": "Crear demanda con creatividad y audiencias amplias.",
+      "error_comun": "Microsegmentar como si fuera 2018.",
+      "reacciona_con": [
+        "Ca",
+        "Aa",
+        "Wa"
+      ]
+    },
+    {
+      "simbolo": "Go",
+      "nombre_corto": "Google",
+      "nombre": "Google Ads",
+      "capa": "Plataformas",
+      "columna": 2,
+      "que_es": "Search, Performance Max, Demand Gen y Display: captura la demanda que ya existe y la amplía.",
+      "como_se_mide": "Intención: la persona ya está buscando.",
+      "error_comun": "Dejar Performance Max sin exclusiones de marca ni valores.",
+      "reacciona_con": [
+        "Aa",
+        "Pv",
+        "Yt"
+      ]
+    },
+    {
+      "simbolo": "Yt",
+      "nombre_corto": "YouTube",
+      "nombre": "YouTube",
+      "capa": "Plataformas",
+      "columna": 3,
+      "que_es": "Video largo, Shorts y TV conectada dentro del ecosistema de Google.",
+      "como_se_mide": "Consideración, y búsquedas de marca que después aparecen en Search.",
+      "error_comun": "Medirlo solo por último clic.",
+      "reacciona_con": [
+        "Go",
+        "Fm",
+        "In"
+      ]
+    },
+    {
+      "simbolo": "Tk",
+      "nombre_corto": "TikTok",
+      "nombre": "TikTok Ads",
+      "capa": "Plataformas",
+      "columna": 4,
+      "que_es": "Feed vertical donde el contenido nativo le gana a la pieza de marca.",
+      "como_se_mide": "Descubrimiento y públicos jóvenes, con creatividad tipo UGC.",
+      "error_comun": "Subir el mismo aviso de Instagram.",
+      "reacciona_con": [
+        "Ug",
+        "Fm",
+        "Hk"
+      ]
+    },
+    {
+      "simbolo": "Li",
+      "nombre_corto": "LinkedIn",
+      "nombre": "LinkedIn Ads",
+      "capa": "Plataformas",
+      "columna": 5,
+      "que_es": "Segmentación por cargo, empresa e industria.",
+      "como_se_mide": "B2B y ventas de ticket alto con ciclo largo.",
+      "error_comun": "Esperar los costos por clic de Meta.",
+      "reacciona_con": [
+        "Of",
+        "Vw",
+        "Ac"
+      ]
+    },
+    {
+      "simbolo": "Ds",
+      "nombre_corto": "DSP",
+      "nombre": "Programática (DSP)",
+      "capa": "Plataformas",
+      "columna": 6,
+      "que_es": "Compra automatizada de medios en miles de sitios y apps a través de una plataforma de demanda.",
+      "como_se_mide": "Alcance y frecuencia controlada fuera de las grandes redes.",
+      "error_comun": "Comprar impresiones baratas en sitios que nadie ve.",
+      "reacciona_con": [
+        "CPM",
+        "In",
+        "Cl"
+      ]
+    },
+    {
+      "simbolo": "Rm",
+      "nombre_corto": "Retail media",
+      "nombre": "Retail media",
+      "capa": "Plataformas",
+      "columna": 7,
+      "que_es": "Anuncios dentro de marketplaces y retailers, con sus datos de compra.",
+      "como_se_mide": "Estar donde ocurre la compra, con dato de transacción cerrada.",
+      "error_comun": "Creerle sin contrastar el ROAS que reporta el propio retailer.",
+      "reacciona_con": [
+        "Cl",
+        "ROAS",
+        "Dp"
+      ]
+    },
+    {
+      "simbolo": "Wa",
+      "nombre_corto": "WhatsApp",
+      "nombre": "WhatsApp Business",
+      "capa": "Plataformas",
+      "columna": 8,
+      "que_es": "El canal donde en Latinoamérica ocurre la conversación de venta; el puente entre el anuncio y el CRM.",
+      "como_se_mide": "Anuncios click-to-WhatsApp y conversaciones que vuelven como señal.",
+      "error_comun": "Que lo que pasa en el chat nunca vuelva a la plataforma.",
+      "reacciona_con": [
+        "Hn",
+        "Me",
+        "Of"
+      ]
+    },
+    {
+      "simbolo": "Ai",
+      "nombre_corto": "Motores IA",
+      "nombre": "Motores de respuesta con IA",
+      "capa": "Plataformas",
+      "columna": 9,
+      "que_es": "Asistentes y buscadores con IA donde la gente pregunta antes de decidir; un canal de descubrimiento que recién se abre a la publicidad.",
+      "como_se_mide": "Visibilidad de tu marca dentro de las respuestas.",
+      "error_comun": "Ignorarlo porque todavía no tiene un panel de anuncios como los demás.",
+      "reacciona_con": [
+        "Go",
+        "Ia",
+        "Dp"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+---
+// "Sobre la tabla": cómo está organizada y quién la hizo.
+import Layout from '../../layouts/Tabla.astro';
+import Simbolo from '../../components/tabla/Simbolo.astro';
+import { BASE, TITULO, ELEMENTOS, CAPAS, PLATAFORMAS, NIVELES, INICIAL, porCapa } from '../../lib/tabla';
+import { LINKEDIN_URL } from '../../consts';
+import { SITE_URL, PERSON_ID } from '../../seo';
+
+const n = ELEMENTOS.length;
+const plataformas = porCapa(PLATAFORMAS);
+const propios = ELEMENTOS.filter((e) => e.concepto_propio);
+const ejemplo = ELEMENTOS.find((e) => e.simbolo === 'ROAS') ?? INICIAL;
+const description = `Cómo leer la ${TITULO}: ${CAPAS.length} capas en columnas, ${NIVELES.length} niveles de madurez en filas y la serie de plataformas abajo. Creada por Felipe López Miranda.`;
+const url = `${SITE_URL}${BASE}/sobre-la-tabla/`;
+const lista = (xs: typeof ELEMENTOS) => xs.map((x) => x.simbolo);
+---
+<Layout
+  title={`Sobre la tabla: cómo leer la ${TITULO}`}
+  description={description}
+  image={`${BASE}/og/tabla.png`}
+  imageAlt={`${TITULO}, de Felipe López Miranda.`}
+  schema={[{ '@type': 'AboutPage', '@id': url, url, name: `Sobre la ${TITULO}`, description, inLanguage: 'es-CL', author: { '@id': PERSON_ID }, about: { '@id': `${SITE_URL}${BASE}/#tabla` } }]}
+  crumbs={[
+    { name: TITULO, path: `${BASE}/` },
+    { name: 'Sobre la tabla', path: `${BASE}/sobre-la-tabla/` },
+  ]}
+>
+  <nav class="band crumbs" aria-label="Migas de pan">
+    <ol>
+      <li><a href="/">Inicio</a></li>
+      <li><a href={`${BASE}/`}>Tabla periódica</a></li>
+      <li aria-current="page">Sobre la tabla</li>
+    </ol>
+  </nav>
+  <main id="contenido" class="band" style="padding-top:20px">
+    <article class="prose">
+      <h1>Sobre la tabla</h1>
+      <p class="lead">La {TITULO} reúne {n} conceptos que un equipo de performance necesita dominar y los ordena como la tabla periódica de la sala de clases: cada elemento tiene un lugar, y ese lugar dice algo de él.</p>
+
+      <h2>Capas: las columnas</h2>
+      <p>Las {CAPAS.length} columnas de colores son las capas del sistema de performance. Cada capa ocupa dos columnas y agrupa los elementos que trabajan sobre lo mismo.</p>
+    </article>
+    <ul class="capas">
+      {CAPAS.map((c) => (
+        <li style={`--fc:${c.color}`}>
+          <h3>{c.nombre}</h3>
+          <p>{porCapa(c).length} elementos: {porCapa(c).map((x, i) => <>{i > 0 && ', '}<a href={x.url}>{x.nombre}</a></>)}.</p>
+        </li>
+      ))}
+    </ul>
+    <article class="prose">
+      <h2>Niveles de madurez: las filas</h2>
+      <p>Las {NIVELES.length} filas son niveles de madurez. Arriba está lo que toda cuenta necesita para partir y, a medida que bajas, aparecen los elementos de equipos más avanzados.</p>
+      <ol>
+        {NIVELES.map((nv, i) => <li><strong>{nv}</strong>: {lista(ELEMENTOS.filter((e) => e.nivel === i + 1)).join(', ')}.</li>)}
+      </ol>
+
+      <h2>La serie de plataformas</h2>
+      <p>Igual que los lantánidos en la tabla de química, las {plataformas.length} plataformas van en una fila aparte, abajo: {plataformas.map((x, i) => <>{i > 0 && ', '}<a href={x.url}>{x.nombre}</a></>)}. En sus fichas, en vez de "Cómo se mide" aparece "Dónde rinde".</p>
+
+      <h2>Cómo leer un elemento</h2>
+      <div class="eh" style="margin:12px 0">
+        <Simbolo e={ejemplo} size="xl" />
+        <p style="margin:0">Arriba, el número del elemento ({ejemplo.numero}). Al centro, su símbolo ({ejemplo.simbolo}). Abajo, en la tabla, su nombre corto. El color indica la capa: {ejemplo.capa.nombre}.</p>
+      </div>
+      <p>Cada ficha explica qué es el elemento, cómo se mide, el error más común y con qué otros elementos reacciona. Al tocar uno en la tabla, unas líneas animadas lo conectan con esos elementos. Cada elemento también tiene <a href={ejemplo.url}>su propia página</a>, para compartirlo por separado.</p>
+      {propios.length > 0 && (
+        <p>Los elementos con la etiqueta <span class="tag" style="margin:0">Concepto de Arquitectura de Aprendizaje</span> son {propios.map((x, i) => <>{i > 0 && (i === propios.length - 1 ? ' y ' : ', ')}<a href={x.url}>{x.nombre}</a></>)}.</p>
+      )}
+
+      <h2>Quién la hizo</h2>
+      <p>La tabla es de <strong>Felipe López Miranda</strong>, CMO & Growth Lead de TOCTOC, periodista y Magíster en Dirección de Marketing. Escribe sobre marketing, datos e inteligencia artificial y conduce Efecto Podcast.</p>
+      <div class="acts">
+        <a class="btn pri" href="https://flopezmiranda.com/">flopezmiranda.com</a>
+        <a class="btn" href={LINKEDIN_URL} target="_blank" rel="noopener">Sígueme en LinkedIn ↗</a>
+        <a class="btn" href={`${BASE}/`}>Ver la tabla</a>
+      </div>
+      <p>¿Quieres citarla? Usa: <em>López Miranda, F. {TITULO}. flopezmiranda.com/tabla</em>.</p>
+    </article>
+  </main>
+</Layout>
