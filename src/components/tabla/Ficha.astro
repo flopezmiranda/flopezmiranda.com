@@ -1,0 +1,17 @@
+---
+// Contenido de la ficha lateral de un elemento (la misma que se abre al tocarlo en la tabla).
+import Simbolo from './Simbolo.astro';
+import { anterior, siguiente, ubicacion, etiquetaMedida, type Elemento } from '../../lib/tabla';
+interface Props { e: Elemento }
+const { e } = Astro.props;
+const prev = anterior(e), next = siguiente(e);
+---
+<div class="ph"><Simbolo e={e} /><div><p class="meta">{ubicacion(e)}</p><h2>{e.nombre}</h2></div></div>
+<dl><dt>Qué es</dt><dd>{e.que_es}</dd><dt>{etiquetaMedida(e)}</dt><dd>{e.como_se_mide}</dd><dt>Error común</dt><dd>{e.error_comun}</dd></dl>
+{e.concepto_propio && <span class="tag">Concepto de Arquitectura de Aprendizaje</span>}
+<p class="dt">Reacciona con</p>
+<div class="rx">
+  {e.reacciona_con.map((y) => <a href={y.url} data-go={y.slug} style={`--fc:${y.capa.color}`}><b>{y.simbolo}</b>{y.nombre}</a>)}
+</div>
+<a class="full" href={e.url} data-full={e.slug}>Ver página completa →</a>
+<div class="nav"><a href={prev.url} data-go={prev.slug} aria-label={`Anterior: ${prev.nombre}`}>← {prev.simbolo}</a><a href={next.url} data-go={next.slug} aria-label={`Siguiente: ${next.nombre}`}>{next.simbolo} →</a></div>

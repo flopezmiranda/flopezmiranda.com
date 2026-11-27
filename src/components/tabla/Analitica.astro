@@ -1,0 +1,16 @@
+---
+// Google Analytics 4. El ID se cambia en src/consts.ts (GA4_ID).
+// Registra el evento "elemento_click" cada vez que alguien toca un elemento (ver src/scripts/tabla.ts).
+import { GA4_ID } from '../../consts';
+const activo = /^G-[A-Z0-9]+$/.test(GA4_ID) && !GA4_ID.includes('XXXX');
+---
+{activo && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}></script>}
+<script is:inline define:vars={{ id: GA4_ID, activo }}>
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  if (activo) { window.gtag('js', new Date()); window.gtag('config', id); }
+  window.tablaEvento = function (nombre, datos) {
+    if (activo) window.gtag('event', nombre, datos);
+    else console.info('[GA4 sin ID todavía]', nombre, datos);
+  };
+</script>

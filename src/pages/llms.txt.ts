@@ -20,6 +20,7 @@ export const GET: APIRoute = async () => {
 
 ## Páginas
 - [Inicio](https://flopezmiranda.com/): presentación, temas, publicaciones más leídas, audiencia y proyectos.
+- [Tabla periódica del performance marketing](https://flopezmiranda.com/tabla/): 66 conceptos de performance marketing (señales, audiencias, creatividad, optimización, métricas, medición y plataformas) ordenados en 6 capas y 5 niveles de madurez; cada uno con qué es, cómo se mide, error común y relaciones. Cada concepto tiene su página en /tabla/elemento/<símbolo>/.
 - [Sobre mí](https://flopezmiranda.com/sobre-mi/): biografía, formación y preguntas frecuentes.
 - [DroneImagen](https://flopezmiranda.com/droneimagen/): su banco de más de 1.100 fotos aéreas gratis de Chile.
 - [Publicaciones](https://flopezmiranda.com/linkedin/): archivo de sus publicaciones de LinkedIn del último año.

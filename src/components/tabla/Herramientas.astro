@@ -1,0 +1,13 @@
+---
+// Buscador y filtros por capa.
+import { CAPAS, PLATAFORMAS } from '../../lib/tabla';
+---
+<div class="tools">
+  <input type="search" id="q" placeholder="Busca un elemento: ROAS, CAPI, fatiga…" aria-label="Buscar elemento" />
+  <div class="legend" id="legend" role="group" aria-label="Filtrar por capa">
+    {[...CAPAS, PLATAFORMAS].map((c) => (
+      <button type="button" class="chip" data-k={c.nombre} aria-pressed="false" style={`--fc:${c.color}`}><i></i>{c.nombre}</button>
+    ))}
+  </div>
+  <p class="count" id="count" aria-live="polite"></p>
+</div>

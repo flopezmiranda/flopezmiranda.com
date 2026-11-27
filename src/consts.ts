@@ -27,3 +27,7 @@ export const TOPICS = [
   { name: 'Inteligencia artificial', text: 'Herramientas y casos reales de IA aplicada al marketing.' },
   { name: 'Branding y contenido', text: 'Marcas con algo que decir y contenido que la gente sí ve.' },
 ];
+
+// Google Analytics 4 de la Tabla periódica (/tabla). Reemplaza 'G-XXXXXXXXXX' por tu ID de medición de GA4.
+// Mientras tenga las X, no se carga Google Analytics (los eventos solo se muestran en la consola del navegador).
+export const GA4_ID = 'G-XXXXXXXXXX';

@@ -1,0 +1,16 @@
+---
+// Plantilla de todas las páginas de la Tabla periódica (/tabla/...).
+import Head, { type Props as HeadProps } from '../components/tabla/Head.astro';
+import Barra from '../components/tabla/Barra.astro';
+import Pie from '../components/tabla/Pie.astro';
+type Props = HeadProps;
+---
+<!doctype html>
+<html lang="es-CL">
+  <head><Head {...Astro.props} /></head>
+  <body>
+    <Barra />
+    <slot />
+    <Pie />
+  </body>
+</html>

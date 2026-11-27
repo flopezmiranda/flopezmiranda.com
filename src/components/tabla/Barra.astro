@@ -1,0 +1,18 @@
+---
+import { BASE } from '../../lib/tabla';
+import { LINKEDIN_URL } from '../../consts';
+const path = Astro.url.pathname.replace(/\/?$/, '/');
+const links = [
+  { href: `${BASE}/`, label: 'La tabla' },
+  { href: `${BASE}/sobre-la-tabla/`, label: 'Sobre la tabla' },
+  { href: '/blog/', label: 'Escritos', opt: true },
+];
+---
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="band bar">
+  <a class="home" href="/"><img src="/img/logo-fl-96.png" alt="" width="30" height="30" /><span>Felipe López Miranda</span></a>
+  <nav aria-label="Secciones">
+    {links.map((l) => <a href={l.href} class={l.opt ? 'opt' : undefined} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>)}
+    <a href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn ↗</a>
+  </nav>
+</header>
