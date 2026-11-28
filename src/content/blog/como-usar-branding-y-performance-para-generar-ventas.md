@@ -2,7 +2,7 @@
 title: '¿Cómo usar branding y performance para generar ventas?'
 description: 'Mucho contenido se generó durante noviembre y desde mi experiencia, muy relevante para conseguir lo que todos buscamos haciendo marketing... ¡VENDER!'
 pubDate: 2025-12-12
-category: 'Marketing'
+category: 'Branding y contenido'
 tags: ['LinkedIn', 'Efecto Newsletter']
 originalUrl: 'https://www.linkedin.com/pulse/c%C3%B3mo-usar-branding-y-performance-para-generar-ventas-4-l%C3%B3pez-miranda-mykaf'
 series: 'Efecto Newsletter'

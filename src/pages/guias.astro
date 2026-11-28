@@ -1,0 +1,119 @@
+---
+// /guias/: lo más completo del sitio en un solo lugar (Tabla, guías exclusivas y funnels/glosarios de LinkedIn).
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import { getPosts } from '../utils';
+import { SHARES, postPath, postTitle, postCover } from '../data/linkedin';
+import { ELEMENTOS, CAPAS, NIVELES } from '../lib/tabla';
+import { SITE_URL, PERSON_ID } from '../seo';
+
+const guides = (await getPosts()).filter((p) => p.data.exclusive);
+
+// Funnels, glosarios y árboles de decisión publicados en LinkedIn (se muestran si tienen página en el sitio)
+const RECURSOS = [
+  '7449287429519314944', // Funnel de Meta
+  '7439159848031670272', // Funnel de Google Ads 2026
+  '7494978308149956608', // Funnel de WhatsApp
+  '7436981434986250240', // Funnel invisible de señales
+  '7396783783359963136', // Glosario de IA
+  '7398925800181280768', // Árbol de decisiones de WhatsApp con IA
+];
+const recursos = RECURSOS.map((id) => SHARES.find((p) => p.id === id)).filter((p) => p && postPath(p)) as typeof SHARES;
+
+const description = `Lo más completo de flopezmiranda.com: la Tabla periódica del performance marketing, ${guides.length} guías exclusivas sobre Meta, Google Ads e IA, y funnels y glosarios listos para usar.`;
+const page = {
+  '@type': 'CollectionPage',
+  '@id': `${SITE_URL}/guias/#page`,
+  url: `${SITE_URL}/guias/`,
+  name: 'Guías de performance marketing, datos e IA',
+  description,
+  inLanguage: 'es-CL',
+  author: { '@id': PERSON_ID },
+  hasPart: [
+    { '@type': 'DefinedTermSet', '@id': `${SITE_URL}/tabla/#tabla`, url: `${SITE_URL}/tabla/` },
+    ...guides.map((g) => ({ '@type': 'Article', url: `${SITE_URL}/blog/${g.id}/`, headline: g.data.title })),
+  ],
+};
+---
+
+<Base
+  title="Guías"
+  fullTitle="Guías de performance marketing, datos e IA · Felipe López Miranda"
+  description={description}
+  schema={[page]}
+  crumbs={[{ name: 'Guías', path: '/guias/' }]}
+>
+  <section class="section container">
+    <p class="kicker">Para aprender con calma</p>
+    <h1>Guías</h1>
+    <p class="muted intro">Lo más completo del sitio: recursos para entender cómo funciona hoy el performance marketing y aplicarlo en tus campañas.</p>
+
+    <a class="card feature" href="/tabla/">
+      <figure>
+        <img src="/tabla/og/tabla.png" alt={`Vista de la Tabla periódica del performance marketing con sus ${ELEMENTOS.length} elementos.`} width="1200" height="630" fetchpriority="high" />
+      </figure>
+      <div class="f-body">
+        <p class="kicker">Recurso interactivo</p>
+        <h2>Tabla periódica del performance marketing</h2>
+        <p class="muted">{ELEMENTOS.length} conceptos ordenados en {CAPAS.length} capas y {NIVELES.length} niveles de madurez. Ideal para ubicar en qué nivel está tu equipo y qué viene después.</p>
+        <span class="go">Explorar la tabla →</span>
+      </div>
+    </a>
+  </section>
+
+  <section class="section container">
+    <div class="section-head"><h2>Guías exclusivas</h2></div>
+    <p class="muted sub">Escritas solo para este sitio, con respuesta rápida al inicio y preguntas frecuentes al final.</p>
+    <div class="grid3">
+      {guides.map((post, i) => (
+        <div class="g">
+          <PostCard post={post} index={i} />
+          {post.data.tldr && <p class="tldr"><strong>En corto:</strong> {post.data.tldr}</p>}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {
+    recursos.length > 0 && (
+      <section class="section container">
+        <div class="section-head">
+          <h2>Funnels y glosarios</h2>
+          <a href="/linkedin/">Todas las publicaciones →</a>
+        </div>
+        <p class="muted sub">Esquemas que publiqué en LinkedIn y que puedes usar en tu equipo.</p>
+        <div class="grid3">
+          {recursos.map((p) => (
+            <a class="card res" href={postPath(p)}>
+              {postCover(p.id) && <img src={postCover(p.id)} alt="" width="1600" height="900" loading="lazy" decoding="async" />}
+              <span>{postTitle(p)}</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</Base>
+
+<style>
+  h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 10px 0 8px; text-transform: uppercase; }
+  .intro { margin: 0 0 28px; max-width: 640px; }
+  .sub { margin: -8px 0 20px; }
+  .feature { display: grid; grid-template-columns: 1.3fr 1fr; overflow: hidden; text-decoration: none; color: inherit; }
+  .feature figure { margin: 0; background: #fff; border-right: 1px solid var(--line); }
+  .feature img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .f-body { padding: 32px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+  .f-body h2 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1.15; }
+  .f-body p.muted { margin: 0; }
+  .go { font-family: var(--head); font-weight: 600; font-size: 0.82rem; color: var(--accent); }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .g { display: flex; flex-direction: column; gap: 10px; }
+  .tldr { margin: 0; font-size: 0.85rem; color: var(--muted); }
+  .tldr strong { color: var(--text); }
+  .res { display: flex; flex-direction: column; overflow: hidden; text-decoration: none; color: var(--text); }
+  .res img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  .res span { padding: 14px 16px 16px; font-family: var(--head); font-weight: 600; font-size: 0.95rem; line-height: 1.3; }
+  .res:hover { border-color: var(--accent); }
+  @media (max-width: 960px) { .feature { grid-template-columns: 1fr; } .feature figure { border-right: 0; border-bottom: 1px solid var(--line); } .grid3 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .grid3 { grid-template-columns: 1fr; } .f-body { padding: 22px; } }
+</style>

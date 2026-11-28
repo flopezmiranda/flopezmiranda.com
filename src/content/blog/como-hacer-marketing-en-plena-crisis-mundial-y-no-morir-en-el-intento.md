@@ -2,7 +2,7 @@
 title: 'Cómo hacer marketing en plena crisis mundial y no morir en el intento'
 description: 'Chile -y gran parte del mundo- entró en fase 4 de la pandemia provocada por el Covid-19 (Coronavirus de ahora en más) y en muchas partes del planeta…'
 pubDate: 2020-03-27
-category: 'Marketing'
+category: 'Branding y contenido'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/c%C3%B3mo-hacer-marketing-en-plena-crisis-mundial-y-morir-el-felipe'
 ---

@@ -3,21 +3,33 @@ import Base from '../../layouts/Base.astro';
 import PostCard from '../../components/PostCard.astro';
 import { getPosts } from '../../utils';
 import LinkedInButtons from '../../components/LinkedInButtons.astro';
+import { TOPICS } from '../../consts';
 
 const posts = await getPosts();
-const categories = ['Todos', 'Guías', 'Newsletter', 'Marketing', 'Datos', 'IA'];
+// Filtros: todos, los cuatro temas y dos series (guías exclusivas y newsletter)
+const count = (f: string) =>
+  f === 'Todos' ? posts.length : f === 'Guías' ? posts.filter((p) => p.data.exclusive).length : f === 'Newsletter' ? posts.filter((p) => p.data.series).length : posts.filter((p) => p.data.category === f).length;
+const categories = [
+  { key: 'Todos', label: 'Todos' },
+  ...TOPICS.map((t) => ({ key: t.cat, label: t.name, text: t.text })),
+  { key: 'Guías', label: 'Guías exclusivas' },
+  { key: 'Newsletter', label: 'Newsletter' },
+];
 ---
 
 <Base
   title="Escritos"
-  description="Artículos de Felipe López Miranda sobre marketing, performance, datos e inteligencia artificial, y las ediciones de su newsletter Efecto Newsletter."
+  description="Artículos de Felipe López Miranda sobre performance marketing, datos, inteligencia artificial y branding, ordenados por tema, más las ediciones de su newsletter."
   noindex={posts.length === 0}
   crumbs={[{ name: 'Escritos', path: '/blog/' }]}
 >
   <section class="section container">
     <p class="kicker">Blog</p>
     <h1>Escritos</h1>
-    <p class="muted intro">{posts.length} artículos sobre marketing, performance, datos e inteligencia artificial: guías exclusivas de este sitio y las ediciones de mi newsletter en LinkedIn.</p>
+    <p class="muted intro">
+      {posts.length} artículos ordenados por tema: performance, datos, IA y branding. ¿Buscas algo más corto? Revisa mis{' '}
+      <a href="/linkedin/">publicaciones de LinkedIn</a>, con análisis nuevos cada semana.
+    </p>
     {
       posts.length === 0 && (
         <div class="card empty">
@@ -27,8 +39,10 @@ const categories = ['Todos', 'Guías', 'Newsletter', 'Marketing', 'Datos', 'IA']
       )
     }
     <div class="filters" role="group" aria-label="Filtrar por tema" hidden={posts.length === 0}>
-      {categories.map((c) => <button type="button" data-filter={c}>{c}</button>)}
+      {categories.map((c) => <button type="button" data-filter={c.key} data-text={c.text}>{c.label} <span>{count(c.key)}</span></button>)}
     </div>
+    <p class="topic-text muted" id="topic-text" aria-live="polite"></p>
+    <h2 class="vh">Artículos</h2>
     <div class="grid">
       {
         posts.map((post, i) => (
@@ -44,8 +58,13 @@ const categories = ['Todos', 'Guías', 'Newsletter', 'Marketing', 'Datos', 'IA']
 <script>
   const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
   const items = document.querySelectorAll<HTMLElement>('.grid > [data-cat]');
+  const text = document.getElementById('topic-text')!;
   function apply(cat: string) {
     buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === cat)));
+    const active = [...buttons].find((b) => b.dataset.filter === cat);
+    text.textContent = active?.dataset.text ?? '';
+    if (cat !== 'Todos') history.replaceState(null, '', `?cat=${encodeURIComponent(cat)}`);
+    else history.replaceState(null, '', location.pathname);
     items.forEach((el) => (el.hidden = cat !== 'Todos' && el.dataset.cat !== cat && el.dataset.series !== cat));
   }
   buttons.forEach((b) => b.addEventListener('click', () => apply(b.dataset.filter!)));
@@ -55,7 +74,11 @@ const categories = ['Todos', 'Guías', 'Newsletter', 'Marketing', 'Datos', 'IA']
 
 <style>
   h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin: 10px 0 8px; text-transform: uppercase; }
-  .intro { margin: 0 0 28px; }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .intro { margin: 0 0 28px; max-width: 680px; }
+  .intro a { color: var(--accent); }
+  .topic-text { margin: -12px 0 20px; min-height: 1.4em; font-size: 0.92rem; }
+  button span { margin-left: 4px; font-weight: 400; }
   .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
   button { font: inherit; font-family: var(--head); font-size: 0.82rem; font-weight: 500; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
   button:hover { color: var(--text); }

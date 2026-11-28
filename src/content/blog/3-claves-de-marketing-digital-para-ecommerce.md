@@ -2,7 +2,7 @@
 title: '3 claves de marketing digital para Ecommerce'
 description: 'Todo el mundo piensa que el ingreso al mundo digital está al alcance de la mano. Sí, es verdad, pero cuándo tenemos un objetivo de negocio, no sólo es…'
 pubDate: 2018-10-30
-category: 'Marketing'
+category: 'Performance'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/3-claves-de-marketing-digital-para-ecommerce-felipe-l%C3%B3pez-miranda'
 ---

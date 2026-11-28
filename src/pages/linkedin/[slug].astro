@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import LinkedInButtons from '../../components/LinkedInButtons.astro';
-import { POST_PAGES, TAG_PAGES, LINKEDIN, formatNumber, cleanHeadline, postCover, postOg, postTitle, noEmoji, type LinkedInShare } from '../../data/linkedin';
+import { POST_PAGES, TAG_PAGES, LINKEDIN, formatNumber, cleanHeadline, clearTitle, postCover, postOg, postTitle, noEmoji, type LinkedInShare } from '../../data/linkedin';
 import { postToHtml } from '../../lib/post-text';
 import { PERSON_ID, SITE_URL } from '../../seo';
 
@@ -12,7 +12,8 @@ export function getStaticPaths() {
 const { post } = Astro.props as { post: (typeof POST_PAGES)[number] };
 const path = `/linkedin/${post.slug}/`;
 const title = postTitle(post);
-const body = post.text.startsWith(post.headline) ? post.text.slice(post.headline.length).trim() : post.text;
+// Con título descriptivo, el gancho original queda como primera línea del texto
+const body = clearTitle(post.id) ? post.text : post.text.startsWith(post.headline) ? post.text.slice(post.headline.length).trim() : post.text;
 const html = postToHtml(body, TAG_PAGES, path);
 const summary = noEmoji(body.replace(/#(\p{L}[\p{L}\p{N}_]*)/gu, '$1')).replace(/^[^\p{L}\p{N}¡¿"“]+/u, '');
 const description = summary.length > 155 ? summary.slice(0, 152).replace(/\s\S*$/, '') + '…' : summary;

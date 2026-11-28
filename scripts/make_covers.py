@@ -26,6 +26,8 @@ W, H = 1600, 900
 
 PALETTES = {
     'Marketing': ('#0b1b3a', '#1d4fd8', '#2f6bff'),
+    'Performance': ('#0b1b3a', '#1d4fd8', '#2f6bff'),
+    'Branding y contenido': ('#0b1b3a', '#1d4fd8', '#2f6bff'),
     'Datos': ('#04253a', '#0a6aa8', '#00b3ff'),
     'IA': ('#170f45', '#4338ca', '#7c6bff'),
 }

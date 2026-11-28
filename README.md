@@ -20,7 +20,7 @@ Crea un archivo `.md` en `src/content/blog/` con este encabezado:
 title: 'Título del artículo'
 description: 'Resumen de una línea'
 pubDate: 2026-11-01
-category: 'Marketing' # Marketing | Datos | IA
+category: 'Performance' # Performance | Branding y contenido | Datos | IA
 tags: ['etiqueta1', 'etiqueta2']
 draft: false # true = no se publica
 ---

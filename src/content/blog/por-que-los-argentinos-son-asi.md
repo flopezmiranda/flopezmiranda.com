@@ -2,7 +2,7 @@
 title: '¿Por qué los Argentinos son así?'
 description: 'En tiempos donde todo parece pasar rápido, donde las marcas luchan por una fracción de atención, Argentina vuelve a dar un golpe maestro: contar una…'
 pubDate: 2025-04-29
-category: 'Marketing'
+category: 'Branding y contenido'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/por-qu%C3%A9-los-argentinos-son-as%C3%AD-felipe-l%C3%B3pez-miranda-yspre'
 ---

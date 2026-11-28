@@ -2,7 +2,7 @@
 title: 'Época de cuarentena: ¿Debemos hacer #MarketingDigital?'
 description: 'Hay que ser muy claro: La crisis de salud que está viviendo el mundo, y por cierto Chile, con la pandemia Covid-19 (Coronavirus popularmente conocida)…'
 pubDate: 2020-03-16
-category: 'Marketing'
+category: 'Branding y contenido'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/%C3%A9poca-de-cuarentena-debemos-hacer-marketingdigital-l%C3%B3pez-miranda'
 ---

@@ -1,6 +1,5 @@
 ---
-import LinkedInButtons from './LinkedInButtons.astro';
-import { SOCIAL, SITE_TITLE, LINKEDIN_URL } from '../consts';
+import { SOCIAL, SITE_TITLE, LINKEDIN_URL, NEWSLETTER_URL, TAGLINE } from '../consts';
 const year = new Date().getFullYear();
 ---
 
@@ -8,27 +7,29 @@ const year = new Date().getFullYear();
   <div class="container cols">
     <div class="brand">
       <p class="logo"><img class="mark" src="/img/logo-fl-96.png" alt="" width="32" height="32" /> Felipe López Miranda</p>
-      <p class="muted">Marketing, datos e inteligencia artificial.</p>
-      <LinkedInButtons />
+      <p class="muted">{TAGLINE}</p>
+      <p class="follow">
+        <a class="btn btn-primary" href={LINKEDIN_URL} target="_blank" rel="noopener">Sígueme en LinkedIn ↗</a>
+        <a class="news" href={NEWSLETTER_URL} target="_blank" rel="noopener">o suscríbete a la newsletter</a>
+      </p>
     </div>
     <ul>
-      <li class="h">Redes</li>
-      <li><a href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn</a></li>
-      {SOCIAL.instagram && <li><a href={SOCIAL.instagram} target="_blank" rel="noopener">Instagram</a></li>}
-      {SOCIAL.email && <li><a href={`mailto:${SOCIAL.email}`}>Email</a></li>}
+      <li class="h">Aprende</li>
+      <li><a href="/tabla/">Tabla periódica</a></li>
+      <li><a href="/guias/">Guías</a></li>
+      <li><a href="/blog/">Escritos</a></li>
+      <li><a href="/linkedin/">Publicaciones de LinkedIn</a></li>
     </ul>
     <ul>
       <li class="h">Proyectos</li>
-      <li><a href="https://efectopodcast.com/" target="_blank" rel="noopener">Efecto Podcast</a></li>
+      <li><a href="https://efectopodcast.com/" target="_blank" rel="noopener">Efecto Podcast ↗</a></li>
       <li><a href="/droneimagen/">DroneImagen</a></li>
-      <li><a href="https://www.droneimagen.cl/" target="_blank" rel="noopener">droneimagen.cl ↗</a></li>
     </ul>
     <ul>
-      <li class="h">Sitio</li>
+      <li class="h">Felipe</li>
       <li><a href="/sobre-mi/">Sobre mí</a></li>
-      <li><a href="/blog/">Escritos</a></li>
-      <li><a href="/linkedin/">Publicaciones</a></li>
       <li><a href="/contacto/">Contacto</a></li>
+      {SOCIAL.instagram && <li><a href={SOCIAL.instagram} target="_blank" rel="noopener">Instagram ↗</a></li>}
       <li><a href="/rss.xml">RSS</a></li>
     </ul>
   </div>
@@ -36,8 +37,7 @@ const year = new Date().getFullYear();
     © {year} {SITE_TITLE} ·{' '}
     <a href="/privacidad/">Política de privacidad</a> ·{' '}
     <a href="/cookies/">Cookies</a> ·{' '}
-    <a href="/terminos/">Términos de uso</a> ·{' '}
-    <a href="/contacto/">Contacto</a>
+    <a href="/terminos/">Términos de uso</a>
   </p>
 </footer>
 
@@ -46,7 +46,9 @@ const year = new Date().getFullYear();
   .cols { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
   .logo { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; font-family: var(--head); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.8rem; }
   .mark { width: 30px; height: 30px; border-radius: 50%; display: block; }
-  .brand p.muted { margin: 0 0 18px; }
+  .brand p.muted { margin: 0 0 18px; max-width: 360px; }
+  .follow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 0; }
+  .news { color: var(--muted); font-size: 0.82rem; }
   ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
   .h { font-family: var(--head); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-bottom: 4px; }
   ul a { color: var(--muted); text-decoration: none; }

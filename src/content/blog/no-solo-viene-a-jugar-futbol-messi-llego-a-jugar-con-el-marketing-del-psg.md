@@ -2,7 +2,7 @@
 title: '“No sólo viene a jugar fútbol”: Messi llegó a jugar con el marketing del PSG'
 description: 'Lionel Andrés Messi Cuccittini, jugador de fútbol argentino, de 34 años y el que para muchos es el mejor jugador de la historia, fichó por los próximos…'
 pubDate: 2021-08-11
-category: 'Marketing'
+category: 'Branding y contenido'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/la-maquinaria-del-psg-cuando-se-habla-de-marketing-l%C3%B3pez-miranda'
 ---

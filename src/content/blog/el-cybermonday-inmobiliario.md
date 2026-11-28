@@ -2,7 +2,7 @@
 title: 'El CyberMonday Inmobiliario'
 description: 'Es verdad, tecnología, decohogar y viajes son los productos más demandados en cada edición de CyberMonday. Sin embargo, de a poco el mundo del…'
 pubDate: 2019-10-10
-category: 'Marketing'
+category: 'Performance'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/el-cybermonday-inmobiliario-felipe-l%C3%B3pez-miranda'
 ---

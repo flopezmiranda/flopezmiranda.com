@@ -2,7 +2,7 @@
 title: 'La perfecta estrategia de marketing del “Pollo” Castillo'
 description: 'En el dinámico mundo del marketing, la capacidad de anticiparse a la adversidad y convertirla en una oportunidad es fundamental y todo basado en el…'
 pubDate: 2025-02-06
-category: 'Marketing'
+category: 'Branding y contenido'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/la-perfecta-estrategia-de-marketing-del-pollo-felipe-l%C3%B3pez-miranda-enxyc'
 ---
