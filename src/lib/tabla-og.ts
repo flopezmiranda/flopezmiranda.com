@@ -7,11 +7,12 @@ import { Resvg } from '@resvg/resvg-js';
 import { ELEMENTOS, CAPAS, NIVELES, TITULO, tinte, borde, ubicacion, type Elemento } from './tabla';
 
 const INK = '#14171c', MUT = '#5b626d', LINE = '#e3e6ea', BG = '#ffffff';
-const fontDir = path.join(process.cwd(), 'src/assets/tabla-fonts');
+// Mismas fuentes que el sitio: Poppins en títulos y cifras, Inter en el texto
+const fontDir = path.join(process.cwd(), 'node_modules/@fontsource');
 const font = (file: string, name: string, weight: 500 | 700 | 800) => ({ name, data: fs.readFileSync(path.join(fontDir, file)), weight, style: 'normal' as const });
 let fonts: ReturnType<typeof font>[] | null = null;
 const getFonts = () =>
-  (fonts ??= [font('Archivo-80-800.ttf', 'A80', 800), font('Archivo-88-700.ttf', 'A88', 700), font('Archivo-100-500.ttf', 'A100', 500), font('Archivo-66-500.ttf', 'A66', 500)]);
+  (fonts ??= [font('poppins/files/poppins-latin-800-normal.woff', 'A80', 800), font('poppins/files/poppins-latin-700-normal.woff', 'A88', 700), font('inter/files/inter-latin-500-normal.woff', 'A100', 500), font('inter/files/inter-latin-500-normal.woff', 'A66', 500)]);
 
 type Node = { type: string; props: { style?: Record<string, unknown>; children?: unknown } };
 const h = (style: Record<string, unknown>, ...children: unknown[]): Node => ({
@@ -27,7 +28,7 @@ async function render(tree: Node) {
 const firma = (size = 24, columna = false) =>
   h({ alignItems: columna ? 'flex-start' : 'center', gap: 14, flexDirection: columna ? 'column' : 'row' },
     h({ gap: 6 }, ...[...CAPAS.map((c) => c.color)].map((c) => h({ width: 18, height: 18, borderRadius: 9, background: c }))),
-    h({ fontFamily: 'A100', fontSize: size, color: MUT }, 'flopezmiranda.com/tabla'));
+    h({ fontFamily: 'A100', fontSize: size, color: MUT, whiteSpace: 'nowrap' }, 'flopezmiranda.com/tabla'));
 
 export async function imagenElemento(e: Elemento) {
   const len = e.simbolo.length;

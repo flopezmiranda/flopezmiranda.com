@@ -2,15 +2,15 @@
    VOICE: lámina de laboratorio, precisa y directa; un experto explicando sin adornos.
    IDEA: la tabla periódica colgada en la sala de clases, con su serie aparte abajo.
    PICTURE: la tabla misma; al tocar un elemento, flujos animados lo conectan con los que reacciona.
-   COLOUR and TYPE: fondo blanco/noche, seis capas en pastel saturado + plataformas en gris; Archivo ancho y condensado.
+   COLOUR and TYPE: fondo blanco/noche, seis capas en pastel saturado + plataformas en gris; Poppins en títulos e Inter en el texto, igual que el resto del sitio.
    LAYOUT: tabla grande arriba, ficha del elemento al lado en pantallas anchas y debajo en las angostas. */
 :root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f1318);--ink:light-dark(#14171c,#eef1f5);--mut:light-dark(#5b626d,#a3abb7);--line:light-dark(#e3e6ea,#262c35);--card:light-dark(#f6f7f9,#171c23)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 'Archivo Variable',Archivo,system-ui,sans-serif;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;overflow-x:clip}
 a{color:inherit}
 .band{padding:clamp(24px,3.5vw,52px) max(4vw,16px);max-width:1560px;margin:0 auto}
-h1{font-size:clamp(32px,4.4vw,52px);line-height:1.05;margin:0 0 10px;font-weight:800;font-stretch:88%;letter-spacing:-.02em;text-wrap:balance;max-width:18ch}
+h1{font-size:clamp(32px,4.4vw,52px);line-height:1.05;margin:0 0 10px;font-weight:800;letter-spacing:-.02em;text-wrap:balance;max-width:18ch}
 .lead{margin:0;color:var(--mut);max-width:62ch}
 .top{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:flex-end;justify-content:space-between}
 .tools{display:flex;flex-direction:column;gap:12px;flex:1 1 420px;max-width:640px}
@@ -28,13 +28,13 @@ input:focus-visible,button:focus-visible,a:focus-visible,.scroll:focus-visible{o
 .fh{font-size:14px;font-weight:700;display:flex;align-items:center;gap:7px;padding:0 2px 4px;border-bottom:2px solid var(--fc);margin:0}
 .fh i{width:10px;height:10px;border-radius:50%;background:var(--fc);flex:none}
 .pl{display:flex;flex-direction:column;justify-content:center;font-size:13px;color:var(--mut);line-height:1.2;padding-right:6px}
-.pl b{font-size:22px;color:var(--ink);font-weight:800;font-stretch:80%}
+.pl b{font-size:22px;color:var(--ink);font-weight:800}
 .el .s.l3{font-size:clamp(16px,1.55vw,21px)}.el .s.l4{font-size:clamp(14px,1.3vw,18px)}
 .el{--t:light-dark(color-mix(in oklab,var(--fc) 62%,white),color-mix(in oklab,var(--fc) 30%,#0f1318));position:relative;aspect-ratio:1/1.22;border-radius:8px;border:1px solid light-dark(color-mix(in oklab,var(--fc),black 12%),color-mix(in oklab,var(--fc) 55%,#0f1318));background:var(--t);color:var(--ink);font:inherit;padding:6px 7px;text-align:left;text-decoration:none;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;transition:transform .15s,opacity .2s,box-shadow .15s}
 .el:hover{transform:translateY(-2px);box-shadow:0 6px 16px -8px rgba(0,0,0,.35)}
 .el .z{font-size:13px;line-height:1;opacity:.75}
-.el .s{font-size:clamp(19px,1.9vw,26px);font-weight:800;font-stretch:82%;line-height:1;letter-spacing:-.01em}
-.el .n{font-size:13px;line-height:1.05;font-stretch:66%;font-weight:500;hyphens:auto;overflow:hidden;max-height:2.1em}
+.el .s{font-size:clamp(19px,1.9vw,26px);font-weight:800;line-height:1;letter-spacing:-.01em}
+.el .n{font-size:10px;line-height:1.1;font-weight:500;letter-spacing:-.02em;hyphens:auto;overflow:hidden;max-height:2.2em}
 .el.on{box-shadow:0 0 0 3px var(--ink);z-index:2}
 .el.rel{box-shadow:0 0 0 2px var(--ink) inset}
 .el.dim{opacity:.22}
@@ -48,14 +48,14 @@ input:focus-visible,button:focus-visible,a:focus-visible,.scroll:focus-visible{o
 #panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
 .ph{display:flex;gap:16px;align-items:center;margin-bottom:14px}
 .big{--t:light-dark(color-mix(in oklab,var(--fc) 62%,white),color-mix(in oklab,var(--fc) 30%,#0f1318));flex:none;width:96px;height:104px;border-radius:12px;background:var(--t);border:1px solid color-mix(in oklab,var(--fc),black 12%);padding:8px 10px;display:flex;flex-direction:column;justify-content:space-between;color:var(--ink)}
-.big b.l3{font-size:30px}.big b.l4{font-size:25px}.big span{font-size:14px;opacity:.75}.big b{font-size:38px;font-weight:800;font-stretch:80%;line-height:1}
+.big b.l3{font-size:30px}.big b.l4{font-size:25px}.big span{font-size:14px;opacity:.75}.big b{font-size:38px;font-weight:800;line-height:1}
 .meta{margin:0 0 2px;font-size:14px;color:var(--mut)}
-#panel h2{margin:0;font-size:24px;line-height:1.1;font-weight:800;font-stretch:90%;text-wrap:balance}
+#panel h2{margin:0;font-size:24px;line-height:1.1;font-weight:800;text-wrap:balance}
 dl{margin:0}dt,.dt{font-size:13px;font-weight:700;color:var(--mut);margin-top:14px}dd{margin:2px 0 0;font-size:16px}
 .tag{display:inline-block;font-size:13px;margin-top:10px;padding:3px 10px;border-radius:999px;border:1px dashed var(--mut);color:var(--mut)}
 .rx{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .rx a{--t:light-dark(color-mix(in oklab,var(--fc) 62%,white),color-mix(in oklab,var(--fc) 30%,#0f1318));font:inherit;font-size:14px;min-height:44px;padding:0 12px;border-radius:10px;border:1px solid color-mix(in oklab,var(--fc),black 12%);background:var(--t);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;text-decoration:none}
-.rx b{font-stretch:82%;margin-right:6px}
+.rx b{;margin-right:6px}
 .full{display:flex;align-items:center;justify-content:center;min-height:44px;margin-top:20px;border-radius:10px;background:var(--ink);color:var(--bg);font-weight:700;text-decoration:none}
 .nav{display:flex;gap:8px;margin-top:8px}
 .nav a{flex:1;display:flex;align-items:center;justify-content:center;font:inherit;font-size:14px;min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;text-decoration:none}
@@ -66,7 +66,7 @@ footer p{margin:0 0 6px}
 
 /* --- Barra superior (enlaces al sitio) --- */
 .bar{display:flex;align-items:center;gap:6px 18px;flex-wrap:wrap;padding-top:14px;padding-bottom:14px;border-bottom:1px solid var(--line);max-width:none}
-.bar .home{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;font-stretch:88%;margin-right:auto;min-height:44px}
+.bar .home{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;margin-right:auto;min-height:44px}
 .bar .home img{width:30px;height:30px;border-radius:50%}
 .bar nav{display:flex;gap:4px;flex-wrap:wrap}
 .bar nav a{font-size:14px;padding:0 12px;min-height:44px;display:inline-flex;align-items:center;border-radius:999px;text-decoration:none;color:var(--mut)}
@@ -97,12 +97,12 @@ footer p{margin:0 0 6px}
 .rxl .big{width:48px;height:52px;border-radius:8px;padding:4px 6px}
 .rxl .big span{font-size:11px}.rxl .big b{font-size:20px}.rxl .big b.l3{font-size:16px}.rxl .big b.l4{font-size:13px}
 .rxl small{display:block;color:var(--mut);font-size:13px}
-.rxl strong{font-weight:700;font-stretch:90%;line-height:1.15;display:block}
+.rxl strong{font-weight:700;line-height:1.15;display:block}
 .acts{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
 .btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--line);background:var(--bg);text-decoration:none;font-size:15px;font-weight:600}
 .btn.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .mini{display:grid;grid-template-columns:repeat(12,1fr);gap:3px}
-.mini a,.mini span{--t:light-dark(color-mix(in oklab,var(--fc) 62%,white),color-mix(in oklab,var(--fc) 30%,#0f1318));aspect-ratio:1/1.1;border-radius:4px;background:var(--t);font-size:10px;font-weight:800;font-stretch:75%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--mut);background:color-mix(in oklab,var(--t) 45%,var(--bg))}
+.mini a,.mini span{--t:light-dark(color-mix(in oklab,var(--fc) 62%,white),color-mix(in oklab,var(--fc) 30%,#0f1318));aspect-ratio:1/1.1;border-radius:4px;background:var(--t);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--mut);background:color-mix(in oklab,var(--t) 45%,var(--bg))}
 .mini a.rel,.mini a.on{background:var(--t);color:var(--ink)}
 .mini a.rel{box-shadow:0 0 0 1.5px var(--ink) inset}
 .mini a.on{box-shadow:0 0 0 2.5px var(--ink);position:relative;z-index:1}
@@ -113,10 +113,14 @@ footer p{margin:0 0 6px}
 .pn{display:flex;gap:8px;margin-top:6px}
 .pn a{flex:1}
 .prose{max-width:72ch}
-.prose h2{font-size:clamp(24px,2.6vw,32px);line-height:1.1;font-weight:800;font-stretch:88%;margin:40px 0 10px}
+.prose h2{font-size:clamp(24px,2.6vw,32px);line-height:1.1;font-weight:800;margin:40px 0 10px}
 .prose p,.prose li{font-size:17px}
 .capas{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));max-width:none}
 .capas li{border:1px solid var(--line);border-top:4px solid var(--fc);border-radius:12px;padding:14px 16px;background:var(--card)}
-.capas h3{margin:0 0 6px;font-size:18px;font-stretch:90%}
+.capas h3{margin:0 0 6px;font-size:18px}
 .capas p{margin:0;font-size:14px;color:var(--mut)}
 .capas p a{color:var(--ink)}
+
+/* Tipografía homologada con el resto del sitio: Poppins en títulos y cifras, Inter en el texto */
+h1,h2,h3,h4,.fh,.pl b,.el .s,.big b,.rx b,.bar .home,.rxl strong,.mini a,.mini span,.btn,.full,.chip{font-family:'Poppins',system-ui,sans-serif}
+@media (max-width:480px){.el .n{font-size:9px;letter-spacing:-.02em}}

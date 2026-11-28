@@ -169,7 +169,7 @@ const article = {
   .article-body :global(h3) { font-size: 1.2rem; scroll-margin-top: 80px; }
   .article-body :global(h2::before) { content: ''; display: block; width: 40px; height: 4px; border-radius: 2px; background: var(--gradient); margin-bottom: 14px; }
   .article-body :global(blockquote) { margin: 2em 0; padding: 22px 26px; border: 0; border-radius: var(--radius); background: var(--card); font-size: 1.25rem; line-height: 1.5; font-family: var(--head); font-weight: 600; color: var(--text); position: relative; }
-  .article-body :global(blockquote::before) { content: '“'; position: absolute; top: -18px; left: 18px; font-size: 4rem; line-height: 1; color: var(--accent); font-family: Georgia, serif; }
+  .article-body :global(blockquote::before) { content: '“'; position: absolute; top: -18px; left: 18px; font-size: 4rem; line-height: 1; color: var(--accent); font-family: var(--head); }
   .article-body :global(blockquote p) { margin: 0; }
   .article-body :global(ul) { list-style: none; padding-left: 0; }
   .article-body :global(ul > li) { position: relative; padding-left: 28px; margin: 0.5em 0; }

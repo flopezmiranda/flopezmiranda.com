@@ -1,7 +1,12 @@
 ---
 // <head> de las páginas de la tabla: título, descripción, Open Graph, Twitter y datos estructurados.
-import '@fontsource-variable/archivo/wdth.css';
-import archivoLatin from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
+import '@fontsource/poppins/latin-500.css';
+import '@fontsource/poppins/latin-600.css';
+import '@fontsource/poppins/latin-700.css';
+import '@fontsource/poppins/latin-800.css';
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-500.css';
+import '@fontsource/inter/latin-600.css';
 import '../../styles/tabla.css';
 import Analitica from './Analitica.astro';
 import { LINKEDIN_URL, BING_VERIFICATION } from '../../consts';
@@ -37,7 +42,6 @@ const graph = { '@context': 'https://schema.org', '@graph': [website, person, ..
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 <meta name="author" content="Felipe López Miranda" />
 {BING_VERIFICATION && <meta name="msvalidate.01" content={BING_VERIFICATION} />}
-<link rel="preload" href={archivoLatin} as="font" type="font/woff2" crossorigin />
 <link rel="icon" href="/favicon.ico" sizes="any" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
