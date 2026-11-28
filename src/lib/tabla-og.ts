@@ -67,7 +67,7 @@ export async function imagenTabla() {
     h({ width: 1200, height: 630, background: BG, padding: '60px 64px', fontFamily: 'A100', color: INK, alignItems: 'center' },
       h({ flexDirection: 'column', justifyContent: 'space-between', height: '100%', width: 330, marginRight: 40 },
         h({ flexDirection: 'column' },
-          h({ fontFamily: 'A88', fontSize: 60, lineHeight: 1.02, letterSpacing: '-0.02em' }, TITULO),
+          h({ fontFamily: 'A88', fontSize: 46, lineHeight: 1.08, letterSpacing: '-0.02em' }, TITULO),
           h({ fontSize: 24, color: MUT, marginTop: 18, lineHeight: 1.3 }, `${ELEMENTOS.length} elementos · ${CAPAS.length} capas · ${NIVELES.length} niveles de madurez`)),
         h({ flexDirection: 'column', gap: 10 }, h({ fontFamily: 'A88', fontSize: 24 }, 'Felipe López Miranda'), firma(22, true))),
       h({ flexDirection: 'column', gap: G }, ...filas)));
