@@ -32,7 +32,7 @@ const R = 62; // radio de la dona
 
 <div class="mx" id="mezcla">
   <div class="mx-head">
-    <p class="mx-kicker">Arma tu mezcla de canales</p>
+    <p class="mx-kicker">Arma tu mezcla</p>
     <div class="mx-presets" role="group" aria-label="Mezclas de ejemplo">
       <button type="button" data-preset="100,0,0,0,0">Todo a Meta</button>
       <button type="button" data-preset="0,100,0,0,0">Todo a Google</button>
@@ -72,13 +72,11 @@ const R = 62; // radio de la dona
   <p class="mx-diag" id="mx-diag" aria-live="polite"></p>
 
   <div class="mx-info" id="mx-info" aria-live="polite">
-    <p><strong id="mx-i-t"></strong></p>
-    <p><span>Dónde rinde:</span> <span id="mx-i-r"></span></p>
-    <p><span>Error común:</span> <span id="mx-i-e"></span></p>
-    <a id="mx-i-a" href="/tabla/">Ver en la Tabla periódica →</a>
+    <p><strong id="mx-i-t"></strong> <span class="mx-l">rinde en:</span> <span id="mx-i-r"></span></p>
+    <p><span class="mx-l">Error común:</span> <span id="mx-i-e"></span> <a id="mx-i-a" href="/tabla/">Ver en la Tabla →</a></p>
   </div>
 
-  <p class="mx-note">Orientativo: muestra el rol de cada canal en el funnel según la Tabla periódica. No es una proyección de resultados.</p>
+  <p class="mx-note">Orientativo, según el rol de cada canal en la Tabla periódica. No es una proyección.</p>
   <script type="application/json" id="mx-data" set:html={JSON.stringify(datos)} />
 </div>
 
@@ -164,14 +162,14 @@ const R = 62; // radio de la dona
 </script>
 
 <style>
-  .mx { --sel: #45bfff; background: var(--bg); border: 1px solid var(--line); border-radius: 22px; padding: 22px; box-shadow: 0 30px 60px -30px rgba(11, 27, 58, 0.35); display: flex; flex-direction: column; gap: 16px; }
-  .mx-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+  .mx { --sel: #45bfff; background: var(--bg); border: 1px solid var(--line); border-radius: 22px; padding: 20px; box-shadow: 0 30px 60px -30px rgba(11, 27, 58, 0.35); display: flex; flex-direction: column; gap: 12px; }
+  .mx-head { display: flex; flex-wrap: nowrap; justify-content: space-between; align-items: center; gap: 10px; }
   .mx-kicker, .mx-sub { font-family: var(--head); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0; }
-  .mx-presets { display: flex; flex-wrap: wrap; gap: 6px; }
-  .mx-presets button { font: inherit; font-size: 0.74rem; padding: 6px 10px; min-height: 32px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
+  .mx-presets { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+  .mx-presets button { font: inherit; font-size: 0.72rem; padding: 4px 10px; min-height: 30px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
   .mx-presets button:hover { border-color: var(--accent); }
 
-  .mx-top { display: grid; grid-template-columns: 150px 1fr; gap: 20px; align-items: center; }
+  .mx-top { display: grid; grid-template-columns: 108px 1fr; gap: 20px; align-items: center; }
   .mx-donut { width: 100%; height: auto; overflow: visible; }
   .mx-track { fill: none; stroke: var(--card); stroke-width: 26; }
   .mx-seg { fill: none; stroke-width: 26; cursor: pointer; transition: stroke-dasharray 0.35s ease, stroke-dashoffset 0.35s ease, stroke-width 0.2s; }
@@ -179,16 +177,16 @@ const R = 62; // radio de la dona
   .mx-pct { font-family: var(--head); font-weight: 800; font-size: 24px; fill: var(--text); }
   .mx-name { font-family: var(--head); font-weight: 600; font-size: 12px; fill: var(--muted); }
 
-  .mx-funnel { display: flex; flex-direction: column; gap: 10px; }
+  .mx-funnel { display: flex; flex-direction: column; gap: 6px; }
   .mx-stage { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; align-items: center; font-size: 0.8rem; }
   .mx-stage .mx-bar { grid-column: 1 / -1; }
   .mx-stage b { font-family: var(--head); font-size: 0.8rem; text-align: right; }
   .mx-bar { height: 10px; border-radius: 999px; background: var(--card); overflow: hidden; }
   .mx-bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--accent); transition: width 0.35s ease; }
 
-  .mx-sliders { display: flex; flex-direction: column; gap: 4px; }
+  .mx-sliders { display: flex; flex-direction: column; gap: 0; }
   .mx-row { display: grid; grid-template-columns: 104px 1fr 44px; gap: 10px; align-items: center; }
-  .mx-ch { font: inherit; font-family: var(--head); font-weight: 600; font-size: 0.82rem; display: flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 8px; border-radius: 10px; border: 1px solid transparent; background: none; color: var(--text); cursor: pointer; text-align: left; }
+  .mx-ch { font: inherit; font-family: var(--head); font-weight: 600; font-size: 0.82rem; display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 0 8px; border-radius: 10px; border: 1px solid transparent; background: none; color: var(--text); cursor: pointer; text-align: left; }
   .mx-ch i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); flex: none; }
   .mx-ch[aria-pressed='true'] { background: var(--card); border-color: var(--line); }
   /* Control deslizante: parte llena en el color del canal, parte vacía suave */
@@ -199,13 +197,13 @@ const R = 62; // radio de la dona
   .mx-row input::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 3px solid var(--c); }
   .mx-row output { font-family: var(--head); font-size: 0.82rem; font-weight: 600; text-align: right; }
 
-  .mx-diag { margin: 0; padding: 12px 14px; border-radius: 12px; background: var(--card); font-size: 0.88rem; min-height: 3.2em; }
+  .mx-diag { margin: 0; padding: 10px 14px; border-radius: 12px; background: var(--card); font-size: 0.84rem; line-height: 1.45; min-height: 4.4em; }
   .mx-diag a { color: var(--accent); font-weight: 600; white-space: nowrap; }
-  .mx-info { border-left: 3px solid var(--sel); padding: 2px 0 2px 12px; font-size: 0.84rem; }
-  .mx-info p { margin: 0 0 4px; }
-  .mx-info span:first-child:not(:only-child) { color: var(--muted); }
-  .mx-info a { color: var(--accent); font-weight: 600; font-size: 0.82rem; }
-  .mx-note { margin: 0; font-size: 0.72rem; color: var(--faint); }
+  .mx-info { border-left: 3px solid var(--sel); padding: 0 0 0 12px; font-size: 0.8rem; line-height: 1.45; min-height: 4.4em; }
+  .mx-info p { margin: 0 0 2px; }
+  .mx-l { color: var(--muted); }
+  .mx-info a { color: var(--accent); font-weight: 600; white-space: nowrap; }
+  .mx-note { margin: 0; font-size: 0.7rem; line-height: 1.4; color: var(--faint); }
   .mx button:focus-visible, .mx input:focus-visible, .mx a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
   @media (max-width: 480px) {

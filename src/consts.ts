@@ -29,7 +29,7 @@ export const TOPICS = [
 ];
 
 // Frase principal del sitio (portada)
-export const TAGLINE = 'Performance marketing, datos e IA explicados por alguien que los usa todos los días.';
+export const TAGLINE = 'Marketing, Datos e IA aplicados en la vida real.';
 
 // Google Analytics 4 de la Tabla periódica (/tabla). Reemplaza 'G-XXXXXXXXXX' por tu ID de medición de GA4.
 // Mientras tenga las X, no se carga Google Analytics (los eventos solo se muestran en la consola del navegador).
