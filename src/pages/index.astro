@@ -71,9 +71,14 @@ const faqs = [
           <li><b>{posts.length}</b> artículos y guías</li>
         </ul>
       </div>
-      <figure class="portrait">
-        <img src="/img/retrato.webp" alt="Retrato de Felipe López Miranda" width="1254" height="1254" fetchpriority="high" />
-      </figure>
+      <div class="stack">
+        <a class="ph back" href="/linkedin/funnel-de-whatsapp-para-ventas/" aria-label="Ver la publicación: Funnel de conversión en WhatsApp">
+          <img src="/img/posts/funnel-de-whatsapp-para-ventas.webp" alt="Funnel de conversión en WhatsApp en 7 etapas, de la impresión a la venta, con la métrica de cada una" width="1080" height="1350" fetchpriority="high" />
+        </a>
+        <a class="ph front" href="/linkedin/me-pidieron-subir-el-roas-y-arme-un-plan-todo-con/" aria-label="Ver la publicación: Matriz de señales para subir tu ROAS con IA">
+          <img src="/img/posts/me-pidieron-subir-el-roas-y-arme-un-plan-todo-con.webp" alt="Matriz de señales para subir tu ROAS con IA: calidad de cada tipo de señal en Google Ads, Meta, TikTok y Pinterest" width="1200" height="900" fetchpriority="high" />
+        </a>
+      </div>
     </div>
   </section>
 
@@ -224,8 +229,14 @@ const faqs = [
   .cta .btn { min-height: 46px; padding-inline: 20px; }
   .proof { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 26px 0 0; padding: 0; font-size: 0.85rem; color: var(--muted); }
   .proof b { font-family: var(--head); color: var(--text); }
-  .portrait { margin: 0; border-radius: 24px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 60px -30px rgba(11, 27, 58, 0.45); max-width: 420px; justify-self: end; }
-  .portrait img { display: block; width: 100%; height: auto; }
+  /* Dos gráficas reales, superpuestas */
+  .stack { position: relative; height: 460px; }
+  .ph { position: absolute; display: block; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 60px -25px rgba(11, 27, 58, 0.5); transition: transform 0.25s, z-index 0s; }
+  .ph img { display: block; width: 100%; height: auto; }
+  .back { width: 52%; top: 0; right: 0; transform: rotate(3deg); }
+  .front { width: 80%; left: 0; bottom: 0; transform: rotate(-2deg); z-index: 1; }
+  .ph:hover, .ph:focus-visible { transform: rotate(0) scale(1.02); z-index: 2; }
+  @media (prefers-reduced-motion: reduce) { .ph { transition: none; } }
 
   /* Tabla destacada */
   .feature { display: grid; grid-template-columns: 1.3fr 1fr; overflow: hidden; text-decoration: none; color: inherit; }
@@ -286,7 +297,7 @@ const faqs = [
 
   @media (max-width: 960px) {
     .hero-grid, .feature, .about { grid-template-columns: 1fr; }
-    .portrait { display: none; }
+    .stack { height: auto; aspect-ratio: 1 / 0.85; max-width: 520px; width: 100%; margin: 8px auto 0; }
     .feature figure { border-right: 0; border-bottom: 1px solid var(--line); }
     .grid3 { grid-template-columns: 1fr 1fr; }
     .topics { grid-template-columns: repeat(2, 1fr); }
