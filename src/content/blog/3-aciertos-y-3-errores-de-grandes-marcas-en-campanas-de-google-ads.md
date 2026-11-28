@@ -2,7 +2,7 @@
 title: '3 aciertos y 3 errores de grandes marcas en campañas de Google Ads'
 description: 'Google Ads puede ser una máquina de crecimiento o un agujero negro de presupuesto -se los digo por experiencia propia-. He visto campañas brillantes…'
 pubDate: 2025-02-21
-category: 'Marketing'
+category: 'Performance'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/3-aciertos-y-errores-de-grandes-marcas-en-campa%C3%B1as-l%C3%B3pez-miranda-c4zze'
 ---

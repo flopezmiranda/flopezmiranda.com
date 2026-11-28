@@ -3,34 +3,32 @@ import { LINKEDIN_URL } from '../consts';
 
 const path = Astro.url.pathname;
 const links = [
-  { href: '/', label: 'Inicio' },
-  { href: '/#proyectos', label: 'Proyectos' },
   { href: '/tabla/', label: 'Tabla' },
+  { href: '/guias/', label: 'Guías' },
   { href: '/blog/', label: 'Escritos' },
-  { href: '/linkedin/', label: 'Publicaciones' },
+  { href: 'https://efectopodcast.com/', label: 'Podcast', external: true },
   { href: '/sobre-mi/', label: 'Sobre mí' },
-  { href: '/contacto/', label: 'Contacto' },
 ];
-const active = (href: string) => (href === '/' ? path === '/' : href.startsWith('/#') ? false : path.startsWith(href));
+const active = (href: string) => href.startsWith('/') && (path.startsWith(href) || (href === '/blog/' && path.startsWith('/linkedin/')));
 ---
 
 <header>
   <div class="container bar">
     <a href="/" class="logo"><img class="mark" src="/img/logo-fl-96.png" alt="" width="32" height="32" /><span class="name">Felipe López Miranda</span></a>
     <nav>
-      {links.map((l) => <a href={l.href} class:list={{ on: active(l.href) }}>{l.label}</a>)}
+      {links.map((l) => <a href={l.href} class:list={{ on: active(l.href) }} aria-current={active(l.href) ? 'page' : undefined} {...(l.external ? { target: '_blank', rel: 'noopener' } : {})}>{l.label}{l.external && ' ↗'}</a>)}
     </nav>
     <button class="theme" type="button" aria-label="Cambiar entre modo claro y oscuro" title="Modo claro / oscuro">
       <span class="moon">☾</span><span class="sun">☀︎</span>
     </button>
-    <a class="btn btn-primary cta" href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn ↗</a>
     <button class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
       <span></span><span></span><span></span>
     </button>
   </div>
   <nav id="mobile-menu" class="mobile" aria-label="Menú" hidden>
-    {links.map((l) => <a href={l.href} class:list={{ on: active(l.href) }}>{l.label}</a>)}
-    <a href="/privacidad/" class="small">Política de privacidad</a>
+    {links.map((l) => <a href={l.href} class:list={{ on: active(l.href) }} aria-current={active(l.href) ? 'page' : undefined} {...(l.external ? { target: '_blank', rel: 'noopener' } : {})}>{l.label}{l.external && ' ↗'}</a>)}
+    <a href="/contacto/" class="small">Contacto</a>
+    <a href={LINKEDIN_URL} class="small" target="_blank" rel="noopener">LinkedIn ↗</a>
   </nav>
 </header>
 
@@ -65,7 +63,6 @@ const active = (href: string) => (href === '/' ? path === '/' : href.startsWith(
   nav:not(.mobile) a { padding: 6px 12px; border-radius: 999px; font-size: 0.82rem; font-family: var(--head); font-weight: 500; color: var(--muted); text-decoration: none; }
   nav:not(.mobile) a:hover { color: var(--text); }
   nav:not(.mobile) a.on { color: var(--text); background: var(--card-2); }
-  .cta { padding: 7px 14px; font-size: 0.8rem; }
   .theme { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--text); cursor: pointer; font-size: 0.95rem; }
   .theme:hover { border-color: var(--accent); }
   .sun { display: none; }
@@ -81,8 +78,7 @@ const active = (href: string) => (href === '/' ? path === '/' : href.startsWith(
   .mobile a { padding: 12px 8px; border-radius: 10px; font-family: var(--head); font-weight: 600; font-size: 1rem; color: var(--text); text-decoration: none; }
   .mobile a.on { background: var(--card-2); }
   .mobile a.small { font-size: 0.85rem; font-weight: 500; color: var(--muted); }
-  @media (min-width: 1021px) { .mobile { display: none !important; } }
-  @media (max-width: 1020px) { nav:not(.mobile) { display: none; } .theme { margin-left: auto; } .menu-btn { display: flex; } }
-  @media (max-width: 420px) { .cta { display: none; } }
+  @media (min-width: 821px) { .mobile { display: none !important; } }
+  @media (max-width: 820px) { nav:not(.mobile) { display: none; } .theme { margin-left: auto; } .menu-btn { display: flex; } }
   @media (max-width: 420px) { .name { display: none; } }
 </style>

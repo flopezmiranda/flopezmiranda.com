@@ -2,7 +2,7 @@
 title: 'Se puede vender DE TODO con buena performance'
 description: 'Nuevo mes, nuevo newsletter en Efecto Newsletter y durante septiembre nos enfocamos en una sola cosa: Compartir contenido que te permita construir los…'
 pubDate: 2025-10-01
-category: 'Marketing'
+category: 'Performance'
 tags: ['LinkedIn', 'Efecto Newsletter']
 originalUrl: 'https://www.linkedin.com/pulse/se-puede-vender-de-todo-con-buena-performance-edici%C3%B3n-l%C3%B3pez-miranda-t7vve'
 series: 'Efecto Newsletter'

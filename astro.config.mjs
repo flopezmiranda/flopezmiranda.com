@@ -68,7 +68,7 @@ for (const e of tabla.elementos) {
   lastmod.set(`/tabla/elemento/${slug}/`, tablaUpdated);
   priority.set(`/tabla/elemento/${slug}/`, 0.7);
 }
-for (const p of ['/blog/', '/linkedin/', '/sobre-mi/']) priority.set(p, 0.8);
+for (const p of ['/blog/', '/linkedin/', '/sobre-mi/', '/guias/']) priority.set(p, 0.8);
 for (const p of ['/privacidad/', '/cookies/', '/terminos/']) priority.set(p, 0.2);
 
 export default defineConfig({

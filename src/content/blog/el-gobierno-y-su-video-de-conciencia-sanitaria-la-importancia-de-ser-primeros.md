@@ -2,7 +2,7 @@
 title: 'El Gobierno y su video de conciencia sanitaria: La importancia de ser primeros en #MarketingDigital'
 description: 'Siendo breve, una de las 3 puntas de lanzas que se han postulado desde un principio en este espacio apela a la instantaneidad. Lo dice David Meerman…'
 pubDate: 2020-04-03
-category: 'Marketing'
+category: 'Branding y contenido'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/el-gobierno-y-su-video-de-conciencia-sanitaria-la-ser-l%C3%B3pez-miranda'
 ---

@@ -107,8 +107,16 @@ export const noEmoji = (s: string) =>
 
 const clip = (s: string, max: number) => (s.length <= max ? s : s.slice(0, max - 1).replace(/[\s,;:.-]+\S*$/, '') + '…');
 
-/** Título de una publicación para <title> y H1: sin emojis y con contexto si el titular es muy corto */
-export function postTitle(p: { headline: string; text: string }) {
+// Títulos descriptivos escritos a mano (src/data/linkedin-titulos.json): mandan sobre el gancho original
+import titulosData from './linkedin-titulos.json';
+const TITULOS = titulosData as Record<string, string>;
+/** Título descriptivo escrito a mano, si existe */
+export const clearTitle = (id?: string) => (id && !id.startsWith('_') ? TITULOS[id] : undefined);
+
+/** Título de una publicación para <title> y H1: el descriptivo si existe; si no, el gancho sin emojis y con contexto */
+export function postTitle(p: { headline: string; text: string; id?: string }) {
+  const claro = clearTitle(p.id);
+  if (claro) return claro;
   let t = noEmoji(p.headline)
     .replace(/#(\p{L}[\p{L}\p{N}_]*)/gu, '$1')
     .replace(/^\[([^\]]+)\]\s*/, '$1: ') // "[PODCAST] Texto" -> "PODCAST: Texto"

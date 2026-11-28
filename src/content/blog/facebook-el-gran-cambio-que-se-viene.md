@@ -2,7 +2,7 @@
 title: 'Facebook: El gran cambio que se viene'
 description: 'Desde septiembre del 2019, Facebook implementará un gran cambio en su plataforma de administración comercial, la cual afectará directamente al mundo…'
 pubDate: 2019-09-05
-category: 'Marketing'
+category: 'Performance'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/facebook-el-gran-cambio-que-se-viene-felipe-l%C3%B3pez-miranda'
 ---

@@ -19,12 +19,13 @@ export const GET: APIRoute = async () => {
 - Audiencia: el ${(LINKEDIN.audience['Sector'] ?? []).slice(0, 2).reduce((s, i) => s + i.pct, 0)} % de sus seguidores trabaja en publicidad o marketing; principalmente en Chile, Argentina, Colombia, México y España.
 
 ## Páginas
-- [Inicio](https://flopezmiranda.com/): presentación, temas, publicaciones más leídas, audiencia y proyectos.
+- [Inicio](https://flopezmiranda.com/): presentación, Tabla periódica, guías, temas, lo último publicado y proyectos.
 - [Tabla periódica del performance marketing](https://flopezmiranda.com/tabla/): 66 conceptos de performance marketing (señales, audiencias, creatividad, optimización, métricas, medición y plataformas) ordenados en 6 capas y 5 niveles de madurez; cada uno con qué es, cómo se mide, error común y relaciones. Cada concepto tiene su página en /tabla/elemento/<símbolo>/.
+- [Guías](https://flopezmiranda.com/guias/): lo más completo del sitio, con la Tabla periódica, las guías exclusivas y funnels y glosarios de performance.
 - [Sobre mí](https://flopezmiranda.com/sobre-mi/): biografía, formación y preguntas frecuentes.
 - [DroneImagen](https://flopezmiranda.com/droneimagen/): su banco de más de 1.100 fotos aéreas gratis de Chile.
 - [Publicaciones](https://flopezmiranda.com/linkedin/): archivo de sus publicaciones de LinkedIn del último año.
-- [Escritos](https://flopezmiranda.com/blog/): artículos y ediciones de su newsletter.
+- [Escritos](https://flopezmiranda.com/blog/): artículos y ediciones de su newsletter, ordenados por tema (Performance, Datos, IA, Branding y contenido).
 
 - [Contenido completo](https://flopezmiranda.com/llms-full.txt): texto íntegro de las guías y artículos, en un solo archivo.
 

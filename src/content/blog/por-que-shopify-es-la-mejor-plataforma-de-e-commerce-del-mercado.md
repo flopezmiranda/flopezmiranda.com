@@ -2,7 +2,7 @@
 title: '¿Por qué Shopify es la mejor plataforma de E-Commerce del mercado?'
 description: 'Puedo estar hasta mañana dando argumentos del porqué Shopify en la mejor plataforma de E-Commerce del mercado. Son muchos factores: Facilitan un…'
 pubDate: 2020-07-27
-category: 'Marketing'
+category: 'Performance'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/por-qu%C3%A9-shopify-es-la-mejor-plataforma-de-e-commerce-l%C3%B3pez-miranda'
 ---

@@ -1,5 +1,5 @@
 ---
-import { compact, formatNumber, shareFor, cleanHeadline, postPath, postCover, type LinkedInPost } from '../data/linkedin';
+import { compact, formatNumber, shareFor, cleanHeadline, postPath, postCover, postTitle, clearTitle, noEmoji, type LinkedInPost } from '../data/linkedin';
 import FormattedDate from './FormattedDate.astro';
 import Thumb from './Thumb.astro';
 
@@ -10,6 +10,9 @@ interface Props {
 const { post, rank } = Astro.props;
 const share = shareFor(post);
 const headline = share ? cleanHeadline(share.headline) : `${post.title}…`;
+// Título descriptivo (src/data/linkedin-titulos.json) y, debajo, el gancho original
+const title = share ? postTitle(share) : headline;
+const hook = share && clearTitle(share.id) ? noEmoji(cleanHeadline(share.headline)) : undefined;
 const cover = postCover(share?.id);
 ---
 
@@ -26,7 +29,8 @@ const cover = postCover(share?.id);
   }
   <div class="body">
     <p class="kicker">{post.impressions != null ? `${formatNumber(post.impressions)} impresiones` : 'LinkedIn'}</p>
-    <h3>{headline}</h3>
+    <h3>{title}</h3>
+    {hook && <p class="hook">«{hook}»</p>}
     <p class="meta"><FormattedDate date={new Date(post.date)} />{post.interactions != null && ` · ${formatNumber(post.interactions)} interacciones`}</p>
   </div>
 </a>
@@ -37,6 +41,7 @@ const cover = postCover(share?.id);
   .cover img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
   .post:hover .cover img { transform: scale(1.03); }
   .rank { position: absolute; bottom: 10px; right: 10px; padding: 3px 9px; border-radius: 999px; background: #ffd60a; color: #0b1b3a; font-family: var(--head); font-weight: 800; font-size: 0.72rem; }
+  .hook { margin: 0; font-size: 0.8rem; color: var(--muted); font-style: italic; }
   .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
   .kicker { font-size: 0.64rem; }
   h3 { font-size: 0.98rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }

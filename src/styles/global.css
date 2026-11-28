@@ -8,15 +8,15 @@
   --line: #dde3ee;
   --text: #0b1b3a;
   --muted: #4c5a75;
-  --faint: #8a95ab;
-  --accent: #2f6bff;
+  --faint: #5d6984;
+  --accent: #245ce6;
   --accent-2: #00b3ff;
-  --accent-rgb: 47, 107, 255;
+  --accent-rgb: 36, 92, 230;
   --accent2-rgb: 0, 179, 255;
   --on-accent: #ffffff;
   --thumb-base: #0b1b3a;
   --thumb-text: #ffffff;
-  --gradient: linear-gradient(100deg, var(--accent), var(--accent-2));
+  --gradient: linear-gradient(100deg, var(--accent), #0b8ad0);
   --head: 'Poppins', system-ui, sans-serif;
   --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --radius: 14px;
@@ -34,7 +34,7 @@
   --line: #1f3352;
   --text: #eef3ff;
   --muted: #9fb0cc;
-  --faint: #647693;
+  --faint: #7d8ba6;
   --accent: #ffd60a;
   --accent-2: #ffe98a;
   --accent-rgb: 255, 214, 10;
@@ -70,7 +70,7 @@ h1, h2, h3 { font-family: var(--head); font-weight: 700; line-height: 1.15; lett
 .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 999px; font-family: var(--head); font-weight: 600; font-size: 0.85rem; text-decoration: none; border: 1px solid var(--line); background: rgba(255, 255, 255, 0.04); color: var(--text); transition: transform 0.15s, border-color 0.2s; white-space: nowrap; }
 .btn:hover { transform: translateY(-1px); border-color: var(--accent); }
 .btn-primary { background: var(--accent); border-color: transparent; color: var(--on-accent); box-shadow: 0 10px 30px -12px rgba(var(--accent-rgb), 0.6); }
-.btn-primary:hover { background: var(--accent-2); }
+.btn-primary:hover { background: color-mix(in srgb, var(--accent) 85%, #000); }
 
 /* Tarjetas */
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); transition: border-color 0.2s, transform 0.2s; }

@@ -2,7 +2,7 @@
 title: 'Influenciadores: ¿Sirven o no?'
 description: 'Esta pregunta me la han hecho muchas veces: ¿Es bueno invertir en influenciadores? ¿Vale la pena? Mi respuesta no es tajante, pero si creo que el…'
 pubDate: 2019-06-19
-category: 'Marketing'
+category: 'Branding y contenido'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/influenciadores-sirven-o-felipe-l%C3%B3pez-miranda'
 ---

@@ -20,13 +20,16 @@ export const SOCIAL = {
   email: 'contacto@flopezmiranda.com',
 };
 
-// Temas sobre los que escribo.
+// Temas sobre los que escribo. "cat" es la categoría de los artículos (src/content.config.ts).
 export const TOPICS = [
-  { name: 'Performance marketing', text: 'Meta Ads, Google Ads y cómo invertir mejor cada peso en medios.' },
-  { name: 'Datos y analítica', text: 'Funnels, GA4 y las métricas que de verdad explican el negocio.' },
-  { name: 'Inteligencia artificial', text: 'Herramientas y casos reales de IA aplicada al marketing.' },
-  { name: 'Branding y contenido', text: 'Marcas con algo que decir y contenido que la gente sí ve.' },
+  { name: 'Performance marketing', cat: 'Performance', text: 'Meta Ads, Google Ads y cómo invertir mejor cada peso en medios.' },
+  { name: 'Datos y analítica', cat: 'Datos', text: 'Funnels, señales y las métricas que de verdad explican el negocio.' },
+  { name: 'Inteligencia artificial', cat: 'IA', text: 'Herramientas y casos reales de IA aplicada a las campañas.' },
+  { name: 'Branding y contenido', cat: 'Branding y contenido', text: 'Marcas con algo que decir y contenido que la gente sí ve.' },
 ];
+
+// Frase principal del sitio (portada)
+export const TAGLINE = 'Performance marketing, datos e IA explicados por alguien que los usa todos los días.';
 
 // Google Analytics 4 de la Tabla periódica (/tabla). Reemplaza 'G-XXXXXXXXXX' por tu ID de medición de GA4.
 // Mientras tenga las X, no se carga Google Analytics (los eventos solo se muestran en la consola del navegador).

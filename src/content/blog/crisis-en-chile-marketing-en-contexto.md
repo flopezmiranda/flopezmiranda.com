@@ -2,7 +2,7 @@
 title: 'Crisis en Chile: Marketing en contexto'
 description: 'Chile está viviendo una crisis que hace 72 horas nadie pensó iba a escalar a estas características. Miles de personas en las calles protestando con…'
 pubDate: 2019-10-21
-category: 'Marketing'
+category: 'Branding y contenido'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/crisis-en-chile-marketing-contexto-felipe-l%C3%B3pez-miranda'
 ---

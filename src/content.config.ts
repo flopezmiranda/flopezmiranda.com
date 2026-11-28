@@ -9,7 +9,8 @@ const blog = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    category: z.enum(['Marketing', 'Datos', 'IA']),
+    /** Tema: Performance | Branding y contenido | Datos | IA */
+    category: z.enum(['Performance', 'Branding y contenido', 'Datos', 'IA']),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     /** Enlace a la publicación original en LinkedIn */

@@ -2,7 +2,7 @@
 title: 'Collection: ¿El mejor formato de Facebook?'
 description: '¿Vamos al grano? Por formato y experiencia usuario, sí. Por performance y resultados, a veces sí, otras no. Desglosemos esto...'
 pubDate: 2020-03-09
-category: 'Marketing'
+category: 'Performance'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/collection-el-mejor-formato-de-facebook-felipe-l%C3%B3pez-miranda'
 ---

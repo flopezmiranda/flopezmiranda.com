@@ -2,7 +2,7 @@
 title: '¿Por qué son así? ¿Los argentinos hacen el mejor inbound marketing del mundo?'
 description: 'Repito, ¿por qué los argentinos son así? ¿Por qué entienden tan bien el concepto de marketing de contenido? Es su esencia, su nacionalismo o…'
 pubDate: 2020-03-30
-category: 'Marketing'
+category: 'Branding y contenido'
 tags: ['LinkedIn']
 originalUrl: 'https://www.linkedin.com/pulse/por-qu%C3%A9-son-as%C3%AD-los-argentinos-hacen-el-mejor-inbound-l%C3%B3pez-miranda'
 ---

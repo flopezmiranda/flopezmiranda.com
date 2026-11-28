@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import LinkedInButtons from '../../components/LinkedInButtons.astro';
-import { SHARES, LINKEDIN, TAGS, formatNumber, postPath } from '../../data/linkedin';
+import { SHARES, LINKEDIN, TAGS, formatNumber, postPath, postTitle, clearTitle, noEmoji } from '../../data/linkedin';
 import { SITE_URL, PERSON_ID } from '../../seo';
 
 const recent = SHARES.filter((p) => p.recent);
@@ -16,7 +16,7 @@ const groups = [...new Set(recent.map((p) => monthKey(p.date)))].map((k) => ({
   posts: recent.filter((p) => monthKey(p.date) === k),
 }));
 const excerpt = (p: (typeof SHARES)[number]) => {
-  const rest = p.text.slice(p.text.indexOf(p.headline) + p.headline.length).replace(/\s+/g, ' ').trim();
+  const rest = (clearTitle(p.id) ? noEmoji(p.text) : p.text.slice(p.text.indexOf(p.headline) + p.headline.length)).replace(/\s+/g, ' ').trim();
   return rest.length > 240 ? rest.slice(0, 240).replace(/\s\S*$/, '') + '…' : rest;
 };
 const fmt = (d: string) => new Date(d).toLocaleDateString('es-CL', { day: 'numeric', month: 'short', timeZone: 'UTC' });
@@ -67,11 +67,11 @@ const page = {
                 <div>
                   {postPath(p) ? (
                     <a href={postPath(p)}>
-                      <strong>{p.headline}</strong>
+                      <strong>{postTitle(p)}</strong>
                     </a>
                   ) : (
                     <a href={p.url} target="_blank" rel="noopener">
-                      <strong>{p.headline}</strong> <span class="ext">↗</span>
+                      <strong>{postTitle(p)}</strong> <span class="ext">↗</span>
                     </a>
                   )}
                   {excerpt(p) && <p>{excerpt(p)}</p>}
@@ -95,7 +95,7 @@ const page = {
   .topics { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 28px 0 0; font-size: 0.82rem; }
   .topics > span { color: var(--faint); }
   .topics a { padding: 5px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); text-decoration: none; }
-  .topics a span { opacity: 0.6; margin-left: 2px; }
+  .topics a span { color: var(--muted); margin-left: 2px; }
   .ext { color: var(--faint); font-size: 0.8em; }
   .month { margin-top: 40px; scroll-margin-top: 80px; }
   .month h2 { font-size: 1.3rem; padding-bottom: 10px; border-bottom: 1px solid var(--line); }

@@ -2,7 +2,7 @@
 title: '5 razones para ocupar Whatsapp y vender con Marketing'
 description: '¿Cómo ocupar WhatsApp para vender? En esta edición mostraremos 5 señales claves que tienen herramientas y caminos, los cuales puedes utilizar para…'
 pubDate: 2026-03-25
-category: 'Marketing'
+category: 'Performance'
 tags: ['LinkedIn', 'Efecto Newsletter']
 originalUrl: 'https://www.linkedin.com/pulse/5-razones-para-ocupar-whatsapp-y-vender-con-marketing-l%C3%B3pez-miranda-lobof'
 series: 'Efecto Newsletter'
