@@ -1,0 +1,218 @@
+---
+// Gráfico interactivo de la portada: "Arma tu mezcla de canales".
+// El visitante reparte el presupuesto entre canales; la dona, la cobertura del funnel y el diagnóstico cambian al instante.
+// Los textos de cada canal ("Dónde rinde" y "Error común") salen de la Tabla periódica (src/data/tabla-periodica.json).
+// Los pesos por etapa del funnel son orientativos (rol de cada canal), no una proyección de resultados.
+import { ELEMENTOS } from '../lib/tabla';
+
+const bySym = (s: string) => ELEMENTOS.find((e) => e.simbolo === s)!;
+const CANALES = [
+  { sym: 'Me', nombre: 'Meta', color: '#45bfff', inicial: 40, peso: [0.45, 0.3, 0.25] },
+  { sym: 'Go', nombre: 'Google', color: '#3fd1a6', inicial: 35, peso: [0.1, 0.3, 0.6] },
+  { sym: 'Yt', nombre: 'YouTube', color: '#ff7f9e', inicial: 10, peso: [0.6, 0.35, 0.05] },
+  { sym: 'Tk', nombre: 'TikTok', color: '#a98bff', inicial: 10, peso: [0.6, 0.3, 0.1] },
+  { sym: 'Li', nombre: 'LinkedIn', color: '#ffb92e', inicial: 5, peso: [0.3, 0.4, 0.3] },
+].map((c) => {
+  const e = bySym(c.sym);
+  return { ...c, titulo: e.nombre, rinde: e.como_se_mide, error: e.error_comun, url: e.url };
+});
+
+// Diagnósticos: cada uno enlaza al elemento de la Tabla que conviene leer
+const link = (s: string) => ({ url: bySym(s).url, nombre: bySym(s).nombre });
+const DIAG = {
+  vacio: { t: 'Mueve algún control para armar tu mezcla.' },
+  uno: { t: 'Todo en un solo canal: dependes de una sola subasta y de un solo algoritmo.', ...link('Tn') },
+  abajo: { t: 'Tu mezcla está cargada a capturar demanda que ya existe. Funciona hoy, pero si nadie la crea, la búsqueda se agota.', ...link('Lc') },
+  arriba: { t: 'Mucha atención y poca captura: vas a generar recuerdo, pero te va a costar convertirlo en ventas.', ...link('Ob') },
+  ok: { t: 'Mezcla equilibrada: creas demanda arriba y la capturas abajo. El siguiente paso es medir qué suma cada canal de verdad.', ...link('In') },
+};
+const datos = { canales: CANALES.map(({ nombre, color, peso, titulo, rinde, error, url }) => ({ nombre, color, peso, titulo, rinde, error, url })), diag: DIAG };
+const R = 62; // radio de la dona
+---
+
+<div class="mx" id="mezcla">
+  <div class="mx-head">
+    <p class="mx-kicker">Arma tu mezcla de canales</p>
+    <div class="mx-presets" role="group" aria-label="Mezclas de ejemplo">
+      <button type="button" data-preset="100,0,0,0,0">Todo a Meta</button>
+      <button type="button" data-preset="0,100,0,0,0">Todo a Google</button>
+      <button type="button" data-preset="35,30,15,15,5">Equilibrada</button>
+    </div>
+  </div>
+
+  <div class="mx-top">
+    <svg class="mx-donut" viewBox="0 0 160 160" aria-hidden="true">
+      <circle class="mx-track" cx="80" cy="80" r={R} />
+      {CANALES.map((c, i) => <circle class="mx-seg" data-i={i} cx="80" cy="80" r={R} pathLength="100" style={`stroke:${c.color}`} />)}
+      <text class="mx-pct" x="80" y="80" text-anchor="middle" id="mx-pct">40 %</text>
+      <text class="mx-name" x="80" y="100" text-anchor="middle" id="mx-name">Meta</text>
+    </svg>
+    <div class="mx-funnel">
+      <p class="mx-sub">Cobertura del funnel</p>
+      {['Atención', 'Consideración', 'Conversión'].map((et, i) => (
+        <div class="mx-stage">
+          <span>{et}</span>
+          <b data-stage-v={i}>0 %</b>
+          <span class="mx-bar"><i data-stage={i}></i></span>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="mx-sliders">
+    {CANALES.map((c, i) => (
+      <div class="mx-row" data-row={i} style={`--c:${c.color}`}>
+        <button type="button" class="mx-ch" data-sel={i} aria-pressed={i === 0 ? 'true' : 'false'}><i></i>{c.nombre}</button>
+        <input type="range" min="0" max="100" step="5" value={c.inicial} data-i={i} aria-label={`Presupuesto en ${c.nombre}`} />
+        <output data-out={i}>{c.inicial} %</output>
+      </div>
+    ))}
+  </div>
+
+  <p class="mx-diag" id="mx-diag" aria-live="polite"></p>
+
+  <div class="mx-info" id="mx-info" aria-live="polite">
+    <p><strong id="mx-i-t"></strong></p>
+    <p><span>Dónde rinde:</span> <span id="mx-i-r"></span></p>
+    <p><span>Error común:</span> <span id="mx-i-e"></span></p>
+    <a id="mx-i-a" href="/tabla/">Ver en la Tabla periódica →</a>
+  </div>
+
+  <p class="mx-note">Orientativo: muestra el rol de cada canal en el funnel según la Tabla periódica. No es una proyección de resultados.</p>
+  <script type="application/json" id="mx-data" set:html={JSON.stringify(datos)} />
+</div>
+
+<script>
+  const root = document.getElementById('mezcla');
+  if (root) {
+    const D = JSON.parse(document.getElementById('mx-data')!.textContent!);
+    const C = D.canales as { nombre: string; color: string; peso: number[]; titulo: string; rinde: string; error: string; url: string }[];
+    const ranges = [...root.querySelectorAll<HTMLInputElement>('input[type=range]')];
+    const segs = [...root.querySelectorAll<SVGCircleElement>('.mx-seg')];
+    const outs = [...root.querySelectorAll<HTMLOutputElement>('[data-out]')];
+    const bars = [...root.querySelectorAll<HTMLElement>('[data-stage]')];
+    const barV = [...root.querySelectorAll<HTMLElement>('[data-stage-v]')];
+    const chips = [...root.querySelectorAll<HTMLButtonElement>('[data-sel]')];
+    const $ = (id: string) => document.getElementById(id)!;
+    let sel = 0;
+
+    function pcts() {
+      const v = ranges.map((r) => +r.value);
+      const sum = v.reduce((a, b) => a + b, 0);
+      return { p: v.map((x) => (sum ? (x / sum) * 100 : 0)), sum };
+    }
+
+    function render() {
+      const { p, sum } = pcts();
+      // Dona: cada segmento empieza donde termina el anterior
+      let acc = 0;
+      segs.forEach((s, i) => {
+        const len = Math.max(0, p[i] - (p[i] > 1 ? 0.8 : 0)); // pequeña separación entre segmentos
+        s.style.strokeDasharray = `${len} ${100 - len}`;
+        s.style.strokeDashoffset = `${-acc + 25}`;
+        s.classList.toggle('on', i === sel);
+        acc += p[i];
+      });
+      outs.forEach((o, i) => (o.textContent = `${Math.round(p[i])} %`));
+      ranges.forEach((r) => r.style.setProperty('--v', `${r.value}%`));
+      $('mx-pct').textContent = `${Math.round(p[sel])} %`;
+      $('mx-name').textContent = C[sel].nombre;
+      // Funnel: suma ponderada por el rol de cada canal
+      const st = [0, 1, 2].map((k) => C.reduce((a, c, i) => a + (p[i] / 100) * c.peso[k], 0));
+      st.forEach((x, k) => {
+        bars[k].style.width = `${Math.round(x * 100)}%`;
+        barV[k].textContent = `${Math.round(x * 100)} %`;
+      });
+      // Diagnóstico
+      const max = Math.max(...p);
+      const d = !sum ? D.diag.vacio : max >= 80 ? D.diag.uno : st[2] >= 0.45 ? D.diag.abajo : st[0] >= 0.48 ? D.diag.arriba : D.diag.ok;
+      const el = $('mx-diag');
+      el.textContent = d.t + ' ';
+      if (d.url) {
+        const a = document.createElement('a');
+        a.href = d.url;
+        a.textContent = `Lee: ${d.nombre} →`;
+        el.append(a);
+      }
+    }
+
+    function select(i: number) {
+      sel = i;
+      chips.forEach((c, k) => c.setAttribute('aria-pressed', String(k === i)));
+      $('mx-i-t').textContent = C[i].titulo;
+      $('mx-i-r').textContent = C[i].rinde;
+      $('mx-i-e').textContent = C[i].error;
+      ($('mx-i-a') as HTMLAnchorElement).href = C[i].url;
+      root!.style.setProperty('--sel', C[i].color);
+      render();
+    }
+
+    ranges.forEach((r, i) => {
+      r.addEventListener('input', () => { if (sel !== i) select(i); else render(); });
+      r.addEventListener('focus', () => select(i));
+    });
+    chips.forEach((c, i) => c.addEventListener('click', () => select(i)));
+    segs.forEach((s, i) => s.addEventListener('click', () => select(i)));
+    root.querySelectorAll<HTMLButtonElement>('[data-preset]').forEach((b) =>
+      b.addEventListener('click', () => {
+        b.dataset.preset!.split(',').forEach((v, i) => (ranges[i].value = v));
+        render();
+      }),
+    );
+    select(0);
+  }
+</script>
+
+<style>
+  .mx { --sel: #45bfff; background: var(--bg); border: 1px solid var(--line); border-radius: 22px; padding: 22px; box-shadow: 0 30px 60px -30px rgba(11, 27, 58, 0.35); display: flex; flex-direction: column; gap: 16px; }
+  .mx-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; }
+  .mx-kicker, .mx-sub { font-family: var(--head); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0; }
+  .mx-presets { display: flex; flex-wrap: wrap; gap: 6px; }
+  .mx-presets button { font: inherit; font-size: 0.74rem; padding: 6px 10px; min-height: 32px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
+  .mx-presets button:hover { border-color: var(--accent); }
+
+  .mx-top { display: grid; grid-template-columns: 150px 1fr; gap: 20px; align-items: center; }
+  .mx-donut { width: 100%; height: auto; overflow: visible; }
+  .mx-track { fill: none; stroke: var(--card); stroke-width: 26; }
+  .mx-seg { fill: none; stroke-width: 26; cursor: pointer; transition: stroke-dasharray 0.35s ease, stroke-dashoffset 0.35s ease, stroke-width 0.2s; }
+  .mx-seg.on { stroke-width: 32; }
+  .mx-pct { font-family: var(--head); font-weight: 800; font-size: 24px; fill: var(--text); }
+  .mx-name { font-family: var(--head); font-weight: 600; font-size: 12px; fill: var(--muted); }
+
+  .mx-funnel { display: flex; flex-direction: column; gap: 10px; }
+  .mx-stage { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; align-items: center; font-size: 0.8rem; }
+  .mx-stage .mx-bar { grid-column: 1 / -1; }
+  .mx-stage b { font-family: var(--head); font-size: 0.8rem; text-align: right; }
+  .mx-bar { height: 10px; border-radius: 999px; background: var(--card); overflow: hidden; }
+  .mx-bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--accent); transition: width 0.35s ease; }
+
+  .mx-sliders { display: flex; flex-direction: column; gap: 4px; }
+  .mx-row { display: grid; grid-template-columns: 104px 1fr 44px; gap: 10px; align-items: center; }
+  .mx-ch { font: inherit; font-family: var(--head); font-weight: 600; font-size: 0.82rem; display: flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 8px; border-radius: 10px; border: 1px solid transparent; background: none; color: var(--text); cursor: pointer; text-align: left; }
+  .mx-ch i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); flex: none; }
+  .mx-ch[aria-pressed='true'] { background: var(--card); border-color: var(--line); }
+  /* Control deslizante: parte llena en el color del canal, parte vacía suave */
+  .mx-row input { --v: 0%; width: 100%; height: 28px; margin: 0; background: transparent; cursor: pointer; -webkit-appearance: none; appearance: none; }
+  .mx-row input::-webkit-slider-runnable-track { height: 8px; border-radius: 999px; background: linear-gradient(90deg, var(--c) var(--v), var(--card-2) var(--v)); }
+  .mx-row input::-moz-range-track { height: 8px; border-radius: 999px; background: linear-gradient(90deg, var(--c) var(--v), var(--card-2) var(--v)); }
+  .mx-row input::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; margin-top: -6px; border-radius: 50%; background: var(--bg); border: 3px solid var(--c); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); }
+  .mx-row input::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 3px solid var(--c); }
+  .mx-row output { font-family: var(--head); font-size: 0.82rem; font-weight: 600; text-align: right; }
+
+  .mx-diag { margin: 0; padding: 12px 14px; border-radius: 12px; background: var(--card); font-size: 0.88rem; min-height: 3.2em; }
+  .mx-diag a { color: var(--accent); font-weight: 600; white-space: nowrap; }
+  .mx-info { border-left: 3px solid var(--sel); padding: 2px 0 2px 12px; font-size: 0.84rem; }
+  .mx-info p { margin: 0 0 4px; }
+  .mx-info span:first-child:not(:only-child) { color: var(--muted); }
+  .mx-info a { color: var(--accent); font-weight: 600; font-size: 0.82rem; }
+  .mx-note { margin: 0; font-size: 0.72rem; color: var(--faint); }
+  .mx button:focus-visible, .mx input:focus-visible, .mx a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  @media (max-width: 480px) {
+    .mx { padding: 16px; }
+    .mx-top { grid-template-columns: 1fr; }
+    .mx-donut { max-width: 170px; margin: 0 auto; }
+    .mx-row { grid-template-columns: 92px 1fr 40px; gap: 6px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .mx-seg, .mx-bar i { transition: none; } }
+</style>
